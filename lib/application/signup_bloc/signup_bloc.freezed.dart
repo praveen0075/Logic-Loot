@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignupEvent {
-  User get userModel => throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(User userModel) requestToSignUp,
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function(User usermodel) requestToSignUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User userModel)? requestToSignUp,
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function(User usermodel)? requestToSignUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User userModel)? requestToSignUp,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function(User usermodel)? requestToSignUp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_Signup value) $default, {
     required TResult Function(_RequestToSignUp value) requestToSignUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Signup value)? $default, {
     TResult? Function(_RequestToSignUp value)? requestToSignUp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Signup value)? $default, {
     TResult Function(_RequestToSignUp value)? requestToSignUp,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SignupEventCopyWith<SignupEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $SignupEventCopyWith<$Res> {
   factory $SignupEventCopyWith(
           SignupEvent value, $Res Function(SignupEvent) then) =
       _$SignupEventCopyWithImpl<$Res, SignupEvent>;
-  @useResult
-  $Res call({User userModel});
 }
 
 /// @nodoc
@@ -73,30 +72,117 @@ class _$SignupEventCopyWithImpl<$Res, $Val extends SignupEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? userModel = null,
-  }) {
-    return _then(_value.copyWith(
-      userModel: null == userModel
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
-              as User,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$RequestToSignUpImplCopyWith<$Res>
-    implements $SignupEventCopyWith<$Res> {
+abstract class _$$SignupImplCopyWith<$Res> {
+  factory _$$SignupImplCopyWith(
+          _$SignupImpl value, $Res Function(_$SignupImpl) then) =
+      __$$SignupImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignupImplCopyWithImpl<$Res>
+    extends _$SignupEventCopyWithImpl<$Res, _$SignupImpl>
+    implements _$$SignupImplCopyWith<$Res> {
+  __$$SignupImplCopyWithImpl(
+      _$SignupImpl _value, $Res Function(_$SignupImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SignupImpl implements _Signup {
+  const _$SignupImpl();
+
+  @override
+  String toString() {
+    return 'SignupEvent()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SignupImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function(User usermodel) requestToSignUp,
+  }) {
+    return $default();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function(User usermodel)? requestToSignUp,
+  }) {
+    return $default?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function(User usermodel)? requestToSignUp,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Signup value) $default, {
+    required TResult Function(_RequestToSignUp value) requestToSignUp,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Signup value)? $default, {
+    TResult? Function(_RequestToSignUp value)? requestToSignUp,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Signup value)? $default, {
+    TResult Function(_RequestToSignUp value)? requestToSignUp,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Signup implements SignupEvent {
+  const factory _Signup() = _$SignupImpl;
+}
+
+/// @nodoc
+abstract class _$$RequestToSignUpImplCopyWith<$Res> {
   factory _$$RequestToSignUpImplCopyWith(_$RequestToSignUpImpl value,
           $Res Function(_$RequestToSignUpImpl) then) =
       __$$RequestToSignUpImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({User userModel});
+  $Res call({User usermodel});
 }
 
 /// @nodoc
@@ -110,12 +196,12 @@ class __$$RequestToSignUpImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userModel = null,
+    Object? usermodel = null,
   }) {
     return _then(_$RequestToSignUpImpl(
-      userModel: null == userModel
-          ? _value.userModel
-          : userModel // ignore: cast_nullable_to_non_nullable
+      usermodel: null == usermodel
+          ? _value.usermodel
+          : usermodel // ignore: cast_nullable_to_non_nullable
               as User,
     ));
   }
@@ -124,14 +210,14 @@ class __$$RequestToSignUpImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RequestToSignUpImpl implements _RequestToSignUp {
-  const _$RequestToSignUpImpl({required this.userModel});
+  _$RequestToSignUpImpl({required this.usermodel});
 
   @override
-  final User userModel;
+  final User usermodel;
 
   @override
   String toString() {
-    return 'SignupEvent.requestToSignUp(userModel: $userModel)';
+    return 'SignupEvent.requestToSignUp(usermodel: $usermodel)';
   }
 
   @override
@@ -139,12 +225,12 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RequestToSignUpImpl &&
-            (identical(other.userModel, userModel) ||
-                other.userModel == userModel));
+            (identical(other.usermodel, usermodel) ||
+                other.usermodel == usermodel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userModel);
+  int get hashCode => Object.hash(runtimeType, usermodel);
 
   @JsonKey(ignore: true)
   @override
@@ -155,35 +241,39 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(User userModel) requestToSignUp,
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function(User usermodel) requestToSignUp,
   }) {
-    return requestToSignUp(userModel);
+    return requestToSignUp(usermodel);
   }
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(User userModel)? requestToSignUp,
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function(User usermodel)? requestToSignUp,
   }) {
-    return requestToSignUp?.call(userModel);
+    return requestToSignUp?.call(usermodel);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(User userModel)? requestToSignUp,
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function(User usermodel)? requestToSignUp,
     required TResult orElse(),
   }) {
     if (requestToSignUp != null) {
-      return requestToSignUp(userModel);
+      return requestToSignUp(usermodel);
     }
     return orElse();
   }
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_Signup value) $default, {
     required TResult Function(_RequestToSignUp value) requestToSignUp,
   }) {
     return requestToSignUp(this);
@@ -191,7 +281,8 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Signup value)? $default, {
     TResult? Function(_RequestToSignUp value)? requestToSignUp,
   }) {
     return requestToSignUp?.call(this);
@@ -199,7 +290,8 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Signup value)? $default, {
     TResult Function(_RequestToSignUp value)? requestToSignUp,
     required TResult orElse(),
   }) {
@@ -211,12 +303,10 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
 }
 
 abstract class _RequestToSignUp implements SignupEvent {
-  const factory _RequestToSignUp({required final User userModel}) =
+  factory _RequestToSignUp({required final User usermodel}) =
       _$RequestToSignUpImpl;
 
-  @override
-  User get userModel;
-  @override
+  User get usermodel;
   @JsonKey(ignore: true)
   _$$RequestToSignUpImplCopyWith<_$RequestToSignUpImpl> get copyWith =>
       throw _privateConstructorUsedError;

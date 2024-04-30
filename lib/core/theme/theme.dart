@@ -43,9 +43,9 @@ class AppTheme {
   //-----> Pinput Theme <-----//
 
      static PinTheme defaultPinTheme =  PinTheme(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(color: appColor2,borderRadius: BorderRadius.circular(10)),
-      width: 56,
+      width: 59,
       height: 68,
       textStyle: const TextStyle(
         fontSize: 22,

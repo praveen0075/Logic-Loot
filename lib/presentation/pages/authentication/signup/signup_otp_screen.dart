@@ -34,21 +34,27 @@ class SignUpOtpScreen extends StatelessWidget {
                 child: Text("We have sent the verification code to your mobile number",style: TextStyle(fontSize: 20),textAlign: TextAlign.center,),
               ),
               k20height,
-              SizedBox(
-                child: Form(
-                  key: key,
-                  child: Pinput(
-                    controller: otpController,
-                    length: 4,
-                    defaultPinTheme: defaultPinTheme,
-                    validator: (value){
-                      if(value!.isEmpty){
-                        // ScaffoldMessenger.of(context).showSnackBar(const  SnackBar(backgroundColor: Colors.red,content: Text("Please enter the OTP")));
-                        return "Enter the OTP";
-                      }else{
-                        return null;
-                      }
-                    },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  
+                  child: Form(
+                    key: key,
+                    child: Pinput(
+                    
+                      controller: otpController,
+                      length: 6,
+                
+                      defaultPinTheme: defaultPinTheme,
+                      validator: (value){
+                        if(value!.isEmpty){
+                          // ScaffoldMessenger.of(context).showSnackBar(const  SnackBar(backgroundColor: Colors.red,content: Text("Please enter the OTP")));
+                          return "Enter the OTP";
+                        }else{
+                          return null;
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),
