@@ -20,18 +20,21 @@ mixin _$SignupEvent {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function(User usermodel) requestToSignUp,
+    required TResult Function(String otp) requestotpSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function(User usermodel)? requestToSignUp,
+    TResult? Function(String otp)? requestotpSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function(User usermodel)? requestToSignUp,
+    TResult Function(String otp)? requestotpSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$SignupEvent {
   TResult map<TResult extends Object?>(
     TResult Function(_Signup value) $default, {
     required TResult Function(_RequestToSignUp value) requestToSignUp,
+    required TResult Function(_RequestotpSubmit value) requestotpSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Signup value)? $default, {
     TResult? Function(_RequestToSignUp value)? requestToSignUp,
+    TResult? Function(_RequestotpSubmit value)? requestotpSubmit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Signup value)? $default, {
     TResult Function(_RequestToSignUp value)? requestToSignUp,
+    TResult Function(_RequestotpSubmit value)? requestotpSubmit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$SignupImpl implements _Signup {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function(User usermodel) requestToSignUp,
+    required TResult Function(String otp) requestotpSubmit,
   }) {
     return $default();
   }
@@ -123,6 +130,7 @@ class _$SignupImpl implements _Signup {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function(User usermodel)? requestToSignUp,
+    TResult? Function(String otp)? requestotpSubmit,
   }) {
     return $default?.call();
   }
@@ -132,6 +140,7 @@ class _$SignupImpl implements _Signup {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function(User usermodel)? requestToSignUp,
+    TResult Function(String otp)? requestotpSubmit,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -145,6 +154,7 @@ class _$SignupImpl implements _Signup {
   TResult map<TResult extends Object?>(
     TResult Function(_Signup value) $default, {
     required TResult Function(_RequestToSignUp value) requestToSignUp,
+    required TResult Function(_RequestotpSubmit value) requestotpSubmit,
   }) {
     return $default(this);
   }
@@ -154,6 +164,7 @@ class _$SignupImpl implements _Signup {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Signup value)? $default, {
     TResult? Function(_RequestToSignUp value)? requestToSignUp,
+    TResult? Function(_RequestotpSubmit value)? requestotpSubmit,
   }) {
     return $default?.call(this);
   }
@@ -163,6 +174,7 @@ class _$SignupImpl implements _Signup {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Signup value)? $default, {
     TResult Function(_RequestToSignUp value)? requestToSignUp,
+    TResult Function(_RequestotpSubmit value)? requestotpSubmit,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -244,6 +256,7 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function(User usermodel) requestToSignUp,
+    required TResult Function(String otp) requestotpSubmit,
   }) {
     return requestToSignUp(usermodel);
   }
@@ -253,6 +266,7 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function(User usermodel)? requestToSignUp,
+    TResult? Function(String otp)? requestotpSubmit,
   }) {
     return requestToSignUp?.call(usermodel);
   }
@@ -262,6 +276,7 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function(User usermodel)? requestToSignUp,
+    TResult Function(String otp)? requestotpSubmit,
     required TResult orElse(),
   }) {
     if (requestToSignUp != null) {
@@ -275,6 +290,7 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
   TResult map<TResult extends Object?>(
     TResult Function(_Signup value) $default, {
     required TResult Function(_RequestToSignUp value) requestToSignUp,
+    required TResult Function(_RequestotpSubmit value) requestotpSubmit,
   }) {
     return requestToSignUp(this);
   }
@@ -284,6 +300,7 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_Signup value)? $default, {
     TResult? Function(_RequestToSignUp value)? requestToSignUp,
+    TResult? Function(_RequestotpSubmit value)? requestotpSubmit,
   }) {
     return requestToSignUp?.call(this);
   }
@@ -293,6 +310,7 @@ class _$RequestToSignUpImpl implements _RequestToSignUp {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_Signup value)? $default, {
     TResult Function(_RequestToSignUp value)? requestToSignUp,
+    TResult Function(_RequestotpSubmit value)? requestotpSubmit,
     required TResult orElse(),
   }) {
     if (requestToSignUp != null) {
@@ -309,6 +327,147 @@ abstract class _RequestToSignUp implements SignupEvent {
   User get usermodel;
   @JsonKey(ignore: true)
   _$$RequestToSignUpImplCopyWith<_$RequestToSignUpImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RequestotpSubmitImplCopyWith<$Res> {
+  factory _$$RequestotpSubmitImplCopyWith(_$RequestotpSubmitImpl value,
+          $Res Function(_$RequestotpSubmitImpl) then) =
+      __$$RequestotpSubmitImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String otp});
+}
+
+/// @nodoc
+class __$$RequestotpSubmitImplCopyWithImpl<$Res>
+    extends _$SignupEventCopyWithImpl<$Res, _$RequestotpSubmitImpl>
+    implements _$$RequestotpSubmitImplCopyWith<$Res> {
+  __$$RequestotpSubmitImplCopyWithImpl(_$RequestotpSubmitImpl _value,
+      $Res Function(_$RequestotpSubmitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? otp = null,
+  }) {
+    return _then(_$RequestotpSubmitImpl(
+      otp: null == otp
+          ? _value.otp
+          : otp // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RequestotpSubmitImpl implements _RequestotpSubmit {
+  _$RequestotpSubmitImpl({required this.otp});
+
+  @override
+  final String otp;
+
+  @override
+  String toString() {
+    return 'SignupEvent.requestotpSubmit(otp: $otp)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RequestotpSubmitImpl &&
+            (identical(other.otp, otp) || other.otp == otp));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, otp);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RequestotpSubmitImplCopyWith<_$RequestotpSubmitImpl> get copyWith =>
+      __$$RequestotpSubmitImplCopyWithImpl<_$RequestotpSubmitImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function(User usermodel) requestToSignUp,
+    required TResult Function(String otp) requestotpSubmit,
+  }) {
+    return requestotpSubmit(otp);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function(User usermodel)? requestToSignUp,
+    TResult? Function(String otp)? requestotpSubmit,
+  }) {
+    return requestotpSubmit?.call(otp);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function(User usermodel)? requestToSignUp,
+    TResult Function(String otp)? requestotpSubmit,
+    required TResult orElse(),
+  }) {
+    if (requestotpSubmit != null) {
+      return requestotpSubmit(otp);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_Signup value) $default, {
+    required TResult Function(_RequestToSignUp value) requestToSignUp,
+    required TResult Function(_RequestotpSubmit value) requestotpSubmit,
+  }) {
+    return requestotpSubmit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_Signup value)? $default, {
+    TResult? Function(_RequestToSignUp value)? requestToSignUp,
+    TResult? Function(_RequestotpSubmit value)? requestotpSubmit,
+  }) {
+    return requestotpSubmit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_Signup value)? $default, {
+    TResult Function(_RequestToSignUp value)? requestToSignUp,
+    TResult Function(_RequestotpSubmit value)? requestotpSubmit,
+    required TResult orElse(),
+  }) {
+    if (requestotpSubmit != null) {
+      return requestotpSubmit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RequestotpSubmit implements SignupEvent {
+  factory _RequestotpSubmit({required final String otp}) =
+      _$RequestotpSubmitImpl;
+
+  String get otp;
+  @JsonKey(ignore: true)
+  _$$RequestotpSubmitImplCopyWith<_$RequestotpSubmitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

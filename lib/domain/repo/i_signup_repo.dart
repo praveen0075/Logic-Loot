@@ -7,4 +7,5 @@ import 'package:logic_loot/domain/models/response_models.dart/user_repsonse_mode
 
 abstract class IsignUpRepo{
   Future<Either<Failure,UserResponse>> singUp({required User userModel});
+  Future<Either<Failure,String>> signUpotp({required String otp});
 }

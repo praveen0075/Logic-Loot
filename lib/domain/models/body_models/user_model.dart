@@ -28,7 +28,7 @@ class User {
         referalcode: json["referalcode"],
     );
 
-    Map<String, dynamic> toJson() => {
+      Map<String, dynamic> toJson() => {
         "email": email,
         "name": name,
         "password": password,
