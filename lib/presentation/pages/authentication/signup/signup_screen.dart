@@ -83,8 +83,7 @@ class SignUpScreen extends StatelessWidget {
                         print("sign up has error");
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message!)));
-                      } else if (state.isSignUphasError == false &&
-                          state.userResponseModel != null) {
+                      } else if (state.userResponseModel != null) {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
