@@ -315,9 +315,9 @@ abstract class _RequestToSignUp implements SignupEvent {
 /// @nodoc
 mixin _$SignupState {
   bool get isLoading => throw _privateConstructorUsedError;
+  bool get isSignUphasError => throw _privateConstructorUsedError;
   UserResponse? get userResponseModel => throw _privateConstructorUsedError;
-  Option<Either<MainFailures, UserResponse>> get signupFailureOrSuccess =>
-      throw _privateConstructorUsedError;
+  String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SignupStateCopyWith<SignupState> get copyWith =>
@@ -332,8 +332,9 @@ abstract class $SignupStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
+      bool isSignUphasError,
       UserResponse? userResponseModel,
-      Option<Either<MainFailures, UserResponse>> signupFailureOrSuccess});
+      String? message});
 }
 
 /// @nodoc
@@ -350,22 +351,27 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? isSignUphasError = null,
     Object? userResponseModel = freezed,
-    Object? signupFailureOrSuccess = null,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSignUphasError: null == isSignUphasError
+          ? _value.isSignUphasError
+          : isSignUphasError // ignore: cast_nullable_to_non_nullable
+              as bool,
       userResponseModel: freezed == userResponseModel
           ? _value.userResponseModel
           : userResponseModel // ignore: cast_nullable_to_non_nullable
               as UserResponse?,
-      signupFailureOrSuccess: null == signupFailureOrSuccess
-          ? _value.signupFailureOrSuccess
-          : signupFailureOrSuccess // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailures, UserResponse>>,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -380,8 +386,9 @@ abstract class _$$SignUpStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
+      bool isSignUphasError,
       UserResponse? userResponseModel,
-      Option<Either<MainFailures, UserResponse>> signupFailureOrSuccess});
+      String? message});
 }
 
 /// @nodoc
@@ -396,22 +403,27 @@ class __$$SignUpStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? isLoading = null,
+    Object? isSignUphasError = null,
     Object? userResponseModel = freezed,
-    Object? signupFailureOrSuccess = null,
+    Object? message = freezed,
   }) {
     return _then(_$SignUpStateImpl(
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
               as bool,
+      isSignUphasError: null == isSignUphasError
+          ? _value.isSignUphasError
+          : isSignUphasError // ignore: cast_nullable_to_non_nullable
+              as bool,
       userResponseModel: freezed == userResponseModel
           ? _value.userResponseModel
           : userResponseModel // ignore: cast_nullable_to_non_nullable
               as UserResponse?,
-      signupFailureOrSuccess: null == signupFailureOrSuccess
-          ? _value.signupFailureOrSuccess
-          : signupFailureOrSuccess // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailures, UserResponse>>,
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -421,19 +433,22 @@ class __$$SignUpStateImplCopyWithImpl<$Res>
 class _$SignUpStateImpl implements _SignUpState {
   const _$SignUpStateImpl(
       {required this.isLoading,
+      required this.isSignUphasError,
       this.userResponseModel,
-      required this.signupFailureOrSuccess});
+      this.message});
 
   @override
   final bool isLoading;
   @override
+  final bool isSignUphasError;
+  @override
   final UserResponse? userResponseModel;
   @override
-  final Option<Either<MainFailures, UserResponse>> signupFailureOrSuccess;
+  final String? message;
 
   @override
   String toString() {
-    return 'SignupState(isLoading: $isLoading, userResponseModel: $userResponseModel, signupFailureOrSuccess: $signupFailureOrSuccess)';
+    return 'SignupState(isLoading: $isLoading, isSignUphasError: $isSignUphasError, userResponseModel: $userResponseModel, message: $message)';
   }
 
   @override
@@ -443,15 +458,16 @@ class _$SignUpStateImpl implements _SignUpState {
             other is _$SignUpStateImpl &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
+            (identical(other.isSignUphasError, isSignUphasError) ||
+                other.isSignUphasError == isSignUphasError) &&
             (identical(other.userResponseModel, userResponseModel) ||
                 other.userResponseModel == userResponseModel) &&
-            (identical(other.signupFailureOrSuccess, signupFailureOrSuccess) ||
-                other.signupFailureOrSuccess == signupFailureOrSuccess));
+            (identical(other.message, message) || other.message == message));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isLoading, userResponseModel, signupFailureOrSuccess);
+      runtimeType, isLoading, isSignUphasError, userResponseModel, message);
 
   @JsonKey(ignore: true)
   @override
@@ -463,16 +479,18 @@ class _$SignUpStateImpl implements _SignUpState {
 abstract class _SignUpState implements SignupState {
   const factory _SignUpState(
       {required final bool isLoading,
+      required final bool isSignUphasError,
       final UserResponse? userResponseModel,
-      required final Option<Either<MainFailures, UserResponse>>
-          signupFailureOrSuccess}) = _$SignUpStateImpl;
+      final String? message}) = _$SignUpStateImpl;
 
   @override
   bool get isLoading;
   @override
+  bool get isSignUphasError;
+  @override
   UserResponse? get userResponseModel;
   @override
-  Option<Either<MainFailures, UserResponse>> get signupFailureOrSuccess;
+  String? get message;
   @override
   @JsonKey(ignore: true)
   _$$SignUpStateImplCopyWith<_$SignUpStateImpl> get copyWith =>

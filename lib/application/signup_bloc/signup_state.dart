@@ -4,11 +4,12 @@ part of 'signup_bloc.dart';
 class SignupState with _$SignupState {
   const factory SignupState({
     required bool isLoading,
+    required bool isSignUphasError,
     UserResponse? userResponseModel,
-    required Option<Either<MainFailures,UserResponse>> signupFailureOrSuccess,
+    String? message
   }) = _SignUpState;
 
   factory SignupState.initialstate(){
-    return const SignupState(isLoading: false,signupFailureOrSuccess: None());
+    return const SignupState(isLoading: false,isSignUphasError: false);
   }
 }

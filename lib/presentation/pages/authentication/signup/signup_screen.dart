@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/signup_bloc/signup_bloc.dart';
@@ -76,34 +77,61 @@ class SignUpScreen extends StatelessWidget {
                       errormsg: "Re-Enter your password",
                       label: "Conform password"),
                   k20height,
-                  CommonSubmitButton(
-                    // formkey: formkey,
-                    // nameController: nameController,
-                    // phoneController: phoneController,
-                    // passwordController: passwordController,
-                    // conformPasswrodController: conformPasswrodController,
-                    onPressed: () {
-                      if (formkey.currentState!.validate()) {
-                        String name = nameController.text.trim();
-                        String phone = phoneController.text.trim();
-                        String password = passwordController.text.trim();
-                        String confrmPassword =
-                            conformPasswrodController.text.trim();
-                        if (password == confrmPassword) {
-                          final userModel = User(
-                              name: name, password: password, phone: phone);
-                          context.read<SignupBloc>().add(SignupEvent.requestToSignUp(usermodel: userModel));
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const SignUpOtpScreen()));
-                        } else if (password != confrmPassword) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text("Password does not match")));
-                        }
+                  BlocConsumer<SignupBloc, SignupState>(
+                    listener: (context, state) {
+                      if (state.isSignUphasError) {
+                        print("sign up has error");
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message!)));
+                      } else if (state.isSignUphasError == false &&
+                          state.userResponseModel != null) {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (context) => const SignUpOtpScreen()));
                       }
                     },
-                    label: 'Submit',
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        return CommonSubmitButton(
+                          // formkey: formkey,
+                          // nameController: nameController,
+                          // phoneController: phoneController,
+                          // passwordController: passwordController,
+                          // conformPasswrodController: conformPasswrodController,
+                          onPressed: () {
+                            if (formkey.currentState!.validate()) {
+                              String name = nameController.text.trim();
+                              String phone = phoneController.text.trim();
+                              String password = passwordController.text.trim();
+                              String confrmPassword =
+                                  conformPasswrodController.text.trim();
+                              if (password == confrmPassword) {
+                                final userModel = User(
+                                    name: name,
+                                    password: password,
+                                    phone: phone);
+                                context.read<SignupBloc>().add(
+                                    SignupEvent.requestToSignUp(
+                                        usermodel: userModel));
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         const SignUpOtpScreen()));
+                              } else if (password != confrmPassword) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content:
+                                            Text("Password does not match")));
+                              }
+                            }
+                          },
+                          label: 'Submit',
+                        );
+                      }
+                    },
                   ),
                   k10height,
                   const Text("Or"),
