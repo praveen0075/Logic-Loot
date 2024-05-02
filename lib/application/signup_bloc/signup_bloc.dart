@@ -2,9 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logic_loot/domain/core/failures/failures.dart';
+import 'package:logic_loot/domain/core/success/success.dart';
 import 'package:logic_loot/domain/models/body_models/user_model.dart';
 import 'package:logic_loot/domain/models/response_models.dart/user_repsonse_model.dart';
-import 'package:logic_loot/infrastructure/services/singup/signup_repository.dart';
+import 'package:logic_loot/infrastructure/services/auth/singup/signup_repository.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -29,15 +30,18 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     });
     on<_RequestotpSubmit>((event, emit) async {
       emit(state.copyWith(isLoading: true));
-      final Either<Failure, String> result =
+      final Either<Failure, Success> result =
           await signUpRepository.signUpotp(otp: event.otp);
+          print("got result");
       result.fold(
           (failure) => emit(state.copyWith(
               isLoading: false,
-              isSignUphasError: true,
-              message: failure.message)),
+              isSignUphasError: false,
+              message: failure.message,
+              isotpHasError: true
+              )),
           (success) => emit(state.copyWith(
-              isLoading: false, isSignUphasError: false, message: success)));
+              isLoading: false, isSignUphasError: false, message: success.successmsg,isotpHasError: false)));
     });
   }
 }

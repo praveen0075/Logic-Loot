@@ -476,6 +476,7 @@ mixin _$SignupState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isSignUphasError => throw _privateConstructorUsedError;
   UserResponse? get userResponseModel => throw _privateConstructorUsedError;
+  bool get isotpHasError => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -493,6 +494,7 @@ abstract class $SignupStateCopyWith<$Res> {
       {bool isLoading,
       bool isSignUphasError,
       UserResponse? userResponseModel,
+      bool isotpHasError,
       String? message});
 }
 
@@ -512,6 +514,7 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
     Object? isLoading = null,
     Object? isSignUphasError = null,
     Object? userResponseModel = freezed,
+    Object? isotpHasError = null,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
@@ -527,6 +530,10 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
           ? _value.userResponseModel
           : userResponseModel // ignore: cast_nullable_to_non_nullable
               as UserResponse?,
+      isotpHasError: null == isotpHasError
+          ? _value.isotpHasError
+          : isotpHasError // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -547,6 +554,7 @@ abstract class _$$SignUpStateImplCopyWith<$Res>
       {bool isLoading,
       bool isSignUphasError,
       UserResponse? userResponseModel,
+      bool isotpHasError,
       String? message});
 }
 
@@ -564,6 +572,7 @@ class __$$SignUpStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isSignUphasError = null,
     Object? userResponseModel = freezed,
+    Object? isotpHasError = null,
     Object? message = freezed,
   }) {
     return _then(_$SignUpStateImpl(
@@ -579,6 +588,10 @@ class __$$SignUpStateImplCopyWithImpl<$Res>
           ? _value.userResponseModel
           : userResponseModel // ignore: cast_nullable_to_non_nullable
               as UserResponse?,
+      isotpHasError: null == isotpHasError
+          ? _value.isotpHasError
+          : isotpHasError // ignore: cast_nullable_to_non_nullable
+              as bool,
       message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -594,6 +607,7 @@ class _$SignUpStateImpl implements _SignUpState {
       {required this.isLoading,
       required this.isSignUphasError,
       this.userResponseModel,
+      required this.isotpHasError,
       this.message});
 
   @override
@@ -603,11 +617,13 @@ class _$SignUpStateImpl implements _SignUpState {
   @override
   final UserResponse? userResponseModel;
   @override
+  final bool isotpHasError;
+  @override
   final String? message;
 
   @override
   String toString() {
-    return 'SignupState(isLoading: $isLoading, isSignUphasError: $isSignUphasError, userResponseModel: $userResponseModel, message: $message)';
+    return 'SignupState(isLoading: $isLoading, isSignUphasError: $isSignUphasError, userResponseModel: $userResponseModel, isotpHasError: $isotpHasError, message: $message)';
   }
 
   @override
@@ -621,12 +637,14 @@ class _$SignUpStateImpl implements _SignUpState {
                 other.isSignUphasError == isSignUphasError) &&
             (identical(other.userResponseModel, userResponseModel) ||
                 other.userResponseModel == userResponseModel) &&
+            (identical(other.isotpHasError, isotpHasError) ||
+                other.isotpHasError == isotpHasError) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, isLoading, isSignUphasError, userResponseModel, message);
+  int get hashCode => Object.hash(runtimeType, isLoading, isSignUphasError,
+      userResponseModel, isotpHasError, message);
 
   @JsonKey(ignore: true)
   @override
@@ -640,6 +658,7 @@ abstract class _SignUpState implements SignupState {
       {required final bool isLoading,
       required final bool isSignUphasError,
       final UserResponse? userResponseModel,
+      required final bool isotpHasError,
       final String? message}) = _$SignUpStateImpl;
 
   @override
@@ -648,6 +667,8 @@ abstract class _SignUpState implements SignupState {
   bool get isSignUphasError;
   @override
   UserResponse? get userResponseModel;
+  @override
+  bool get isotpHasError;
   @override
   String? get message;
   @override

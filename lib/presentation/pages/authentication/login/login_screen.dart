@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logic_loot/application/login_bloc/login_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/forgot_pass_login.dart';
 import 'package:logic_loot/presentation/pages/home/home_screen.dart';
+import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:logic_loot/presentation/widgets/textformfield_widget.dart';
-
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -36,11 +38,18 @@ class LoginScreen extends StatelessWidget {
                     image: AssetImage("assets/images/login-image.png"),
                     width: 200,
                   ),
-                  k30height, 
-                   CommonTextFormField(phnController: phnController,errormsg: "Enter your phone number",label: "Phone",type: TextInputType.phone),
-                   k10height,
-                   CommonTextFormField(phnController: passController, errormsg: "Enter your password", label: "Password"),
-                  
+                  k30height,
+                  CommonTextFormField(
+                      phnController: phnController,
+                      errormsg: "Enter your phone number",
+                      label: "Phone",
+                      type: TextInputType.phone),
+                  k10height,
+                  CommonTextFormField(
+                      phnController: passController,
+                      errormsg: "Enter your password",
+                      label: "Password"),
+
                   // CommonWidgets.textFormFieldwidget(
                   //     labelText: "Password",
                   //     errorMessage: "Enter your password",
@@ -62,25 +71,47 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 160),
                   // CommonWidgets.button1(context: context,name: "Log in",screen: const HomeScreen()),
-                  Container(
-                      decoration: BoxDecoration(
-                          color: appColor1,
-                          borderRadius: BorderRadius.circular(5)),
-                      height: 50,
-                      width: 400,
-                      child: TextButton(
+                  BlocConsumer<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      if(state.isLoginHasError){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!)));
+                      }else if(state.iisLoginSuccess){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!)));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                      }
+                    },
+                    builder: (context, state) {
+                      return CommonSubmitButton(
+                          label: "Log In",
                           onPressed: () {
                             if (formkey.currentState!.validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) => const HomeScreen()));
+                              context.read<LoginBloc>().add(
+                                  LoginEvent.requestToLogin(
+                                      phone: phnController.text,
+                                      password: passController.text));
                             }
-                          },
-                          child: const Text(
-                            "Log in",
-                            style: TextStyle(color: Colors.white),
-                          ))),
+                          });
+                    },
+                  ),
+                  // Container(
+                  //     decoration: BoxDecoration(
+                  //         color: appColor1,
+                  //         borderRadius: BorderRadius.circular(5)),
+                  //     height: 50,
+                  //     width: 400,
+                  //     child: TextButton(
+                  //         onPressed: () {
+                  //           if (formkey.currentState!.validate()) {
+                  //             Navigator.push(
+                  //                 context,
+                  //                 MaterialPageRoute(
+                  //                     builder: (ctx) => const HomeScreen()));
+                  //           }
+                  //         },
+                  //         child: const Text(
+                  //           "Log in",
+                  //           style: TextStyle(color: Colors.white),
+                  //         ))),
                   const Text("Or"),
                   GestureDetector(
                     onTap: () {},
@@ -103,4 +134,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:logic_loot/domain/core/failures/failures.dart';
+import 'package:logic_loot/domain/core/success/success.dart';
 import 'package:logic_loot/domain/models/body_models/user_model.dart';
 import 'package:logic_loot/domain/models/response_models.dart/user_repsonse_model.dart';
 import 'package:http/http.dart' as http;
@@ -52,24 +53,42 @@ class SignUpRepository implements IsignUpRepo {
   }
 
   @override
-  Future<Either<Failure, String>> signUpotp({required String otp}) async{
-    final otpkey = SharedPreference.getOTPkey();
-    try {
-      final otpBody = {"key": otpkey, "otp": otp};
+  Future<Either<Failure, Success>> signUpotp({required String otp}) async{
+    print("before sharedpreference getfunction");
+    final otpkey = await SharedPreference.getOTPkey();
+    print("entered to otpsubmiton functionn");
+    try { 
+      print("Enterd to try catch");
+      final otpBody = {"key": otpkey,"otp": otp};
+      print("ready to pass url");
       final response = await http.Client().post(
           Uri.parse("https://lapify.online/user/signup/otpvalidation"),
-          body: otpBody);
+          body: otpBody,
+          headers:{'Content-Type': 'application/x-www-form-urlencoded'} );
+          print("request send to api");
+          print("response status code = ${response.statusCode}");
           if(response.statusCode == 200){
+            print("status code 200");
             final responseBody = jsonDecode(response.body);
             print(responseBody);
             final String tokenData = responseBody["token"];
+            print(tokenData);
             final String message = responseBody["message"];
-            SharedPreference.saveToken(tokenData: tokenData);
-            return Right(message);
+            print(message);
+           await SharedPreference.saveToken(tokenData: tokenData);
+            print("token saved");
+            return Right(Success(successmsg: message));
           }else{
+            print("erorr (else)");
+            print(response.body);
+            final  errresp = jsonDecode(response.body);
+            final String err = errresp['error'];
+            print(err);
             return Left(Failure(message: "Error"));
           }
     } catch (e) {
+      print("exception");
+      print(e);
       return Left(Failure(message: "Something went wrong"));
     }
   }

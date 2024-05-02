@@ -85,7 +85,7 @@ class SignUpOtpScreen extends StatelessWidget {
                   listener: (context, state) {
                     if(state.isLoading){
                       const CircularProgressIndicator();
-                    }else if(state.isSignUphasError){
+                    }else if(state.isotpHasError){
                       ScaffoldMessenger(child: SnackBar(content: Text(state.message!)));
                     }else{
                       Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>const HomeScreen()));

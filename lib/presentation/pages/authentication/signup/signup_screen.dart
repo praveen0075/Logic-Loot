@@ -30,7 +30,7 @@ class SignUpScreen extends StatelessWidget {
         if (state.isLoading) {
           const CircularProgressIndicator();
         } else if (state.isSignUphasError) {
-          print("sign up has error");
+          print("sign up has ");
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.message!)));
         } else if (state.userResponseModel != null) {
