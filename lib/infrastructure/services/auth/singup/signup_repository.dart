@@ -54,13 +54,13 @@ class SignUpRepository implements IsignUpRepo {
 
   @override
   Future<Either<Failure, Success>> signUpotp({required String otp}) async{
-    print("before sharedpreference getfunction");
+    // print("before sharedpreference getfunction");
     final otpkey = await SharedPreference.getOTPkey();
-    print("entered to otpsubmiton functionn");
+    // print("entered to otpsubmiton functionn");
     try { 
-      print("Enterd to try catch");
+      // print("Enterd to try catch");
       final otpBody = {"key": otpkey,"otp": otp};
-      print("ready to pass url");
+      // print("ready to pass url");
       final response = await http.Client().post(
           Uri.parse("https://lapify.online/user/signup/otpvalidation"),
           body: otpBody,

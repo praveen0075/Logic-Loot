@@ -22,7 +22,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Image(
-                      image: AssetImage("assets/images/forgot-pass.png"),
+                      image: AssetImage("assets/images/forgot-pass_img.png"),
                       width: 300),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.start,

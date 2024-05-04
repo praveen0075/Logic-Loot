@@ -21,7 +21,7 @@ class ForgotPassOTPScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               k30height,
-              const Image(image: AssetImage("assets/imagesotp-min.png"),width: 300,height: 300,),
+              const Image(image: AssetImage("assets/images/otp-min.png"),width: 300,height: 300,),
               k10height,
               const Text("Enter Verification Code",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
               const Padding(

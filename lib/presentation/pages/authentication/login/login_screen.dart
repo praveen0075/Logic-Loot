@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/login_bloc/login_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/forgot_pass_login.dart';
 import 'package:logic_loot/presentation/pages/home/home_screen.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
@@ -76,8 +77,9 @@ class LoginScreen extends StatelessWidget {
                       if(state.isLoginHasError){
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!)));
                       }else if(state.iisLoginSuccess){
+                        SharedPreference.userLogedIn();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!)));
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
                       }
                     },
                     builder: (context, state) {
