@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/login_screen.dart';
-import 'package:logic_loot/presentation/pages/home/home_screen.dart';
+import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if(val == true){
       print("user logged in");
        // ignore: use_build_context_synchronously
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const HomeScreen()));
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavBarWidget()));
     }else{
       print("User not logged in");
       // ignore: use_build_context_synchronously

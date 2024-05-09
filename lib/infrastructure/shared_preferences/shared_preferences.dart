@@ -18,7 +18,14 @@ class SharedPreference{
 
   static Future<void> saveToken({required String tokenData})async{
     SharedPreferences preff = await SharedPreferences.getInstance();
-    preff.setString(token,tokenData);
+    await preff.setString(token,tokenData);
+  }
+
+    static Future<String?> getToken()async{
+    SharedPreferences preff = await SharedPreferences.getInstance();
+    final tokenstring =  preff.getString(token);
+    // print(tokenstring);
+    return  tokenstring;
   }
 
   static Future <void> userLogedIn() async{

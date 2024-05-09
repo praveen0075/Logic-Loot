@@ -16,43 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginEvent {
-  String get phone => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, String password) requestToLogin,
+    required TResult Function(String numbr) requestToOTP,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String phone, String password)? requestToLogin,
+    TResult? Function(String numbr)? requestToOTP,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, String password)? requestToLogin,
+    TResult Function(String numbr)? requestToOTP,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestToLog value) requestToLogin,
+    required TResult Function(_RequestToOTP value) requestToOTP,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RequestToLog value)? requestToLogin,
+    TResult? Function(_RequestToOTP value)? requestToOTP,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestToLog value)? requestToLogin,
+    TResult Function(_RequestToOTP value)? requestToOTP,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $LoginEventCopyWith<LoginEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -61,8 +61,6 @@ abstract class $LoginEventCopyWith<$Res> {
   factory $LoginEventCopyWith(
           LoginEvent value, $Res Function(LoginEvent) then) =
       _$LoginEventCopyWithImpl<$Res, LoginEvent>;
-  @useResult
-  $Res call({String phone, String password});
 }
 
 /// @nodoc
@@ -74,33 +72,13 @@ class _$LoginEventCopyWithImpl<$Res, $Val extends LoginEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? phone = null,
-    Object? password = null,
-  }) {
-    return _then(_value.copyWith(
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$RequestToLogImplCopyWith<$Res>
-    implements $LoginEventCopyWith<$Res> {
+abstract class _$$RequestToLogImplCopyWith<$Res> {
   factory _$$RequestToLogImplCopyWith(
           _$RequestToLogImpl value, $Res Function(_$RequestToLogImpl) then) =
       __$$RequestToLogImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String phone, String password});
 }
@@ -179,6 +157,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, String password) requestToLogin,
+    required TResult Function(String numbr) requestToOTP,
   }) {
     return requestToLogin(phone, password);
   }
@@ -187,6 +166,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String phone, String password)? requestToLogin,
+    TResult? Function(String numbr)? requestToOTP,
   }) {
     return requestToLogin?.call(phone, password);
   }
@@ -195,6 +175,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, String password)? requestToLogin,
+    TResult Function(String numbr)? requestToOTP,
     required TResult orElse(),
   }) {
     if (requestToLogin != null) {
@@ -207,6 +188,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestToLog value) requestToLogin,
+    required TResult Function(_RequestToOTP value) requestToOTP,
   }) {
     return requestToLogin(this);
   }
@@ -215,6 +197,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RequestToLog value)? requestToLogin,
+    TResult? Function(_RequestToOTP value)? requestToOTP,
   }) {
     return requestToLogin?.call(this);
   }
@@ -223,6 +206,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestToLog value)? requestToLogin,
+    TResult Function(_RequestToOTP value)? requestToOTP,
     required TResult orElse(),
   }) {
     if (requestToLogin != null) {
@@ -237,13 +221,152 @@ abstract class _RequestToLog implements LoginEvent {
       {required final String phone,
       required final String password}) = _$RequestToLogImpl;
 
-  @override
   String get phone;
-  @override
   String get password;
-  @override
   @JsonKey(ignore: true)
   _$$RequestToLogImplCopyWith<_$RequestToLogImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RequestToOTPImplCopyWith<$Res> {
+  factory _$$RequestToOTPImplCopyWith(
+          _$RequestToOTPImpl value, $Res Function(_$RequestToOTPImpl) then) =
+      __$$RequestToOTPImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String numbr});
+}
+
+/// @nodoc
+class __$$RequestToOTPImplCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res, _$RequestToOTPImpl>
+    implements _$$RequestToOTPImplCopyWith<$Res> {
+  __$$RequestToOTPImplCopyWithImpl(
+      _$RequestToOTPImpl _value, $Res Function(_$RequestToOTPImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? numbr = null,
+  }) {
+    return _then(_$RequestToOTPImpl(
+      numbr: null == numbr
+          ? _value.numbr
+          : numbr // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
+  const _$RequestToOTPImpl({required this.numbr});
+
+  @override
+  final String numbr;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'LoginEvent.requestToOTP(numbr: $numbr)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoginEvent.requestToOTP'))
+      ..add(DiagnosticsProperty('numbr', numbr));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RequestToOTPImpl &&
+            (identical(other.numbr, numbr) || other.numbr == numbr));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, numbr);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RequestToOTPImplCopyWith<_$RequestToOTPImpl> get copyWith =>
+      __$$RequestToOTPImplCopyWithImpl<_$RequestToOTPImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String phone, String password) requestToLogin,
+    required TResult Function(String numbr) requestToOTP,
+  }) {
+    return requestToOTP(numbr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String phone, String password)? requestToLogin,
+    TResult? Function(String numbr)? requestToOTP,
+  }) {
+    return requestToOTP?.call(numbr);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String phone, String password)? requestToLogin,
+    TResult Function(String numbr)? requestToOTP,
+    required TResult orElse(),
+  }) {
+    if (requestToOTP != null) {
+      return requestToOTP(numbr);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RequestToLog value) requestToLogin,
+    required TResult Function(_RequestToOTP value) requestToOTP,
+  }) {
+    return requestToOTP(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RequestToLog value)? requestToLogin,
+    TResult? Function(_RequestToOTP value)? requestToOTP,
+  }) {
+    return requestToOTP?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RequestToLog value)? requestToLogin,
+    TResult Function(_RequestToOTP value)? requestToOTP,
+    required TResult orElse(),
+  }) {
+    if (requestToOTP != null) {
+      return requestToOTP(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RequestToOTP implements LoginEvent {
+  const factory _RequestToOTP({required final String numbr}) =
+      _$RequestToOTPImpl;
+
+  String get numbr;
+  @JsonKey(ignore: true)
+  _$$RequestToOTPImplCopyWith<_$RequestToOTPImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

@@ -75,11 +75,12 @@ class ForgotPasswordScreen extends StatelessWidget {
                       child: TextButton(
                           onPressed: () {
                             if (key.currentState!.validate()) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) =>
-                                          const ForgotPassOTPScreen()));
+                              
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (ctx) =>
+                              //             const ForgotPassOTPScreen()));
                             }
                           },
                           child: const Text(

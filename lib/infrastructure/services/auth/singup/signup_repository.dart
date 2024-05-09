@@ -26,22 +26,23 @@ class SignUpRepository implements IsignUpRepo {
            print(response.statusCode);
       if (response.statusCode == 200) { 
        
-        // print(response.body);
+        print(response.body);
         final responseBody = jsonDecode(response.body);
-        // print(responseBody);
-        final String? otpKey = responseBody['key'];
-        final String? otpSendTo = responseBody["otp send to "];
+        print(responseBody);
+        final  otpKey = responseBody['key'];
+        final  otpSendTo = responseBody["otp send to "];
 
-        // print(otpKey);
-        // print(otpSendTo);
+        print(otpKey);
+        print(otpSendTo);
 
-        if (otpKey != null && otpSendTo != null) {
-          final userResponse = UserResponse(key: otpKey, otpSendTo: otpSendTo);
-          SharedPreference.saveOTPkey(otpId: otpKey);
+        // if (otpKey != null && otpSendTo != null) {
+          final userResponse =  UserResponse(key: otpKey, otpSendTo: otpSendTo);
+        //   await SharedPreference.saveOTPkey(otpId: otpKey);
           return Right(userResponse);
-        } else {
-          return Left(Failure(message: "null otp"));
-        }
+        // } else {
+        //   return Left(Failure(message: "null otp"));
+        // }
+         
       } else {
         print(response.body);
         return Left(Failure(message: "Fail"));
@@ -54,37 +55,38 @@ class SignUpRepository implements IsignUpRepo {
 
   @override
   Future<Either<Failure, Success>> signUpotp({required String otp}) async{
-    // print("before sharedpreference getfunction");
+    print("before sharedpreference getfunction");
     final otpkey = await SharedPreference.getOTPkey();
-    // print("entered to otpsubmiton functionn");
+    print("entered to otpsubmiton functionn");
     try { 
       // print("Enterd to try catch");
       final otpBody = {"key": otpkey,"otp": otp};
-      // print("ready to pass url");
+      print("ready to pass url");
       final response = await http.Client().post(
           Uri.parse("https://lapify.online/user/signup/otpvalidation"),
           body: otpBody,
           headers:{'Content-Type': 'application/x-www-form-urlencoded'} );
           print("request send to api");
           print("response status code = ${response.statusCode}");
+           final responseBody = jsonDecode(response.body);
           if(response.statusCode == 200){
-            print("status code 200");
-            final responseBody = jsonDecode(response.body);
+            // print("status code 200");
+           
             print(responseBody);
-            final String tokenData = responseBody["token"];
+            final  tokenData = responseBody["token"];
             print(tokenData);
-            final String message = responseBody["message"];
+            final  message = responseBody["message"];
             print(message);
-           await SharedPreference.saveToken(tokenData: tokenData);
+            await SharedPreference.saveToken(tokenData: tokenData);
             print("token saved");
             return Right(Success(successmsg: message));
           }else{
-            print("erorr (else)");
-            print(response.body);
-            final  errresp = jsonDecode(response.body);
-            final String err = errresp['error'];
-            print(err);
-            return Left(Failure(message: "Error"));
+            // print("erorr (else)");
+            // print(response.body);
+            // final  errresp = jsonDecode(response.body);
+            final String err = responseBody['error'];
+            // print(err);
+            return Left(Failure(message: err));
           }
     } catch (e) {
       print("exception");

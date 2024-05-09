@@ -25,22 +25,27 @@ class SignUpScreen extends StatelessWidget {
 
     final formkey = GlobalKey<FormState>();
 
-    return BlocListener<SignupBloc, SignupState>(
+    return BlocConsumer<SignupBloc, SignupState>(
       listener: (context, state) {
         if (state.isLoading) {
           const CircularProgressIndicator();
         } else if (state.isSignUphasError) {
-          print("sign up has ");
+          print("Error state");
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message!)));
-        } else if (state.userResponseModel != null) {
+              .showSnackBar(SnackBar(content: Text(state.message??"Something Went Wrong"),backgroundColor: Colors.red,));
+        } else if (state.userResponseModel != null && state.isSignUphasError == false) {
+          print("success State");
+           ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message??"You will get an OTP"),backgroundColor: Colors.green,));
           Navigator.push(
               context,
               CupertinoPageRoute(
                   builder: (context) => const SignUpOtpScreen()));
         }
       },
-      child: Scaffold(
+      builder: (BuildContext context, SignupState state) { 
+        return 
+       Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(20),
           child: Center(
@@ -175,7 +180,8 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      );
+      }
     );
   }
 }

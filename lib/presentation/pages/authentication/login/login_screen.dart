@@ -5,7 +5,9 @@ import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/forgot_pass_login.dart';
+import 'package:logic_loot/presentation/pages/authentication/signup/signup_screen.dart';
 import 'package:logic_loot/presentation/pages/home/home_screen.dart';
+import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:logic_loot/presentation/widgets/textformfield_widget.dart';
 
@@ -74,15 +76,20 @@ class LoginScreen extends StatelessWidget {
                   // CommonWidgets.button1(context: context,name: "Log in",screen: const HomeScreen()),
                   BlocConsumer<LoginBloc, LoginState>(
                     listener: (context, state) {
-                      if(state.isLoginHasError){
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!)));
+                      if(state.isLoginHasError && state.iisLoginSuccess == false){
+                        print("erorr ocureddd");
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!),backgroundColor: Colors.red,));
                       }else if(state.iisLoginSuccess){
+                        print("login success");
                         SharedPreference.userLogedIn();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!)));
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!),backgroundColor: Colors.green,));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const BottomNavBarWidget()));
                       }
                     },
                     builder: (context, state) {
+                      if(state.isLoading){
+                        return const  CircularProgressIndicator();
+                      }else{
                       return CommonSubmitButton(
                           label: "Log In",
                           onPressed: () {
@@ -93,6 +100,7 @@ class LoginScreen extends StatelessWidget {
                                       password: passController.text));
                             }
                           });
+                      }
                     },
                   ),
                   // Container(
@@ -116,7 +124,9 @@ class LoginScreen extends StatelessWidget {
                   //         ))),
                   const Text("Or"),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const SignUpScreen(),));
+                    },
                     child: RichText(
                         text: const TextSpan(
                             style: TextStyle(color: Colors.black),

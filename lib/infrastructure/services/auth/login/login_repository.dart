@@ -11,6 +11,8 @@ class LoginRepository implements IloginRepo{
   @override
   Future<Either<Failure, Success>> login({required String phone, required String password})async {
    try {
+    print(phone);
+    print(password);
      final request =  http.MultipartRequest("POST",Uri.parse("https://lapify.online/user/login"));
      request.fields["phone"] = phone;
      request.fields["password"] = password;
@@ -19,9 +21,13 @@ class LoginRepository implements IloginRepo{
      
      print(response.statusCode);
 
-     if(response.statusCode == 200){
       final responseBody = await response.stream.bytesToString();
-      final decodedResponse = jsonDecode(responseBody);
+       final decodedResponse = jsonDecode(responseBody);
+
+       print(decodedResponse);
+
+     if(response.statusCode == 200){
+     
       final token = decodedResponse['token'];
       final message = decodedResponse['message'];
 
@@ -30,11 +36,13 @@ class LoginRepository implements IloginRepo{
       return Right(Success(successmsg: message,success: true));
      }else{
       print("error ");
-      return Left(Failure(message: "Error occured"));
+      final message = decodedResponse['error'];
+      print(message);
+      return Left(Failure(message: message));
      }
    } catch (e) {
     print("Exception is $e");
-    return Left(Failure(message: "ecxeption occuereddd"));
+    return Left(Failure(message: "Something went wrong"));
    }
   }
   

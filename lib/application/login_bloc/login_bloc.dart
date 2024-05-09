@@ -13,7 +13,7 @@ part 'login_bloc.freezed.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRepository loginRepository;
   LoginBloc(this.loginRepository) : super(LoginState.initial()) {
-    on<LoginEvent>((event, emit) async {
+    on<_RequestToLog>((event, emit) async {
       emit(state.copyWith(isLoading: true));
       final Either<Failure, Success> result = await loginRepository.login(
           phone: event.phone, password: event.password);
@@ -28,6 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               isLoginHasError: false,
               iisLoginSuccess: true,
               message: success.successmsg)));
+              emit(LoginState.initial());
     });
   }
 }
