@@ -10,6 +10,10 @@ import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.
 class LoginRepository implements IloginRepo{
   @override
   Future<Either<Failure, Success>> login({required String phone, required String password})async {
+    // final token = await SharedPreference.getToken();
+    //   if (token == null) {
+    //     print("No token (null)");
+    //     return Left(Failure(message: "Oops! something went wrong"));}
    try {
     print(phone);
     print(password);

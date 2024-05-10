@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/login_bloc/login_bloc.dart';
+import 'package:logic_loot/application/products/products_bloc.dart';
 import 'package:logic_loot/application/signup_bloc/signup_bloc.dart';
 import 'package:logic_loot/infrastructure/services/auth/login/login_repository.dart';
 import 'package:logic_loot/infrastructure/services/auth/singup/signup_repository.dart';
+import 'package:logic_loot/infrastructure/services/products/products_repository.dart';
 import 'package:logic_loot/presentation/pages/authentication/splash/splash_screen.dart';
 
 void main() {
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
 
   final signupRepo = SignUpRepository();
   final loginRepo = LoginRepository();
+  final productRepo = ProductRepository();
 
   // This widget is the root of your application.
   @override
@@ -22,7 +25,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignupBloc>(create: (context)=> SignupBloc(signupRepo)),
-        BlocProvider<LoginBloc>(create: (context)=> LoginBloc(loginRepo))
+        BlocProvider<LoginBloc>(create: (context)=> LoginBloc(loginRepo)),
+        BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
