@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
+// import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:logic_loot/domain/core/failures/failures.dart';
 import 'package:logic_loot/domain/models/response_models.dart/get_all_product_response.dart';
 import 'package:http/http.dart' as http;
@@ -13,7 +13,7 @@ class ProductRepository implements IPrductRepo {
   Future<Either<Failure, GetAllProductResponse>> getAllProduct() async {
     try {
       final tkn = await SharedPreference.getToken();
-      // print(tkn);
+      print(tkn);
       if (tkn != null) {
         // print("ready to decode");
         // Decode the token;\
@@ -44,9 +44,10 @@ class ProductRepository implements IPrductRepo {
               // HttpHeaders.cookieHeader: cookies
               //     .map((c) => c.toString())
               //     .join('; '), // Set the cookies in the request header
-              "Authorise":tkn,
+              "Cookie":"Authorise=$tkn",
               // "content-type": "application/json"
-            });
+            }
+            );
 
         log("Here is the response ---> $response");
         print("response body ----> ${response.body}");
