@@ -1,4 +1,5 @@
 class Failure{
   String message;
-  Failure({required this.message});
+  bool? val;
+  Failure({required this.message,this.val});
 }

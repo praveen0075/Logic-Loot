@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:logic_loot/domain/core/failures/failures.dart';
 import 'package:logic_loot/domain/models/response_models.dart/get_all_product_response.dart';
 import 'package:http/http.dart' as http;
@@ -9,33 +12,64 @@ class ProductRepository implements IPrductRepo {
   @override
   Future<Either<Failure, GetAllProductResponse>> getAllProduct() async {
     try {
-      final token = await SharedPreference.getToken();
-      if (token == null) {
-        print("No token (null)");
-        return Left(Failure(message: "Oops! something went wrong"));
-      } else {
-        print(token);
+      final tkn = await SharedPreference.getToken();
+      // print(tkn);
+      if (tkn != null) {
+        // print("ready to decode");
+        // Decode the token;\
+        // Map<String, dynamic> decodedToken = JwtDecoder.decode(tkn);
+
+        // print("ready to check the token is expired or not");
+
+        // Check if the token is expired
+        // bool isTokenExpired = JwtDecoder.isExpired(tkn);
+
+        // print(tkn);
+
+        // Print decoded token and expiration status
+        // print('Decoded token: $decodedToken');
+        // print('Is token expired? $isTokenExpired');
+
+        // print(tkn);
+        // var cookie = Cookie('token', tkn);
+        // cookie.httpOnly =
+        //     true; // Set to true if the cookie should only be accessible through HTTP requests
+        // cookie.path = '/'; // Set the path for which the cookie is valid
+
+        // var cookies = [cookie];
+
         final response = await http.Client().get(
             Uri.parse("https://lapify.online/user/products?page=1&limit=10"),
             headers: {
-              "Authorise": token,
-              "content-type": "application/json"
+              // HttpHeaders.cookieHeader: cookies
+              //     .map((c) => c.toString())
+              //     .join('; '), // Set the cookies in the request header
+              "Authorise":tkn,
+              // "content-type": "application/json"
             });
-            print("Here is the response ---> $response");
-            print("response body ----> ${response.body}");
-            print("statuscode ---> ${response.statusCode}");
-             
 
-            if(response.statusCode == 200){
-             final responseModel = getAllProductResponseFromJson(response.body);
-             print("Response model --> $responseModel");
-             return Right(responseModel);
-            }else{
-              print("Error occured");
-              return Left(Failure(message: "Error occured (else)"));
-            }
+        log("Here is the response ---> $response");
+        print("response body ----> ${response.body}");
+        print("statuscode ---> ${response.statusCode}");
+
+        if (response.statusCode == 200) {
+          final responseModel = getAllProductResponseFromJson(response.body);
+          print("Response model --> $responseModel");
+          print("token in 200 $tkn");
+          return Right(responseModel);
+        } else {
+          print("Error occured");
+          print("token at error $tkn");
+          return Left(Failure(message: "Error occured (else)"));
+        }
+      }
+      {
+        print("No token (null)");
+
+        return Left(Failure(message: "Oops! something went wrong"));
       }
     } catch (e) {
+      print(e);
       return Left(Failure(message: "Exception occured"));
     }
   }

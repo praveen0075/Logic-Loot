@@ -33,18 +33,22 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       emit(state.copyWith(isLoading: true));
       final Either<Failure, Success> result =
           await signUpRepository.signUpotp(otp: event.otp);
-      print("got result");
+      // print("got result");
       result.fold(
           (failure) => emit(state.copyWith(
               isLoading: false,
               isSignUphasError: false,
               message: failure.message,
-              isotpHasError: true)),
+              isotpHasError: true,
+              isotpReqSuccess: false
+              )),
           (success) => emit(state.copyWith(
               isLoading: false,
               isSignUphasError: false,
               message: success.successmsg,
-              isotpHasError: false)));
+              isotpHasError: false,
+              isotpReqSuccess: true
+              )));
       emit(SignupState.initialstate());
     });
   }

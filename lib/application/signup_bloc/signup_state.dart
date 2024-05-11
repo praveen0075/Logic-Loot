@@ -7,10 +7,11 @@ class SignupState with _$SignupState {
     required bool isSignUphasError,
     UserResponse? userResponseModel,
     required bool isotpHasError,
+    required bool isotpReqSuccess,
     String? message
   }) = _SignUpState;
 
   factory SignupState.initialstate(){
-    return const SignupState(isLoading: false,isSignUphasError: false,isotpHasError: false);
+    return const SignupState(isLoading: false,isSignUphasError: false,isotpHasError: false,isotpReqSuccess: false);
   } 
 }

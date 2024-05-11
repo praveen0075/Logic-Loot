@@ -4,16 +4,17 @@ class SharedPreference{
   static const String otpkey = "otp_key";
   static const String token = "user_token";
   static const String loginKey = "user_logedIn";
+  static const String otpIdFrgtpass = "otp_id";
 
   static Future<void> saveOTPkey({required String otpId})async{
     SharedPreferences preff = await SharedPreferences.getInstance();
     preff.setString(otpkey, otpId);
   }
 
-  static Future<String> getOTPkey()async{
+  static Future<String?> getOTPkey()async{
     SharedPreferences preff = await SharedPreferences.getInstance();
-    preff.getString(otpkey);
-    return otpkey;
+    final otpid = preff.getString(otpkey);
+    return otpid;
   }
 
   static Future<void> saveToken({required String tokenData})async{
@@ -42,5 +43,16 @@ class SharedPreference{
   static Future<void> removeLogin()async{
     SharedPreferences preff = await SharedPreferences.getInstance();
     preff.clear();
+  }
+
+  static Future<void> saveOtpIdInForgetPass(String id)async{
+    SharedPreferences preff = await SharedPreferences.getInstance();
+    preff.setString(otpIdFrgtpass,id);
+  }
+
+  static Future<String?> getOtpIdInForgetPass()async{
+    SharedPreferences preff = await SharedPreferences.getInstance();
+    final otpId =  preff.getString(otpIdFrgtpass);
+    return otpId;
   }
 }

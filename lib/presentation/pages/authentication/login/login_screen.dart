@@ -6,7 +6,6 @@ import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/forgot_pass_login.dart';
 import 'package:logic_loot/presentation/pages/authentication/signup/signup_screen.dart';
-import 'package:logic_loot/presentation/pages/home/home_screen.dart';
 import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:logic_loot/presentation/widgets/textformfield_widget.dart';
@@ -77,10 +76,10 @@ class LoginScreen extends StatelessWidget {
                   BlocConsumer<LoginBloc, LoginState>(
                     listener: (context, state) {
                       if(state.isLoginHasError && state.iisLoginSuccess == false){
-                        print("erorr ocureddd");
+                        // print("erorr ocureddd");
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!),backgroundColor: Colors.red,));
                       }else if(state.iisLoginSuccess){
-                        print("login success");
+                        // print("login success");
                         SharedPreference.userLogedIn();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!),backgroundColor: Colors.green,));
                         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const BottomNavBarWidget()));

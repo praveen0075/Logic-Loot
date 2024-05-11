@@ -5,7 +5,7 @@ import 'package:logic_loot/application/signup_bloc/signup_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/core/theme/theme.dart';
-import 'package:logic_loot/presentation/pages/home/home_screen.dart';
+import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:pinput/pinput.dart';
 
@@ -86,9 +86,12 @@ class SignUpOtpScreen extends StatelessWidget {
                     if(state.isLoading){
                       const CircularProgressIndicator();
                     }else if(state.isotpHasError){
-                      ScaffoldMessenger(child: SnackBar(content: Text(state.message!)));
-                    }else{
-                      Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>const HomeScreen()));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                                 SnackBar(
+                                    backgroundColor: Colors.red,
+                                    content: Text(state.message??"Exception occured")));
+                    }else if (state.isotpReqSuccess){
+                      Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>const BottomNavBarWidget()));
                     }
                   },
                   builder: (context, state) {

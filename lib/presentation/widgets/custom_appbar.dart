@@ -12,13 +12,10 @@ class HomeScreenAppBar extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: appColor1,
-      actions: [
-        Column(
-          children: [
-            Text("LOGIC LOOT",style: TextStyle(color: Colors.white,fontSize: 25,fontWeight: FontWeight.bold),),
-          ],
-        )
+      backgroundColor: appColor3,
+      title: const Text("Logic Loot",style: TextStyle(color: Colors.white),),
+      actions: const [
+        
       ],
 
       

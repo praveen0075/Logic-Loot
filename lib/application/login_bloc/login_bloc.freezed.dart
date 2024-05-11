@@ -20,18 +20,21 @@ mixin _$LoginEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, String password) requestToLogin,
     required TResult Function(String numbr) requestToOTP,
+    required TResult Function(String otp) requestToOTPValidation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String phone, String password)? requestToLogin,
     TResult? Function(String numbr)? requestToOTP,
+    TResult? Function(String otp)? requestToOTPValidation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, String password)? requestToLogin,
     TResult Function(String numbr)? requestToOTP,
+    TResult Function(String otp)? requestToOTPValidation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,22 @@ mixin _$LoginEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestToLog value) requestToLogin,
     required TResult Function(_RequestToOTP value) requestToOTP,
+    required TResult Function(_RequestToOTPValidation value)
+        requestToOTPValidation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RequestToLog value)? requestToLogin,
     TResult? Function(_RequestToOTP value)? requestToOTP,
+    TResult? Function(_RequestToOTPValidation value)? requestToOTPValidation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestToLog value)? requestToLogin,
     TResult Function(_RequestToOTP value)? requestToOTP,
+    TResult Function(_RequestToOTPValidation value)? requestToOTPValidation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -158,6 +165,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, String password) requestToLogin,
     required TResult Function(String numbr) requestToOTP,
+    required TResult Function(String otp) requestToOTPValidation,
   }) {
     return requestToLogin(phone, password);
   }
@@ -167,6 +175,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String phone, String password)? requestToLogin,
     TResult? Function(String numbr)? requestToOTP,
+    TResult? Function(String otp)? requestToOTPValidation,
   }) {
     return requestToLogin?.call(phone, password);
   }
@@ -176,6 +185,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, String password)? requestToLogin,
     TResult Function(String numbr)? requestToOTP,
+    TResult Function(String otp)? requestToOTPValidation,
     required TResult orElse(),
   }) {
     if (requestToLogin != null) {
@@ -189,6 +199,8 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestToLog value) requestToLogin,
     required TResult Function(_RequestToOTP value) requestToOTP,
+    required TResult Function(_RequestToOTPValidation value)
+        requestToOTPValidation,
   }) {
     return requestToLogin(this);
   }
@@ -198,6 +210,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RequestToLog value)? requestToLogin,
     TResult? Function(_RequestToOTP value)? requestToOTP,
+    TResult? Function(_RequestToOTPValidation value)? requestToOTPValidation,
   }) {
     return requestToLogin?.call(this);
   }
@@ -207,6 +220,7 @@ class _$RequestToLogImpl with DiagnosticableTreeMixin implements _RequestToLog {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestToLog value)? requestToLogin,
     TResult Function(_RequestToOTP value)? requestToOTP,
+    TResult Function(_RequestToOTPValidation value)? requestToOTPValidation,
     required TResult orElse(),
   }) {
     if (requestToLogin != null) {
@@ -302,6 +316,7 @@ class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
   TResult when<TResult extends Object?>({
     required TResult Function(String phone, String password) requestToLogin,
     required TResult Function(String numbr) requestToOTP,
+    required TResult Function(String otp) requestToOTPValidation,
   }) {
     return requestToOTP(numbr);
   }
@@ -311,6 +326,7 @@ class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String phone, String password)? requestToLogin,
     TResult? Function(String numbr)? requestToOTP,
+    TResult? Function(String otp)? requestToOTPValidation,
   }) {
     return requestToOTP?.call(numbr);
   }
@@ -320,6 +336,7 @@ class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String phone, String password)? requestToLogin,
     TResult Function(String numbr)? requestToOTP,
+    TResult Function(String otp)? requestToOTPValidation,
     required TResult orElse(),
   }) {
     if (requestToOTP != null) {
@@ -333,6 +350,8 @@ class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
   TResult map<TResult extends Object?>({
     required TResult Function(_RequestToLog value) requestToLogin,
     required TResult Function(_RequestToOTP value) requestToOTP,
+    required TResult Function(_RequestToOTPValidation value)
+        requestToOTPValidation,
   }) {
     return requestToOTP(this);
   }
@@ -342,6 +361,7 @@ class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_RequestToLog value)? requestToLogin,
     TResult? Function(_RequestToOTP value)? requestToOTP,
+    TResult? Function(_RequestToOTPValidation value)? requestToOTPValidation,
   }) {
     return requestToOTP?.call(this);
   }
@@ -351,6 +371,7 @@ class _$RequestToOTPImpl with DiagnosticableTreeMixin implements _RequestToOTP {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_RequestToLog value)? requestToLogin,
     TResult Function(_RequestToOTP value)? requestToOTP,
+    TResult Function(_RequestToOTPValidation value)? requestToOTPValidation,
     required TResult orElse(),
   }) {
     if (requestToOTP != null) {
@@ -371,10 +392,170 @@ abstract class _RequestToOTP implements LoginEvent {
 }
 
 /// @nodoc
+abstract class _$$RequestToOTPValidationImplCopyWith<$Res> {
+  factory _$$RequestToOTPValidationImplCopyWith(
+          _$RequestToOTPValidationImpl value,
+          $Res Function(_$RequestToOTPValidationImpl) then) =
+      __$$RequestToOTPValidationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String otp});
+}
+
+/// @nodoc
+class __$$RequestToOTPValidationImplCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res, _$RequestToOTPValidationImpl>
+    implements _$$RequestToOTPValidationImplCopyWith<$Res> {
+  __$$RequestToOTPValidationImplCopyWithImpl(
+      _$RequestToOTPValidationImpl _value,
+      $Res Function(_$RequestToOTPValidationImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? otp = null,
+  }) {
+    return _then(_$RequestToOTPValidationImpl(
+      otp: null == otp
+          ? _value.otp
+          : otp // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RequestToOTPValidationImpl
+    with DiagnosticableTreeMixin
+    implements _RequestToOTPValidation {
+  const _$RequestToOTPValidationImpl({required this.otp});
+
+  @override
+  final String otp;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'LoginEvent.requestToOTPValidation(otp: $otp)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'LoginEvent.requestToOTPValidation'))
+      ..add(DiagnosticsProperty('otp', otp));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RequestToOTPValidationImpl &&
+            (identical(other.otp, otp) || other.otp == otp));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, otp);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RequestToOTPValidationImplCopyWith<_$RequestToOTPValidationImpl>
+      get copyWith => __$$RequestToOTPValidationImplCopyWithImpl<
+          _$RequestToOTPValidationImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String phone, String password) requestToLogin,
+    required TResult Function(String numbr) requestToOTP,
+    required TResult Function(String otp) requestToOTPValidation,
+  }) {
+    return requestToOTPValidation(otp);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String phone, String password)? requestToLogin,
+    TResult? Function(String numbr)? requestToOTP,
+    TResult? Function(String otp)? requestToOTPValidation,
+  }) {
+    return requestToOTPValidation?.call(otp);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String phone, String password)? requestToLogin,
+    TResult Function(String numbr)? requestToOTP,
+    TResult Function(String otp)? requestToOTPValidation,
+    required TResult orElse(),
+  }) {
+    if (requestToOTPValidation != null) {
+      return requestToOTPValidation(otp);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_RequestToLog value) requestToLogin,
+    required TResult Function(_RequestToOTP value) requestToOTP,
+    required TResult Function(_RequestToOTPValidation value)
+        requestToOTPValidation,
+  }) {
+    return requestToOTPValidation(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_RequestToLog value)? requestToLogin,
+    TResult? Function(_RequestToOTP value)? requestToOTP,
+    TResult? Function(_RequestToOTPValidation value)? requestToOTPValidation,
+  }) {
+    return requestToOTPValidation?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_RequestToLog value)? requestToLogin,
+    TResult Function(_RequestToOTP value)? requestToOTP,
+    TResult Function(_RequestToOTPValidation value)? requestToOTPValidation,
+    required TResult orElse(),
+  }) {
+    if (requestToOTPValidation != null) {
+      return requestToOTPValidation(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RequestToOTPValidation implements LoginEvent {
+  const factory _RequestToOTPValidation({required final String otp}) =
+      _$RequestToOTPValidationImpl;
+
+  String get otp;
+  @JsonKey(ignore: true)
+  _$$RequestToOTPValidationImplCopyWith<_$RequestToOTPValidationImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$LoginState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isLoginHasError => throw _privateConstructorUsedError;
   bool get iisLoginSuccess => throw _privateConstructorUsedError;
+  bool get isforgetOtpReqHasError => throw _privateConstructorUsedError;
+  bool get isforgetOtpReqSucces => throw _privateConstructorUsedError;
+  bool get isforgetpassOtpValidateReqHasError =>
+      throw _privateConstructorUsedError;
+  bool get isforgetpassOtpValidateReqSucces =>
+      throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -392,6 +573,10 @@ abstract class $LoginStateCopyWith<$Res> {
       {bool isLoading,
       bool isLoginHasError,
       bool iisLoginSuccess,
+      bool isforgetOtpReqHasError,
+      bool isforgetOtpReqSucces,
+      bool isforgetpassOtpValidateReqHasError,
+      bool isforgetpassOtpValidateReqSucces,
       String? message});
 }
 
@@ -411,6 +596,10 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? isLoading = null,
     Object? isLoginHasError = null,
     Object? iisLoginSuccess = null,
+    Object? isforgetOtpReqHasError = null,
+    Object? isforgetOtpReqSucces = null,
+    Object? isforgetpassOtpValidateReqHasError = null,
+    Object? isforgetpassOtpValidateReqSucces = null,
     Object? message = freezed,
   }) {
     return _then(_value.copyWith(
@@ -425,6 +614,23 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
       iisLoginSuccess: null == iisLoginSuccess
           ? _value.iisLoginSuccess
           : iisLoginSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetOtpReqHasError: null == isforgetOtpReqHasError
+          ? _value.isforgetOtpReqHasError
+          : isforgetOtpReqHasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetOtpReqSucces: null == isforgetOtpReqSucces
+          ? _value.isforgetOtpReqSucces
+          : isforgetOtpReqSucces // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetpassOtpValidateReqHasError: null ==
+              isforgetpassOtpValidateReqHasError
+          ? _value.isforgetpassOtpValidateReqHasError
+          : isforgetpassOtpValidateReqHasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetpassOtpValidateReqSucces: null == isforgetpassOtpValidateReqSucces
+          ? _value.isforgetpassOtpValidateReqSucces
+          : isforgetpassOtpValidateReqSucces // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -446,6 +652,10 @@ abstract class _$$LoginStateImplCopyWith<$Res>
       {bool isLoading,
       bool isLoginHasError,
       bool iisLoginSuccess,
+      bool isforgetOtpReqHasError,
+      bool isforgetOtpReqSucces,
+      bool isforgetpassOtpValidateReqHasError,
+      bool isforgetpassOtpValidateReqSucces,
       String? message});
 }
 
@@ -463,6 +673,10 @@ class __$$LoginStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isLoginHasError = null,
     Object? iisLoginSuccess = null,
+    Object? isforgetOtpReqHasError = null,
+    Object? isforgetOtpReqSucces = null,
+    Object? isforgetpassOtpValidateReqHasError = null,
+    Object? isforgetpassOtpValidateReqSucces = null,
     Object? message = freezed,
   }) {
     return _then(_$LoginStateImpl(
@@ -477,6 +691,23 @@ class __$$LoginStateImplCopyWithImpl<$Res>
       iisLoginSuccess: null == iisLoginSuccess
           ? _value.iisLoginSuccess
           : iisLoginSuccess // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetOtpReqHasError: null == isforgetOtpReqHasError
+          ? _value.isforgetOtpReqHasError
+          : isforgetOtpReqHasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetOtpReqSucces: null == isforgetOtpReqSucces
+          ? _value.isforgetOtpReqSucces
+          : isforgetOtpReqSucces // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetpassOtpValidateReqHasError: null ==
+              isforgetpassOtpValidateReqHasError
+          ? _value.isforgetpassOtpValidateReqHasError
+          : isforgetpassOtpValidateReqHasError // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isforgetpassOtpValidateReqSucces: null == isforgetpassOtpValidateReqSucces
+          ? _value.isforgetpassOtpValidateReqSucces
+          : isforgetpassOtpValidateReqSucces // ignore: cast_nullable_to_non_nullable
               as bool,
       message: freezed == message
           ? _value.message
@@ -493,6 +724,10 @@ class _$LoginStateImpl with DiagnosticableTreeMixin implements _LoginState {
       {required this.isLoading,
       required this.isLoginHasError,
       required this.iisLoginSuccess,
+      required this.isforgetOtpReqHasError,
+      required this.isforgetOtpReqSucces,
+      required this.isforgetpassOtpValidateReqHasError,
+      required this.isforgetpassOtpValidateReqSucces,
       this.message});
 
   @override
@@ -502,11 +737,19 @@ class _$LoginStateImpl with DiagnosticableTreeMixin implements _LoginState {
   @override
   final bool iisLoginSuccess;
   @override
+  final bool isforgetOtpReqHasError;
+  @override
+  final bool isforgetOtpReqSucces;
+  @override
+  final bool isforgetpassOtpValidateReqHasError;
+  @override
+  final bool isforgetpassOtpValidateReqSucces;
+  @override
   final String? message;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'LoginState(isLoading: $isLoading, isLoginHasError: $isLoginHasError, iisLoginSuccess: $iisLoginSuccess, message: $message)';
+    return 'LoginState(isLoading: $isLoading, isLoginHasError: $isLoginHasError, iisLoginSuccess: $iisLoginSuccess, isforgetOtpReqHasError: $isforgetOtpReqHasError, isforgetOtpReqSucces: $isforgetOtpReqSucces, isforgetpassOtpValidateReqHasError: $isforgetpassOtpValidateReqHasError, isforgetpassOtpValidateReqSucces: $isforgetpassOtpValidateReqSucces, message: $message)';
   }
 
   @override
@@ -517,6 +760,13 @@ class _$LoginStateImpl with DiagnosticableTreeMixin implements _LoginState {
       ..add(DiagnosticsProperty('isLoading', isLoading))
       ..add(DiagnosticsProperty('isLoginHasError', isLoginHasError))
       ..add(DiagnosticsProperty('iisLoginSuccess', iisLoginSuccess))
+      ..add(
+          DiagnosticsProperty('isforgetOtpReqHasError', isforgetOtpReqHasError))
+      ..add(DiagnosticsProperty('isforgetOtpReqSucces', isforgetOtpReqSucces))
+      ..add(DiagnosticsProperty('isforgetpassOtpValidateReqHasError',
+          isforgetpassOtpValidateReqHasError))
+      ..add(DiagnosticsProperty(
+          'isforgetpassOtpValidateReqSucces', isforgetpassOtpValidateReqSucces))
       ..add(DiagnosticsProperty('message', message));
   }
 
@@ -531,12 +781,32 @@ class _$LoginStateImpl with DiagnosticableTreeMixin implements _LoginState {
                 other.isLoginHasError == isLoginHasError) &&
             (identical(other.iisLoginSuccess, iisLoginSuccess) ||
                 other.iisLoginSuccess == iisLoginSuccess) &&
+            (identical(other.isforgetOtpReqHasError, isforgetOtpReqHasError) ||
+                other.isforgetOtpReqHasError == isforgetOtpReqHasError) &&
+            (identical(other.isforgetOtpReqSucces, isforgetOtpReqSucces) ||
+                other.isforgetOtpReqSucces == isforgetOtpReqSucces) &&
+            (identical(other.isforgetpassOtpValidateReqHasError,
+                    isforgetpassOtpValidateReqHasError) ||
+                other.isforgetpassOtpValidateReqHasError ==
+                    isforgetpassOtpValidateReqHasError) &&
+            (identical(other.isforgetpassOtpValidateReqSucces,
+                    isforgetpassOtpValidateReqSucces) ||
+                other.isforgetpassOtpValidateReqSucces ==
+                    isforgetpassOtpValidateReqSucces) &&
             (identical(other.message, message) || other.message == message));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, isLoading, isLoginHasError, iisLoginSuccess, message);
+      runtimeType,
+      isLoading,
+      isLoginHasError,
+      iisLoginSuccess,
+      isforgetOtpReqHasError,
+      isforgetOtpReqSucces,
+      isforgetpassOtpValidateReqHasError,
+      isforgetpassOtpValidateReqSucces,
+      message);
 
   @JsonKey(ignore: true)
   @override
@@ -550,6 +820,10 @@ abstract class _LoginState implements LoginState {
       {required final bool isLoading,
       required final bool isLoginHasError,
       required final bool iisLoginSuccess,
+      required final bool isforgetOtpReqHasError,
+      required final bool isforgetOtpReqSucces,
+      required final bool isforgetpassOtpValidateReqHasError,
+      required final bool isforgetpassOtpValidateReqSucces,
       final String? message}) = _$LoginStateImpl;
 
   @override
@@ -558,6 +832,14 @@ abstract class _LoginState implements LoginState {
   bool get isLoginHasError;
   @override
   bool get iisLoginSuccess;
+  @override
+  bool get isforgetOtpReqHasError;
+  @override
+  bool get isforgetOtpReqSucces;
+  @override
+  bool get isforgetpassOtpValidateReqHasError;
+  @override
+  bool get isforgetpassOtpValidateReqSucces;
   @override
   String? get message;
   @override

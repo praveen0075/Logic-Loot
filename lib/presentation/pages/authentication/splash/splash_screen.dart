@@ -43,11 +43,11 @@ class _SplashScreenState extends State<SplashScreen> {
     bool? val = await SharedPreference.userLoginOrNot();
     
     if(val == true){
-      print("user logged in");
+      // print("user logged in");
        // ignore: use_build_context_synchronously
        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavBarWidget()));
     }else{
-      print("User not logged in");
+      // print("User not logged in");
       // ignore: use_build_context_synchronously
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
     }

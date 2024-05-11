@@ -28,7 +28,37 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               isLoginHasError: false,
               iisLoginSuccess: true,
               message: success.successmsg)));
-              emit(LoginState.initial());
+      emit(LoginState.initial());
+    });
+
+    on<_RequestToOTP>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+      final result = await loginRepository.frgtPassReqOtp(phone: event.numbr);
+      result.fold(
+          (failure) => emit(state.copyWith(
+              isforgetOtpReqHasError: true,
+              isforgetOtpReqSucces: false,
+              isLoading: false,message: failure.message)),
+          (success) => emit(state.copyWith(
+              isforgetOtpReqHasError: false,
+              isforgetOtpReqSucces: true,
+              isLoading: false,message: success.successmsg)));
+       emit(LoginState.initial());       
+    });
+
+    on<_RequestToOTPValidation>((event, emit) async {
+      emit(state.copyWith(isLoading: true));
+      final result = await loginRepository.frgtPassValidateOtp(otp: event.otp);
+      result.fold(
+          (failure) => emit(state.copyWith(
+              isforgetpassOtpValidateReqHasError: true,
+              isLoading: false,
+              isforgetpassOtpValidateReqSucces: false,message: failure.message)),
+          (success) => emit(state.copyWith(
+              isforgetpassOtpValidateReqHasError: false,
+              isforgetpassOtpValidateReqSucces: true,
+              isLoading: false,message: success.successmsg)));
+       emit(LoginState.initial());       
     });
   }
 }

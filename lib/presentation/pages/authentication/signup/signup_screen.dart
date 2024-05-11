@@ -30,11 +30,11 @@ class SignUpScreen extends StatelessWidget {
         if (state.isLoading) {
           const CircularProgressIndicator();
         } else if (state.isSignUphasError) {
-          print("Error state");
+          // print("Error state");
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.message??"Something Went Wrong"),backgroundColor: Colors.red,));
         } else if (state.userResponseModel != null && state.isSignUphasError == false) {
-          print("success State");
+          // print("success State");
            ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.message??"You will get an OTP"),backgroundColor: Colors.green,));
           Navigator.push(

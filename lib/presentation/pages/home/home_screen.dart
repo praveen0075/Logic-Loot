@@ -21,10 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Scaffold(
+    return  Scaffold(
       // appBar: PreferredSize(preferredSize: Size.fromHeight(50), child: Appbar),
-      appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(80), child: HomeScreenAppBar()),
+      appBar:  PreferredSize(
+          preferredSize: Size.fromHeight(100), child: HomeScreenAppBar()),
       // body: SingleChildScrollView(
       //   child: Column(
       //     children: [
