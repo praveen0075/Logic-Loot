@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/application/login_bloc/login_bloc.dart';
+import 'package:logic_loot/application/product/product_bloc.dart';
 import 'package:logic_loot/application/products/products_bloc.dart';
 import 'package:logic_loot/application/signup_bloc/signup_bloc.dart';
 import 'package:logic_loot/infrastructure/services/auth/login/login_repository.dart';
@@ -26,16 +28,17 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<SignupBloc>(create: (context)=> SignupBloc(signupRepo)),
         BlocProvider<LoginBloc>(create: (context)=> LoginBloc(loginRepo)),
-        BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
+        BlocProvider<ProductBloc>(create: (context) => ProductBloc(productRepo),) 
+        // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        home: const SplashScreen(),
+        // theme: ThemeData(
+        //   // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   useMaterial3: true,
+        // ),
+        home:  SplashScreen(),
       ),
     );
   }

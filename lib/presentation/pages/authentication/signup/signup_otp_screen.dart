@@ -96,6 +96,7 @@ class SignUpOtpScreen extends StatelessWidget {
                   },
                   builder: (context, state) {
                     return CommonSubmitButton(
+                      color: appColor1,
                         label: "Send Code",
                         onPressed: () {
                           if (key.currentState!.validate()) {

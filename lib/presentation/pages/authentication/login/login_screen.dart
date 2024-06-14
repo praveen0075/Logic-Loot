@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logic_loot/application/login_bloc/login_bloc.dart';
+import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
-import 'package:logic_loot/presentation/pages/authentication/login/forgot_pass_login.dart';
-import 'package:logic_loot/presentation/pages/authentication/signup/signup_screen.dart';
 import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:logic_loot/presentation/widgets/textformfield_widget.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isbool = true;
   @override
   Widget build(BuildContext context) {
     final TextEditingController phnController = TextEditingController();
@@ -47,10 +51,30 @@ class LoginScreen extends StatelessWidget {
                       label: "Phone",
                       type: TextInputType.phone),
                   k10height,
-                  CommonTextFormField(
-                      phnController: passController,
-                      errormsg: "Enter your password",
-                      label: "Password"),
+                  TextFormField(
+                    obscureText: true,
+                    controller: passController,
+                    decoration: InputDecoration(
+                        suffixIcon: InkWell(
+                            onTap: () async {
+                              // context.read<LoginBloc>().add(  const LoginEvent.passVisible(isVisible: false));
+                            },
+                            child: Icon(Icons.visibility)),
+                        labelText: "Password",
+                        focusedBorder: const OutlineInputBorder(),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5),
+                            borderSide: BorderSide.none),
+                        filled: true,
+                        fillColor: commonTextformfieldFilledcolor),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter your password";
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
 
                   // CommonWidgets.textFormFieldwidget(
                   //     labelText: "Password",
@@ -62,11 +86,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ForgotPasswordScreen()));
+                  
                           },
                           child: const Text("Forgot Password?")),
                     ],
@@ -75,30 +95,42 @@ class LoginScreen extends StatelessWidget {
                   // CommonWidgets.button1(context: context,name: "Log in",screen: const HomeScreen()),
                   BlocConsumer<LoginBloc, LoginState>(
                     listener: (context, state) {
-                      if(state.isLoginHasError && state.iisLoginSuccess == false){
+                      if (state is ErrorSt) {
                         // print("erorr ocureddd");
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!),backgroundColor: Colors.red,));
-                      }else if(state.iisLoginSuccess){
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(state.errormsg),
+                          backgroundColor: Colors.red,
+                        ));
+                      } else if (state is Success) {
                         // print("login success");
                         SharedPreference.userLogedIn();
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message!),backgroundColor: Colors.green,));
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const BottomNavBarWidget()));
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(state.succesmsg),
+                          backgroundColor: Colors.green,
+                        ));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const BottomNavBarWidget()));
                       }
                     },
                     builder: (context, state) {
-                      if(state.isLoading){
-                        return const  CircularProgressIndicator();
-                      }else{
-                      return CommonSubmitButton(
-                          label: "Log In",
-                          onPressed: () {
-                            if (formkey.currentState!.validate()) {
-                              context.read<LoginBloc>().add(
-                                  LoginEvent.requestToLogin(
-                                      phone: phnController.text,
-                                      password: passController.text));
-                            }
-                          });
+                      if (state is Loading) {
+                        return const CircularProgressIndicator();
+                      } else {
+                        return CommonSubmitButton(
+                            color: appColor1,
+                            label: "Log In",
+                            onPressed: () {
+                          
+                              if (formkey.currentState!.validate()) {
+                                context.read<LoginBloc>().add(
+                                    LoginEvent.logInRequested(
+                                        phone: phnController.text,
+                                        password: passController.text));
+                              }
+                            });
                       }
                     },
                   ),
@@ -124,7 +156,11 @@ class LoginScreen extends StatelessWidget {
                   const Text("Or"),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const SignUpScreen(),));
+                      // Navigator.pushReplacement(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => const SignUpScreen(),
+                      //     ));
                     },
                     child: RichText(
                         text: const TextSpan(

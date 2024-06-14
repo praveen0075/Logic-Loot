@@ -11,7 +11,7 @@ class CommonSubmitButton extends StatelessWidget {
     // required this.passwordController,
     // required this.conformPasswrodController,
     required this.label,
-    required this.onPressed,
+    required this.onPressed, required this.color,
   });
 
   // final GlobalKey<FormState> formkey;
@@ -20,13 +20,14 @@ class CommonSubmitButton extends StatelessWidget {
   // final TextEditingController? passwordController;
   // final TextEditingController? conformPasswrodController;
   final String label;
+  final Color color;
   final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: appColor1, borderRadius: BorderRadius.circular(5)),
+          color: color, borderRadius: BorderRadius.circular(5)),
       height: 50,
       width: 400,
       child: TextButton(

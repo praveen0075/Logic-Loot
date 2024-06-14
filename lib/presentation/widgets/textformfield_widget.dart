@@ -60,7 +60,7 @@ class CommonTextFormField extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return errormsg;
         } else {
-          return null;
+          return null;  
         }
       },
     );

@@ -5,6 +5,7 @@ class SharedPreference{
   static const String token = "user_token";
   static const String loginKey = "user_logedIn";
   static const String otpIdFrgtpass = "otp_id";
+  static const String otpIdResetpass = "otp_id_reset";
 
   static Future<void> saveOTPkey({required String otpId})async{
     SharedPreferences preff = await SharedPreferences.getInstance();
@@ -50,7 +51,18 @@ class SharedPreference{
     preff.setString(otpIdFrgtpass,id);
   }
 
+   static Future<void> saveOtpIdInResetPass(String id)async{
+    SharedPreferences preff = await SharedPreferences.getInstance();
+    preff.setString(otpIdFrgtpass,id);
+  }
+
   static Future<String?> getOtpIdInForgetPass()async{
+    SharedPreferences preff = await SharedPreferences.getInstance();
+    final otpId =  preff.getString(otpIdFrgtpass);
+    return otpId;
+  }
+
+    static Future<String?> getOtpIdResetPass()async{
     SharedPreferences preff = await SharedPreferences.getInstance();
     final otpId =  preff.getString(otpIdFrgtpass);
     return otpId;

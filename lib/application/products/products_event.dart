@@ -1,6 +1,6 @@
-part of 'products_bloc.dart';
+// part of 'products_bloc.dart';
 
-@freezed
-class ProductsEvent with _$ProductsEvent {
-  const factory ProductsEvent.getAllProductEvent() = _getAllProductEvent;
-}
+// @freezed
+// class ProductsEvent with _$ProductsEvent {
+//   const factory ProductsEvent.getAllProductEvent() = _getAllProductEvent;
+// }

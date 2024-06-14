@@ -44,7 +44,7 @@ class ProductRepository implements IPrductRepo {
               // HttpHeaders.cookieHeader: cookies
               //     .map((c) => c.toString())
               //     .join('; '), // Set the cookies in the request header
-              "Cookie":"Authorise=$tkn",
+              "Cookie":"Authorise=$tkn"
               // "content-type": "application/json"
             }
             );
@@ -56,7 +56,6 @@ class ProductRepository implements IPrductRepo {
         if (response.statusCode == 200) {
           final responseModel = getAllProductResponseFromJson(response.body);
           print("Response model --> $responseModel");
-          print("token in 200 $tkn");
           return Right(responseModel);
         } else {
           print("Error occured");
