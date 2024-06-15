@@ -18,8 +18,8 @@ class LoginRepository implements IloginRepo {
     //     print("No token (null)");
     //     return Left(Failure(message: "Oops! something went wrong"));}
     try {
-      print(phone);
-      print(password);
+      // print(phone);
+      // print(password);
       final request = http.MultipartRequest(
           "POST", Uri.parse("https://lapify.online/user/login"));
       request.fields["phone"] = phone;

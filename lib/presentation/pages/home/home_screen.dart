@@ -16,14 +16,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
-  }
 
   @override
   Widget build(BuildContext context) {
+    String productName;
+    BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
     var size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -49,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           } else if (state is ErrorSt) {
             return Center(
-              child: Text(state.errormsg),
+              child: Text(state.errormsg),  
             );
           } else if (state is Loaded) {
             return SingleChildScrollView(
@@ -459,13 +456,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 15, right: 15, bottom: 10),
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => k10height,
+                      child: state.products != [] ? ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return k10height;
+                        },
                         padding: EdgeInsets.zero,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: 5,
+                        itemCount: state.products.length,
                         shrinkWrap: true,
-                        itemBuilder: (context, index) => Material(
+                        itemBuilder: (context, index) {
+                          if(state.products[index].name.length >= 20){
+                            final name = state.products[index].name ;
+                            productName = "${name.substring(0,17)}...";
+                          }else{
+                            productName = state.products[index].name;
+                          }
+                          return Material(
                             borderRadius: BorderRadius.circular(20),
                             elevation: 10,
                             child: Container(
@@ -480,6 +486,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       decoration: BoxDecoration(
+                                        image: DecorationImage(image: NetworkImage(state.products[index].imageurl),fit: BoxFit.contain),
                                           // color: Colors.red,
                                           borderRadius:
                                               BorderRadius.circular(15),
@@ -497,13 +504,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         SizedBox(
                                           // color: Colors.blue,
                                           width: size.width / 1.6,
-                                          child: const Column(
+                                          child:  Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Azuz Tuff gaming",
-                                                style: TextStyle(
+                                                productName,
+                                                style: const TextStyle(
                                                     fontSize: 18,
                                                     fontWeight:
                                                         FontWeight.w500),
@@ -514,9 +521,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    "512 gb",
+                                                    state.products[index].size,
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     "IN STOCK",
                                                     style: TextStyle(
                                                         color: Colors.green,
@@ -535,9 +542,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                             children: [
                                               SizedBox(
                                                 width: size.width / 3.8,
-                                                child: const Text(
-                                                  "₹59,999",
-                                                  style: TextStyle(
+                                                child:  Text(
+                                                  "₹${state.products[index].price.toString()}",
+                                                  style: const TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -565,8 +572,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   )
                                 ],
                               ),
-                            )),
-                      ),
+                            ));
+                        },
+                      ): const Center(child: Text("No Products availble"),),
                     ),
                     SizedBox(
                         height: 150,

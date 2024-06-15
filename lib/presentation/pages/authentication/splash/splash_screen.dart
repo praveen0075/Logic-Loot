@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/login_screen.dart';
+import 'package:logic_loot/presentation/pages/authentication/signup/signup_screen.dart';
 import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 
 
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }else{
       // print("User not logged in");
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LoginScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const SignUpScreen()));
     }
    
   }

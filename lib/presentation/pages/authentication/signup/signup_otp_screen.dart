@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logic_loot/application/signup_bloc/signup_bloc.dart';
+import 'package:logic_loot/application/signup/signup_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/core/theme/theme.dart';
-import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
+import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
+import 'package:logic_loot/presentation/pages/home/home_screen.dart';
+import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:pinput/pinput.dart';
 
@@ -55,7 +56,6 @@ class SignUpOtpScreen extends StatelessWidget {
                       defaultPinTheme: defaultPinTheme,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          // ScaffoldMessenger.of(context).showSnackBar(const  SnackBar(backgroundColor: Colors.red,content: Text("Please enter the OTP")));
                           return "Enter the OTP";
                         } else {
                           return null;
@@ -67,7 +67,9 @@ class SignUpOtpScreen extends StatelessWidget {
               ),
               k20height,
               GestureDetector(
-                onTap: () {},
+                onTap: ()async{
+                  Navigator.pop(context);
+                },
                 child: RichText(
                     text: const TextSpan(
                         style: TextStyle(color: Colors.black),
@@ -80,53 +82,63 @@ class SignUpOtpScreen extends StatelessWidget {
                     ])),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20, top: 100),
-                child: BlocConsumer<SignupBloc, SignupState>(
-                  listener: (context, state) {
-                    if(state.isLoading){
-                      const CircularProgressIndicator();
-                    }else if(state.isotpHasError){
-                      ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(state.message??"Exception occured")));
-                    }else if (state.isotpReqSuccess){
-                      Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context)=>const BottomNavBarWidget()));
-                    }
-                  },
-                  builder: (context, state) {
-                    return CommonSubmitButton(
-                      color: appColor1,
-                        label: "Send Code",
-                        onPressed: () {
-                          if (key.currentState!.validate()) {
-                            context.read<SignupBloc>().add(SignupEvent.requestotpSubmit(otp: otpController.text));
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (ctx) => const HomeScreen()));
-                          }
-                        });
-                  },
-                ),
-                //  child: CommonWidgets.button1(context: context,name: "Verify",screen: const ResetPassword()),
-                //          child :Container(
-                // decoration: BoxDecoration(
-                //     color: appColor1, borderRadius: BorderRadius.circular(5)),
-                // height: 50,
-                // width: 400,
-                // child: TextButton(
-                //     onPressed: () {
-                //       if(key.currentState!.validate()){
-                //       Navigator.pushReplacement(context,
-                //       MaterialPageRoute(builder: (ctx) => const HomeScreen()));
-                //       }
-                //     },
-                //     child: const Text(
-                //       "Verify Code",
-                //       style:  TextStyle(color: Colors.white),
-                //     )))
-              ),
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 100),
+                  child: BlocConsumer<SignupBloc, SignupState>(
+                    listener: (context, state) {
+                      if (state is OTPError) {
+                        snackBarWidget(
+                            context: context,
+                            msg: state.otpErrorMsg,
+                            bgColor: Colors.red);
+                      } else if (state is OTPSucces) {
+                        snackBarWidget(
+                            context: context,
+                            msg: state.otpSuccessMsg,
+                            bgColor: Colors.green);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ));
+                      }
+                    },
+                    builder: (context, state) {
+                      return CommonSubmitButton(
+                          color: appColor1,
+                          label: "Submit OTP",
+                          onPressed: () {
+                            if (key.currentState!.validate()) {
+                              context.read<SignupBloc>().add(
+                                  SignupEvent.otpSumbitRequested(
+                                      otpController.text));
+                              // context.read<SignupBloc>().add(SignupEvent.requestotpSubmit(otp: otpController.text));
+                              // Navigator.pushReplacement(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (ctx) => const HomeScreen()));
+                            }
+                          });
+                    },
+                  )
+
+                  //  child: CommonWidgets.button1(context: context,name: "Verify",screen: const ResetPassword()),
+                  //          child :Container(
+                  // decoration: BoxDecoration(
+                  //     color: appColor1, borderRadius: BorderRadius.circular(5)),
+                  // height: 50,
+                  // width: 400,
+                  // child: TextButton(
+                  //     onPressed: () {
+                  //       if(key.currentState!.validate()){
+                  //       Navigator.pushReplacement(context,
+                  //       MaterialPageRoute(builder: (ctx) => const HomeScreen()));
+                  //       }
+                  //     },
+                  //     child: const Text(
+                  //       "Verify Code",
+                  //       style:  TextStyle(color: Colors.white),
+                  //     )))
+                  ),
             ],
           ),
         ),

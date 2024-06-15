@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
+import 'package:logic_loot/presentation/pages/authentication/signup/signup_screen.dart';
 import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 import 'package:logic_loot/presentation/widgets/textformfield_widget.dart';
@@ -59,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onTap: () async {
                               // context.read<LoginBloc>().add(  const LoginEvent.passVisible(isVisible: false));
                             },
-                            child: Icon(Icons.visibility)),
+                            child: const Icon(Icons.visibility)),
                         labelText: "Password",
                         focusedBorder: const OutlineInputBorder(),
                         border: OutlineInputBorder(
@@ -86,9 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       GestureDetector(
                           onTap: () {
-                  
-                          },
-                          child: const Text("Forgot Password?")),
+                            
+                          }, child: const Text("Forgot Password?")),
                     ],
                   ),
                   const SizedBox(height: 160),
@@ -123,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: appColor1,
                             label: "Log In",
                             onPressed: () {
-                          
                               if (formkey.currentState!.validate()) {
                                 context.read<LoginBloc>().add(
                                     LoginEvent.logInRequested(
@@ -156,11 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text("Or"),
                   GestureDetector(
                     onTap: () {
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const SignUpScreen(),
-                      //     ));
+                      Navigator.pushReplacement(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => const SignUpScreen(),
+                          ));
                     },
                     child: RichText(
                         text: const TextSpan(

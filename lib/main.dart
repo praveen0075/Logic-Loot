@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
-import 'package:logic_loot/application/login_bloc/login_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
-import 'package:logic_loot/application/products/products_bloc.dart';
-import 'package:logic_loot/application/signup_bloc/signup_bloc.dart';
+import 'package:logic_loot/application/signup/signup_bloc.dart';
+import 'package:logic_loot/bloc_observer.dart';
 import 'package:logic_loot/infrastructure/services/auth/login/login_repository.dart';
 import 'package:logic_loot/infrastructure/services/auth/singup/signup_repository.dart';
 import 'package:logic_loot/infrastructure/services/products/products_repository.dart';
 import 'package:logic_loot/presentation/pages/authentication/splash/splash_screen.dart';
 
 void main() {
+  Bloc.observer = MyBlocObserver();
   runApp( MyApp());
 }
 
@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+      
         BlocProvider<SignupBloc>(create: (context)=> SignupBloc(signupRepo)),
         BlocProvider<LoginBloc>(create: (context)=> LoginBloc(loginRepo)),
         BlocProvider<ProductBloc>(create: (context) => ProductBloc(productRepo),) 

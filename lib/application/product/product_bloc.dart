@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logic_loot/domain/models/response_models.dart/get_all_product_response.dart';
@@ -14,7 +16,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(const ProductState.loading());
       final result = await productRepo.getAllProduct();
       result.fold((failure) => emit(ProductState.errorSt(failure.message)),
-          (success) => ProductState.loaded(success.products));
+          (success) => emit(ProductState.loaded(success.products)));
     });
   }
 }
