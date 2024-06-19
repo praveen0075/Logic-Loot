@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomAppBarWidget extends StatelessWidget {
-  const CustomAppBarWidget({super.key, required this.title, this.trailing});
+  const CustomAppBarWidget({super.key, required this.title, this.trailing, this.leading});
 
   final String title;
   final Widget? trailing;
+  final Widget? leading;
 
   @override
   Widget build(BuildContext context) {

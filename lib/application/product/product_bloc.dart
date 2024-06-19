@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logic_loot/domain/models/response_models.dart/get_all_product_response.dart';
@@ -18,5 +16,14 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       result.fold((failure) => emit(ProductState.errorSt(failure.message)),
           (success) => emit(ProductState.loaded(success.products)));
     });
+
+    // on<_GetProductByID>((event, emit) async {
+    //   emit(const ProductState.loading());
+    //   final resutl = await productRepo.getProductById(event.productId);
+    //   resutl.fold(
+    //       (failure) => emit(ProductState.errorSt(failure.message)),
+    //       (success) => emit(ProductState.getProductById(
+    //           success.inventory, success.productDetails, success.products)));
+    // });
   }
 }

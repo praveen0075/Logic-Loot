@@ -13,13 +13,7 @@ class LoginRepository implements IloginRepo {
   @override
   Future<Either<Failure, LoginRequestResponse>> login(
       {required String phone, required String password}) async {
-    // final token = await SharedPreference.getToken();
-    //   if (token == null) {
-    //     print("No token (null)");
-    //     return Left(Failure(message: "Oops! something went wrong"));}
     try {
-      // print(phone);
-      // print(password);
       final request = http.MultipartRequest(
           "POST", Uri.parse("https://lapify.online/user/login"));
       request.fields["phone"] = phone;
@@ -27,35 +21,24 @@ class LoginRepository implements IloginRepo {
 
       final response = await request.send();
 
-      print(response.statusCode);
+      log("status code ---> ${response.statusCode}");
 
       final responseBody = await response.stream.bytesToString();
-      //  final decodedResponse = jsonDecode(responseBody);
-
-      //  print(decodedResponse);
-
       if (response.statusCode == 200) {
         final success = loginRequestResponseFromJson(responseBody);
 
         log(success.token);
 
-        // final token = decodedResponse['token'];
-        // final message = decodedResponse['message'];
-
         await SharedPreference.saveToken(tokenData: success.token);
         await SharedPreference.userLogedIn();
         return Right(success);
       } else {
-        // print("error ");
-
         final result = jsonDecode(responseBody);
-        // final message = decodedResponse['error'];
         final error = result["error"];
-        // print(message);
         return Left(Failure(message: error));
       }
     } catch (e) {
-      print("Exception is $e");
+      log("Exception is $e");
       return Left(Failure(message: "Something went wrong"));
     }
   }
@@ -68,27 +51,27 @@ class LoginRepository implements IloginRepo {
           "POST", Uri.parse("https://lapify.online/user/forget-password"));
       response.fields["phone"] = phone;
       final result = await response.send();
-      print(result.statusCode);
+      log("statuc code --> ${result.statusCode}");
       var responseBody = await result.stream.bytesToString();
-      print("response body ---> $responseBody");
+      log("response body ---> $responseBody");
       final decodedResponse = jsonDecode(responseBody);
-      print(decodedResponse.toString());
+      log(decodedResponse.toString());
       if (result.statusCode == 200) {
         final otpKey = decodedResponse["key"] ?? "";
         final otpResponsemessage = decodedResponse["message"] ?? "";
-        print("otpkey --->  $otpKey");
+        log("otpkey --->  $otpKey");
+        log("success msg --> $otpResponsemessage");
         await SharedPreference.saveOtpIdInForgetPass(otpKey);
-        await SharedPreference.saveOtpIdInResetPass(otpKey);
-        //  await SharedPreference.userLogedIn();
         return Right(
             Success(successmsg: otpResponsemessage ?? "Otp send successfully"));
       } else {
-        print("Error (else)");
-        return Left(Failure(message: decodedResponse["error"]));
+        final error = decodedResponse['error'];
+        log("error ---> $error");
+        return Left(Failure(message: error));
       }
     } catch (e) {
-      print(e);
-      return Left(Failure(message: "Something went wrong"));
+      log("exception --> $e");
+      return Left(Failure(message: "Oops! Something went wrong"));
     }
   }
 
@@ -99,34 +82,32 @@ class LoginRepository implements IloginRepo {
       var result = http.MultipartRequest("POST",
           Uri.parse("https://lapify.online/user/forget-password/validation"));
       result.fields["otp"] = otp;
-      final otpId = await SharedPreference.getOtpIdInForgetPass();
-      print(otpId);
+      final otpKey = await SharedPreference.getOtpIdInForgetPass();
 
-      if (otpId == null) {
-        print("no otp");
+      if (otpKey == null) {
+        log("OTP is null");
         return Left(Failure(message: "Something went wrong with the otp"));
       } else {
-        print("otp key --->");
-        await SharedPreference.saveOtpIdInResetPass(otpId);
-        result.fields["key"] = otpId;
+        log("otp key ---> $otpKey");
+        await SharedPreference.saveOtpIdInResetPass(otpKey);
+        result.fields["key"] = otpKey;
         final response = await result.send();
-        print("response statuscode ---> ${response.statusCode}");
+        log("response statuscode ---> ${response.statusCode}");
 
         var responseBody = await response.stream.bytesToString();
-        print("response body ---> $responseBody");
+        log("response body ---> $responseBody");
         final decodedResponse = jsonDecode(responseBody);
-        final message = decodedResponse["message"];
-        print(message);
         if (response.statusCode == 200) {
-          return Right(Success(successmsg: message, success: true));
+          final success = decodedResponse["message"];
+          return Right(Success(successmsg: success, success: true));
         } else {
-          print("Error ......");
-          print(message);
-          return Left(Failure(message: message, val: false));
+          final error = decodedResponse["error"];
+          log("error ---> $error");
+          return Left(Failure(message: error, val: false));
         }
       }
     } catch (e) {
-      print("Exception --> $e");
+      log("Exception --> $e");
       return Left(Failure(message: "Something went wrong (exception)"));
     }
   }
@@ -135,31 +116,34 @@ class LoginRepository implements IloginRepo {
   Future<Either<Failure, Success>> resetPassConfirmation(
       {required String pass}) async {
     try {
-      final otpId = await SharedPreference.getOtpIdResetPass();
-      print('ptp id ---> $otpId');
-      if (otpId != null) {
+      final otpkey = await SharedPreference.getOtpIdResetPass();
+      log('otp key  ---> $otpkey');
+      if (otpkey != null) {
         var result = http.MultipartRequest("POST",
             Uri.parse("https://lapify.online/user/forget-password-change"));
         result.fields["password"] = pass;
-        result.fields["key"] = otpId;
+        result.fields["key"] = otpkey;
 
         final response = await result.send();
-        print(response.statusCode);
+        log("status code ---> ${response.statusCode}");
         final responseBody = await response.stream.bytesToString();
-        print("Response body: $responseBody");
+        final decodedResponse = jsonDecode(responseBody);
+        log("Response body: $responseBody");
 
         if (response.statusCode == 200) {
-          print("Success");
+          final success = decodedResponse["message"];
+          log("success--> $success");
           return Right(Success(successmsg: "Password Changed Successfully"));
         } else {
-          print("Failed");
-          return Left(Failure(message: "Failed to Change password"));
+          final error = decodedResponse["error"];
+          log("Error ---> $error");
+          return Left(Failure(message: error));
         }
       } else {
-        return Left(Failure(message: "Oops! Someting went wrong"));
+        return Left(Failure(message: "Oops! Someting went wrong internally"));
       }
     } catch (e) {
-      print(e);
+      log("Exception --> $e");
       return Left(Failure(message: "Someting went wrong"));
     }
   }

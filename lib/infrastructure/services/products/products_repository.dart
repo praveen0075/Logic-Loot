@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -5,6 +6,7 @@ import 'package:dartz/dartz.dart';
 import 'package:logic_loot/domain/core/failures/failures.dart';
 import 'package:logic_loot/domain/models/response_models.dart/get_all_product_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:logic_loot/domain/models/response_models.dart/product_by_id_response.dart';
 import 'package:logic_loot/domain/repo/i_product_repo.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 
@@ -15,39 +17,9 @@ class ProductRepository implements IPrductRepo {
       final tkn = await SharedPreference.getToken();
       print(tkn);
       if (tkn != null) {
-        // print("ready to decode");
-        // Decode the token;\
-        // Map<String, dynamic> decodedToken = JwtDecoder.decode(tkn);
-
-        // print("ready to check the token is expired or not");
-
-        // Check if the token is expired
-        // bool isTokenExpired = JwtDecoder.isExpired(tkn);
-
-        // print(tkn);
-
-        // Print decoded token and expiration status
-        // print('Decoded token: $decodedToken');
-        // print('Is token expired? $isTokenExpired');
-
-        // print(tkn);
-        // var cookie = Cookie('token', tkn);
-        // cookie.httpOnly =
-        //     true; // Set to true if the cookie should only be accessible through HTTP requests
-        // cookie.path = '/'; // Set the path for which the cookie is valid
-
-        // var cookies = [cookie];
-
         final response = await http.Client().get(
             Uri.parse("https://lapify.online/user/products?page=1&limit=10"),
-            headers: {
-              // HttpHeaders.cookieHeader: cookies
-              //     .map((c) => c.toString())
-              //     .join('; '), // Set the cookies in the request header
-              "Cookie":"Authorise=$tkn"
-              // "content-type": "application/json"
-            }
-            );
+            headers: {"Cookie": "Authorise=$tkn"});
 
         log("Here is the response ---> $response");
         print("response body ----> ${response.body}");
@@ -70,7 +42,40 @@ class ProductRepository implements IPrductRepo {
       }
     } catch (e) {
       print(e);
-      return Left(Failure(message: "Exception occured"));
+      return Left(Failure(message: "Oops! something went wrong"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ProductDetailsById>> getProductById(
+      String productId) async {
+    try {
+      final adminToken = await SharedPreference.getToken();
+      log("Token ---> $adminToken");
+      if (adminToken == null) {
+        log("Token is null");
+        return Left(Failure(message: "Something bad occured"));
+      } else {
+        final response = await http.Client().get(
+            Uri.parse("https://lapify.online/user/products/details/$productId"),
+            headers: {"Cookie": "Authorise=$adminToken"});
+
+        log("response statuscode ---> ${response.statusCode}");
+        log("response body ---> ${response.body}");
+
+        if (response.statusCode == 200) {
+          final success = productDetailsByIdFromJson(response.body);
+          log("success");
+          return Right(success);
+        } else {
+          final result = jsonDecode(response.body);
+          final errormsg = result["error"];
+          return Left(Failure(message: errormsg));
+        }
+      }
+    } catch (e) {
+      log("Exception --> $e");
+      return Left(Failure(message: "Oops! something went wrong"));
     }
   }
 }

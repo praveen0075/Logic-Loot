@@ -18,7 +18,7 @@ class CheckoutScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 12,right: 12,bottom: 15,top: 10),
         child: CommonSubmitButton(label: "Checkout",onPressed: (){},color: appColor1),
       ),
-      appBar: PreferredSize(
+      appBar: const  PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: CustomAppBarWidget(
             title: "Checkout",

@@ -34,9 +34,10 @@ class Product {
     int price;
     int offerprice;
     String size;
-    bool removed;
     int category;
-    String imageurl;
+    String imageUrl;
+    int quantity;
+    bool wishlisted;
 
     Product({
         required this.id,
@@ -44,30 +45,33 @@ class Product {
         required this.price,
         required this.offerprice,
         required this.size,
-        required this.removed,
         required this.category,
-        required this.imageurl,
+        required this.imageUrl,
+        required this.quantity,
+        required this.wishlisted,
     });
 
     factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["ID"],
+        id: json["id"],
         name: json["name"],
         price: json["price"],
         offerprice: json["offerprice"],
         size: json["size"],
-        removed: json["removed"],
-        category: json["Category"],
-        imageurl: json["imageurl"],
+        category: json["category"],
+        imageUrl: json["image_url"],
+        quantity: json["quantity"],
+        wishlisted: json["wishlisted"],
     );
 
     Map<String, dynamic> toJson() => {
-        "ID": id,
+        "id": id,
         "name": name,
         "price": price,
         "offerprice": offerprice,
         "size": size,
-        "removed": removed,
-        "Category": category,
-        "imageurl": imageurl,
+        "category": category,
+        "image_url": imageUrl,
+        "quantity": quantity,
+        "wishlisted": wishlisted,
     };
 }

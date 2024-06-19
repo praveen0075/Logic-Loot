@@ -17,16 +17,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
   int? _selectedIndex;
   bool _isSelected = false;
   @override
-  Widget build(BuildContext context) {  
+  Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar:  PreferredSize(
+      appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: CustomAppBarWidget(
             title: "Category",
-            trailing: IconButton(onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchScreen(),));
-            }, icon: const Icon(Icons.search )),
+            trailing: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SearchScreen(),
+                      ));
+                },
+                icon: const Icon(Icons.search)),
           )),
       body: SizedBox(
         child: SingleChildScrollView(
@@ -45,12 +51,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       child: ChoiceChip(
                         selectedColor: appColor1,
                         showCheckmark: false,
-                        
                         // labelStyle: _isSelected? TextStyle(color: Colors.white) : TextStyle(color: Colors.black),
-                        label: Text("Category",style: TextStyle(color: _selectedIndex == index? Colors.white : Colors.black),),
+                        label: Text(
+                          "Category",
+                          style: TextStyle(
+                              color: _selectedIndex == index
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                         selected: _selectedIndex == index,
                         onSelected: (bool selectedVal) => setState(() {
-                          _selectedIndex = selectedVal?index:null;
+                          _selectedIndex = selectedVal ? index : null;
                           _isSelected = true;
                         }),
                       ),
@@ -84,7 +95,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) => const ProductDetailsScreen(),
+                              builder: (context) =>
+                                  const ProductDetailsScreen(
+                                productId: 0,
+                              ),
                             ));
                       },
                       child: Material(
@@ -103,7 +117,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         // color: Colors.red,
-                                        borderRadius: BorderRadius.circular(15),
+                                        borderRadius:
+                                            BorderRadius.circular(15),
                                         border: Border.all()),
                                     height: size.height / 12,
                                     width: size.width / 5,
@@ -112,7 +127,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 12),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
                                         // color: Colors.blue,
@@ -125,11 +141,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               "Azuz Tuff gaming",
                                               style: TextStyle(
                                                   fontSize: 18,
-                                                  fontWeight: FontWeight.w500),
+                                                  fontWeight:
+                                                      FontWeight.w500),
                                             ),
                                             Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.spaceBetween,
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   "512 gb",
@@ -157,7 +175,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                 "₹59,999",
                                                 style: TextStyle(
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.bold),
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ),
                                             Row(

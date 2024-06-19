@@ -5,6 +5,7 @@ import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
+import 'package:logic_loot/presentation/pages/authentication/login/forgot_pass_login.dart';
 import 'package:logic_loot/presentation/pages/authentication/signup/signup_screen.dart';
 import 'package:logic_loot/presentation/widgets/bottom_navigation_bar.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
@@ -59,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     decoration: InputDecoration(
                         suffixIcon: InkWell(
                             onTap: () async {
-                              // context.read<LoginBloc>().add(  const LoginEvent.passVisible(isVisible: false));
                             },
                             child: const Icon(Icons.visibility)),
                         labelText: "Password",
@@ -77,33 +77,25 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                   ),
-
-                  // CommonWidgets.textFormFieldwidget(
-                  //     labelText: "Password",
-                  //     errorMessage: "Enter your password",
-                  //     textcontroller: passController),
                   k10height,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
                           onTap: () {
-                            
+                            Navigator.push(context,  MaterialPageRoute(builder: (context) => const ForgotPasswordScreen(),));
                           }, child: const Text("Forgot Password?")),
                     ],
                   ),
                   const SizedBox(height: 160),
-                  // CommonWidgets.button1(context: context,name: "Log in",screen: const HomeScreen()),
                   BlocConsumer<LoginBloc, LoginState>(
                     listener: (context, state) {
                       if (state is ErrorSt) {
-                        // print("erorr ocureddd");
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(state.errormsg),
                           backgroundColor: Colors.red,
                         ));
                       } else if (state is Success) {
-                        // print("login success");
                         SharedPreference.userLogedIn();
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(state.succesmsg),
@@ -134,25 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     },
                   ),
-                  // Container(
-                  //     decoration: BoxDecoration(
-                  //         color: appColor1,
-                  //         borderRadius: BorderRadius.circular(5)),
-                  //     height: 50,
-                  //     width: 400,
-                  //     child: TextButton(
-                  //         onPressed: () {
-                  //           if (formkey.currentState!.validate()) {
-                  //             Navigator.push(
-                  //                 context,
-                  //                 MaterialPageRoute(
-                  //                     builder: (ctx) => const HomeScreen()));
-                  //           }
-                  //         },
-                  //         child: const Text(
-                  //           "Log in",
-                  //           style: TextStyle(color: Colors.white),
-                  //         ))),
                   const Text("Or"),
                   GestureDetector(
                     onTap: () {
