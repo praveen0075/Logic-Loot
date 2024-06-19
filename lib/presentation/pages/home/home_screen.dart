@@ -3,11 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logic_loot/application/cart/cart_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
+import 'package:logic_loot/application/wishlist/wishlist_bloc.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/cart/cart_screen.dart';
 import 'package:logic_loot/presentation/pages/product/product_details.dart';
 import 'package:logic_loot/presentation/pages/search/search_screen.dart';
+import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
+
+bool wishlisted = false;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     String productName;
+    String cartIndicator = "Add to cart";
     BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -297,6 +303,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: state.products.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
+                                bool wish = state.products[index].wishlisted;
+                                final productId = state.products[index].id;
+                                wishlisted = state.products[index].wishlisted;
                                 if (state.products[index].name.length >= 20) {
                                   final name = state.products[index].name;
                                   productName = "${name.substring(0, 17)}...";
@@ -427,31 +436,68 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   .end,
                                                           children: [
                                                             TextButton(
-                                                                onPressed:
-                                                                    () {},
-                                                                child: const Text(
-                                                                    "Add to cart")),
-                                                            state
-                                                                        .products[
-                                                                            index]
-                                                                        .wishlisted !=
-                                                                    true
-                                                                ? IconButton(
                                                                     onPressed:
-                                                                        () {},
-                                                                    icon: const Icon(
-                                                                        Icons
-                                                                            .favorite_outline_rounded))
-                                                                : IconButton(
-                                                                    onPressed:
-                                                                        () {},
-                                                                    icon:
-                                                                        const Icon(
-                                                                      Icons
-                                                                          .favorite_sharp,
-                                                                      color: Colors
-                                                                          .red,
-                                                                    ))
+                                                                        () {
+                                                                          context.read<CartBloc>().add(CartEvent.addToCart(productId.toString(),1.toString()));
+                                                                        },
+                                                                    child:  Text(
+                                                                        cartIndicator)),
+                                                              
+                                                            
+                                                            BlocBuilder<
+                                                                WishlistBloc,
+                                                                WishlistState>(
+                                                              buildWhen: (previous,
+                                                                      current) =>
+                                                                  state
+                                                                      is AddSuccess ||
+                                                                  state
+                                                                      is RemoveSuccess,
+                                                              builder: (context,
+                                                                  state) {
+                                                                if (state
+                                                                        is AddSuccess ||
+                                                                    state
+                                                                        is RemoveSuccess) {
+                                                                  return IconButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        wishlisted ==
+                                                                                false
+                                                                            ? context.read<WishlistBloc>().add(WishlistEvent.addToWishlist(productId.toString()))
+                                                                            : context.read<WishlistBloc>().add(WishlistEvent.removeFromWishlsit(productId.toString()));
+                                                                      },
+                                                                      icon: wish ==
+                                                                              true
+                                                                          ? Icon(
+                                                                              Icons.favorite_sharp,
+                                                                              color: Colors.red,
+                                                                            )
+                                                                          : Icon(
+                                                                              Icons.favorite_border_sharp,
+                                                                            ));
+                                                                } else {
+                                                                  return IconButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        wishlisted ==
+                                                                                false
+                                                                            ? context.read<WishlistBloc>().add(WishlistEvent.addToWishlist(productId.toString()))
+                                                                            : context.read<WishlistBloc>().add(WishlistEvent.removeFromWishlsit(productId.toString()));
+                                                                      },
+                                                                      icon: wishlisted ==
+                                                                              true
+                                                                          ? Icon(
+                                                                              Icons.favorite_sharp,
+                                                                              color: Colors.red,
+                                                                            )
+                                                                          : Icon(
+                                                                              Icons.favorite_border_sharp,
+                                                                              size: size.height / 30,
+                                                                            ));
+                                                                }
+                                                              },
+                                                            )
                                                           ],
                                                         ),
                                                       ],

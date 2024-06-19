@@ -3,4 +3,6 @@ import 'package:logic_loot/domain/models/response_models.dart/wishlist_response.
 
 abstract class IWishlistRepo{
   Future<Either<String,WishListResponse>> getWishlist();
+  Future<Either<String,String>> addWishlist(String productId);
+  Future<Either<String,String>> removeWishlist(String productId);
 }

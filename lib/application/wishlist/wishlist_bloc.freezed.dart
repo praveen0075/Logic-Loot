@@ -19,32 +19,44 @@ mixin _$WishlistEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getWishlist,
+    required TResult Function(String productId) addToWishlist,
+    required TResult Function(String productId) removeFromWishlsit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getWishlist,
+    TResult? Function(String productId)? addToWishlist,
+    TResult? Function(String productId)? removeFromWishlsit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getWishlist,
+    TResult Function(String productId)? addToWishlist,
+    TResult Function(String productId)? removeFromWishlsit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetWishList value) getWishlist,
+    required TResult Function(_AddToWishlist value) addToWishlist,
+    required TResult Function(_RemoveFromWishlist value) removeFromWishlsit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetWishList value)? getWishlist,
+    TResult? Function(_AddToWishlist value)? addToWishlist,
+    TResult? Function(_RemoveFromWishlist value)? removeFromWishlsit,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetWishList value)? getWishlist,
+    TResult Function(_AddToWishlist value)? addToWishlist,
+    TResult Function(_RemoveFromWishlist value)? removeFromWishlsit,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +119,8 @@ class _$GetWishListImpl implements _GetWishList {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getWishlist,
+    required TResult Function(String productId) addToWishlist,
+    required TResult Function(String productId) removeFromWishlsit,
   }) {
     return getWishlist();
   }
@@ -115,6 +129,8 @@ class _$GetWishListImpl implements _GetWishList {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getWishlist,
+    TResult? Function(String productId)? addToWishlist,
+    TResult? Function(String productId)? removeFromWishlsit,
   }) {
     return getWishlist?.call();
   }
@@ -123,6 +139,8 @@ class _$GetWishListImpl implements _GetWishList {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getWishlist,
+    TResult Function(String productId)? addToWishlist,
+    TResult Function(String productId)? removeFromWishlsit,
     required TResult orElse(),
   }) {
     if (getWishlist != null) {
@@ -135,6 +153,8 @@ class _$GetWishListImpl implements _GetWishList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetWishList value) getWishlist,
+    required TResult Function(_AddToWishlist value) addToWishlist,
+    required TResult Function(_RemoveFromWishlist value) removeFromWishlsit,
   }) {
     return getWishlist(this);
   }
@@ -143,6 +163,8 @@ class _$GetWishListImpl implements _GetWishList {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetWishList value)? getWishlist,
+    TResult? Function(_AddToWishlist value)? addToWishlist,
+    TResult? Function(_RemoveFromWishlist value)? removeFromWishlsit,
   }) {
     return getWishlist?.call(this);
   }
@@ -151,6 +173,8 @@ class _$GetWishListImpl implements _GetWishList {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetWishList value)? getWishlist,
+    TResult Function(_AddToWishlist value)? addToWishlist,
+    TResult Function(_RemoveFromWishlist value)? removeFromWishlsit,
     required TResult orElse(),
   }) {
     if (getWishlist != null) {
@@ -165,54 +189,348 @@ abstract class _GetWishList implements WishlistEvent {
 }
 
 /// @nodoc
+abstract class _$$AddToWishlistImplCopyWith<$Res> {
+  factory _$$AddToWishlistImplCopyWith(
+          _$AddToWishlistImpl value, $Res Function(_$AddToWishlistImpl) then) =
+      __$$AddToWishlistImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String productId});
+}
+
+/// @nodoc
+class __$$AddToWishlistImplCopyWithImpl<$Res>
+    extends _$WishlistEventCopyWithImpl<$Res, _$AddToWishlistImpl>
+    implements _$$AddToWishlistImplCopyWith<$Res> {
+  __$$AddToWishlistImplCopyWithImpl(
+      _$AddToWishlistImpl _value, $Res Function(_$AddToWishlistImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productId = null,
+  }) {
+    return _then(_$AddToWishlistImpl(
+      null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddToWishlistImpl implements _AddToWishlist {
+  const _$AddToWishlistImpl(this.productId);
+
+  @override
+  final String productId;
+
+  @override
+  String toString() {
+    return 'WishlistEvent.addToWishlist(productId: $productId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddToWishlistImpl &&
+            (identical(other.productId, productId) ||
+                other.productId == productId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddToWishlistImplCopyWith<_$AddToWishlistImpl> get copyWith =>
+      __$$AddToWishlistImplCopyWithImpl<_$AddToWishlistImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getWishlist,
+    required TResult Function(String productId) addToWishlist,
+    required TResult Function(String productId) removeFromWishlsit,
+  }) {
+    return addToWishlist(productId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getWishlist,
+    TResult? Function(String productId)? addToWishlist,
+    TResult? Function(String productId)? removeFromWishlsit,
+  }) {
+    return addToWishlist?.call(productId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getWishlist,
+    TResult Function(String productId)? addToWishlist,
+    TResult Function(String productId)? removeFromWishlsit,
+    required TResult orElse(),
+  }) {
+    if (addToWishlist != null) {
+      return addToWishlist(productId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetWishList value) getWishlist,
+    required TResult Function(_AddToWishlist value) addToWishlist,
+    required TResult Function(_RemoveFromWishlist value) removeFromWishlsit,
+  }) {
+    return addToWishlist(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetWishList value)? getWishlist,
+    TResult? Function(_AddToWishlist value)? addToWishlist,
+    TResult? Function(_RemoveFromWishlist value)? removeFromWishlsit,
+  }) {
+    return addToWishlist?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetWishList value)? getWishlist,
+    TResult Function(_AddToWishlist value)? addToWishlist,
+    TResult Function(_RemoveFromWishlist value)? removeFromWishlsit,
+    required TResult orElse(),
+  }) {
+    if (addToWishlist != null) {
+      return addToWishlist(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddToWishlist implements WishlistEvent {
+  const factory _AddToWishlist(final String productId) = _$AddToWishlistImpl;
+
+  String get productId;
+  @JsonKey(ignore: true)
+  _$$AddToWishlistImplCopyWith<_$AddToWishlistImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveFromWishlistImplCopyWith<$Res> {
+  factory _$$RemoveFromWishlistImplCopyWith(_$RemoveFromWishlistImpl value,
+          $Res Function(_$RemoveFromWishlistImpl) then) =
+      __$$RemoveFromWishlistImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String productId});
+}
+
+/// @nodoc
+class __$$RemoveFromWishlistImplCopyWithImpl<$Res>
+    extends _$WishlistEventCopyWithImpl<$Res, _$RemoveFromWishlistImpl>
+    implements _$$RemoveFromWishlistImplCopyWith<$Res> {
+  __$$RemoveFromWishlistImplCopyWithImpl(_$RemoveFromWishlistImpl _value,
+      $Res Function(_$RemoveFromWishlistImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productId = null,
+  }) {
+    return _then(_$RemoveFromWishlistImpl(
+      null == productId
+          ? _value.productId
+          : productId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveFromWishlistImpl implements _RemoveFromWishlist {
+  const _$RemoveFromWishlistImpl(this.productId);
+
+  @override
+  final String productId;
+
+  @override
+  String toString() {
+    return 'WishlistEvent.removeFromWishlsit(productId: $productId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveFromWishlistImpl &&
+            (identical(other.productId, productId) ||
+                other.productId == productId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveFromWishlistImplCopyWith<_$RemoveFromWishlistImpl> get copyWith =>
+      __$$RemoveFromWishlistImplCopyWithImpl<_$RemoveFromWishlistImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getWishlist,
+    required TResult Function(String productId) addToWishlist,
+    required TResult Function(String productId) removeFromWishlsit,
+  }) {
+    return removeFromWishlsit(productId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getWishlist,
+    TResult? Function(String productId)? addToWishlist,
+    TResult? Function(String productId)? removeFromWishlsit,
+  }) {
+    return removeFromWishlsit?.call(productId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getWishlist,
+    TResult Function(String productId)? addToWishlist,
+    TResult Function(String productId)? removeFromWishlsit,
+    required TResult orElse(),
+  }) {
+    if (removeFromWishlsit != null) {
+      return removeFromWishlsit(productId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetWishList value) getWishlist,
+    required TResult Function(_AddToWishlist value) addToWishlist,
+    required TResult Function(_RemoveFromWishlist value) removeFromWishlsit,
+  }) {
+    return removeFromWishlsit(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetWishList value)? getWishlist,
+    TResult? Function(_AddToWishlist value)? addToWishlist,
+    TResult? Function(_RemoveFromWishlist value)? removeFromWishlsit,
+  }) {
+    return removeFromWishlsit?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetWishList value)? getWishlist,
+    TResult Function(_AddToWishlist value)? addToWishlist,
+    TResult Function(_RemoveFromWishlist value)? removeFromWishlsit,
+    required TResult orElse(),
+  }) {
+    if (removeFromWishlsit != null) {
+      return removeFromWishlsit(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoveFromWishlist implements WishlistEvent {
+  const factory _RemoveFromWishlist(final String productId) =
+      _$RemoveFromWishlistImpl;
+
+  String get productId;
+  @JsonKey(ignore: true)
+  _$$RemoveFromWishlistImplCopyWith<_$RemoveFromWishlistImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$WishlistState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
     required TResult Function(List<Message> wishList) loaded,
     required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
     TResult? Function(List<Message> wishList)? loaded,
     TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
     TResult Function(List<Message> wishList)? loaded,
     TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(ErroSt value) errorsT,
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
-    TResult? Function(ErroSt value)? errorsT,
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(ErroSt value)? errorsT,
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -237,35 +555,35 @@ class _$WishlistStateCopyWithImpl<$Res, $Val extends WishlistState>
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$WishlistInitialImplCopyWith<$Res> {
+  factory _$$WishlistInitialImplCopyWith(_$WishlistInitialImpl value,
+          $Res Function(_$WishlistInitialImpl) then) =
+      __$$WishlistInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$WishlistStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$WishlistInitialImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$WishlistInitialImpl>
+    implements _$$WishlistInitialImplCopyWith<$Res> {
+  __$$WishlistInitialImplCopyWithImpl(
+      _$WishlistInitialImpl _value, $Res Function(_$WishlistInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$InitialImpl implements Initial {
-  const _$InitialImpl();
+class _$WishlistInitialImpl implements WishlistInitial {
+  const _$WishlistInitialImpl();
 
   @override
   String toString() {
-    return 'WishlistState.initial()';
+    return 'WishlistState.wishlistInitial()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
+        (other.runtimeType == runtimeType && other is _$WishlistInitialImpl);
   }
 
   @override
@@ -274,36 +592,42 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
     required TResult Function(List<Message> wishList) loaded,
     required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
   }) {
-    return initial();
+    return wishlistInitial();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
     TResult? Function(List<Message> wishList)? loaded,
     TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
   }) {
-    return initial?.call();
+    return wishlistInitial?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
     TResult Function(List<Message> wishList)? loaded,
     TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial();
+    if (wishlistInitial != null) {
+      return wishlistInitial();
     }
     return orElse();
   }
@@ -311,75 +635,81 @@ class _$InitialImpl implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(ErroSt value) errorsT,
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
   }) {
-    return initial(this);
+    return wishlistInitial(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
-    TResult? Function(ErroSt value)? errorsT,
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
   }) {
-    return initial?.call(this);
+    return wishlistInitial?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(ErroSt value)? errorsT,
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial(this);
+    if (wishlistInitial != null) {
+      return wishlistInitial(this);
     }
     return orElse();
   }
 }
 
-abstract class Initial implements WishlistState {
-  const factory Initial() = _$InitialImpl;
+abstract class WishlistInitial implements WishlistState {
+  const factory WishlistInitial() = _$WishlistInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$WishListLoadingImplCopyWith<$Res> {
+  factory _$$WishListLoadingImplCopyWith(_$WishListLoadingImpl value,
+          $Res Function(_$WishListLoadingImpl) then) =
+      __$$WishListLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$WishlistStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$WishListLoadingImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$WishListLoadingImpl>
+    implements _$$WishListLoadingImplCopyWith<$Res> {
+  __$$WishListLoadingImplCopyWithImpl(
+      _$WishListLoadingImpl _value, $Res Function(_$WishListLoadingImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements Loading {
-  const _$LoadingImpl();
+class _$WishListLoadingImpl implements WishListLoading {
+  const _$WishListLoadingImpl();
 
   @override
   String toString() {
-    return 'WishlistState.loading()';
+    return 'WishlistState.wishlistLoading()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$WishListLoadingImpl);
   }
 
   @override
@@ -388,36 +718,42 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
     required TResult Function(List<Message> wishList) loaded,
     required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
   }) {
-    return loading();
+    return wishlistLoading();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
     TResult? Function(List<Message> wishList)? loaded,
     TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
   }) {
-    return loading?.call();
+    return wishlistLoading?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
     TResult Function(List<Message> wishList)? loaded,
     TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (wishlistLoading != null) {
+      return wishlistLoading();
     }
     return orElse();
   }
@@ -425,60 +761,66 @@ class _$LoadingImpl implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(ErroSt value) errorsT,
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
   }) {
-    return loading(this);
+    return wishlistLoading(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
-    TResult? Function(ErroSt value)? errorsT,
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
   }) {
-    return loading?.call(this);
+    return wishlistLoading?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(ErroSt value)? errorsT,
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (wishlistLoading != null) {
+      return wishlistLoading(this);
     }
     return orElse();
   }
 }
 
-abstract class Loading implements WishlistState {
-  const factory Loading() = _$LoadingImpl;
+abstract class WishListLoading implements WishlistState {
+  const factory WishListLoading() = _$WishListLoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadedImplCopyWith<$Res> {
-  factory _$$LoadedImplCopyWith(
-          _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
-      __$$LoadedImplCopyWithImpl<$Res>;
+abstract class _$$WishListLoadedImplCopyWith<$Res> {
+  factory _$$WishListLoadedImplCopyWith(_$WishListLoadedImpl value,
+          $Res Function(_$WishListLoadedImpl) then) =
+      __$$WishListLoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({List<Message> wishList});
 }
 
 /// @nodoc
-class __$$LoadedImplCopyWithImpl<$Res>
-    extends _$WishlistStateCopyWithImpl<$Res, _$LoadedImpl>
-    implements _$$LoadedImplCopyWith<$Res> {
-  __$$LoadedImplCopyWithImpl(
-      _$LoadedImpl _value, $Res Function(_$LoadedImpl) _then)
+class __$$WishListLoadedImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$WishListLoadedImpl>
+    implements _$$WishListLoadedImplCopyWith<$Res> {
+  __$$WishListLoadedImplCopyWithImpl(
+      _$WishListLoadedImpl _value, $Res Function(_$WishListLoadedImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -486,7 +828,7 @@ class __$$LoadedImplCopyWithImpl<$Res>
   $Res call({
     Object? wishList = null,
   }) {
-    return _then(_$LoadedImpl(
+    return _then(_$WishListLoadedImpl(
       null == wishList
           ? _value._wishList
           : wishList // ignore: cast_nullable_to_non_nullable
@@ -497,8 +839,9 @@ class __$$LoadedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$LoadedImpl implements Loaded {
-  const _$LoadedImpl(final List<Message> wishList) : _wishList = wishList;
+class _$WishListLoadedImpl implements WishListLoaded {
+  const _$WishListLoadedImpl(final List<Message> wishList)
+      : _wishList = wishList;
 
   final List<Message> _wishList;
   @override
@@ -517,7 +860,7 @@ class _$LoadedImpl implements Loaded {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoadedImpl &&
+            other is _$WishListLoadedImpl &&
             const DeepCollectionEquality().equals(other._wishList, _wishList));
   }
 
@@ -528,16 +871,19 @@ class _$LoadedImpl implements Loaded {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
-      __$$LoadedImplCopyWithImpl<_$LoadedImpl>(this, _$identity);
+  _$$WishListLoadedImplCopyWith<_$WishListLoadedImpl> get copyWith =>
+      __$$WishListLoadedImplCopyWithImpl<_$WishListLoadedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
     required TResult Function(List<Message> wishList) loaded,
     required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
   }) {
     return loaded(wishList);
   }
@@ -545,10 +891,12 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
     TResult? Function(List<Message> wishList)? loaded,
     TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
   }) {
     return loaded?.call(wishList);
   }
@@ -556,10 +904,12 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
     TResult Function(List<Message> wishList)? loaded,
     TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -571,10 +921,12 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(ErroSt value) errorsT,
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
   }) {
     return loaded(this);
   }
@@ -582,10 +934,12 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
-    TResult? Function(ErroSt value)? errorsT,
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
   }) {
     return loaded?.call(this);
   }
@@ -593,10 +947,12 @@ class _$LoadedImpl implements Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(ErroSt value)? errorsT,
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -606,30 +962,31 @@ class _$LoadedImpl implements Loaded {
   }
 }
 
-abstract class Loaded implements WishlistState {
-  const factory Loaded(final List<Message> wishList) = _$LoadedImpl;
+abstract class WishListLoaded implements WishlistState {
+  const factory WishListLoaded(final List<Message> wishList) =
+      _$WishListLoadedImpl;
 
   List<Message> get wishList;
   @JsonKey(ignore: true)
-  _$$LoadedImplCopyWith<_$LoadedImpl> get copyWith =>
+  _$$WishListLoadedImplCopyWith<_$WishListLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErroStImplCopyWith<$Res> {
-  factory _$$ErroStImplCopyWith(
-          _$ErroStImpl value, $Res Function(_$ErroStImpl) then) =
-      __$$ErroStImplCopyWithImpl<$Res>;
+abstract class _$$WishlistErrorImplCopyWith<$Res> {
+  factory _$$WishlistErrorImplCopyWith(
+          _$WishlistErrorImpl value, $Res Function(_$WishlistErrorImpl) then) =
+      __$$WishlistErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String errormsg});
 }
 
 /// @nodoc
-class __$$ErroStImplCopyWithImpl<$Res>
-    extends _$WishlistStateCopyWithImpl<$Res, _$ErroStImpl>
-    implements _$$ErroStImplCopyWith<$Res> {
-  __$$ErroStImplCopyWithImpl(
-      _$ErroStImpl _value, $Res Function(_$ErroStImpl) _then)
+class __$$WishlistErrorImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$WishlistErrorImpl>
+    implements _$$WishlistErrorImplCopyWith<$Res> {
+  __$$WishlistErrorImplCopyWithImpl(
+      _$WishlistErrorImpl _value, $Res Function(_$WishlistErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -637,7 +994,7 @@ class __$$ErroStImplCopyWithImpl<$Res>
   $Res call({
     Object? errormsg = null,
   }) {
-    return _then(_$ErroStImpl(
+    return _then(_$WishlistErrorImpl(
       null == errormsg
           ? _value.errormsg
           : errormsg // ignore: cast_nullable_to_non_nullable
@@ -648,8 +1005,8 @@ class __$$ErroStImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$ErroStImpl implements ErroSt {
-  const _$ErroStImpl(this.errormsg);
+class _$WishlistErrorImpl implements WishlistError {
+  const _$WishlistErrorImpl(this.errormsg);
 
   @override
   final String errormsg;
@@ -663,7 +1020,7 @@ class _$ErroStImpl implements ErroSt {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErroStImpl &&
+            other is _$WishlistErrorImpl &&
             (identical(other.errormsg, errormsg) ||
                 other.errormsg == errormsg));
   }
@@ -674,16 +1031,18 @@ class _$ErroStImpl implements ErroSt {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErroStImplCopyWith<_$ErroStImpl> get copyWith =>
-      __$$ErroStImplCopyWithImpl<_$ErroStImpl>(this, _$identity);
+  _$$WishlistErrorImplCopyWith<_$WishlistErrorImpl> get copyWith =>
+      __$$WishlistErrorImplCopyWithImpl<_$WishlistErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
     required TResult Function(List<Message> wishList) loaded,
     required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
   }) {
     return errorsT(errormsg);
   }
@@ -691,10 +1050,12 @@ class _$ErroStImpl implements ErroSt {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
     TResult? Function(List<Message> wishList)? loaded,
     TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
   }) {
     return errorsT?.call(errormsg);
   }
@@ -702,10 +1063,12 @@ class _$ErroStImpl implements ErroSt {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
     TResult Function(List<Message> wishList)? loaded,
     TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
     required TResult orElse(),
   }) {
     if (errorsT != null) {
@@ -717,10 +1080,12 @@ class _$ErroStImpl implements ErroSt {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(Loading value) loading,
-    required TResult Function(Loaded value) loaded,
-    required TResult Function(ErroSt value) errorsT,
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
   }) {
     return errorsT(this);
   }
@@ -728,10 +1093,12 @@ class _$ErroStImpl implements ErroSt {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Initial value)? initial,
-    TResult? Function(Loading value)? loading,
-    TResult? Function(Loaded value)? loaded,
-    TResult? Function(ErroSt value)? errorsT,
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
   }) {
     return errorsT?.call(this);
   }
@@ -739,10 +1106,12 @@ class _$ErroStImpl implements ErroSt {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(Loading value)? loading,
-    TResult Function(Loaded value)? loaded,
-    TResult Function(ErroSt value)? errorsT,
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
     required TResult orElse(),
   }) {
     if (errorsT != null) {
@@ -752,11 +1121,327 @@ class _$ErroStImpl implements ErroSt {
   }
 }
 
-abstract class ErroSt implements WishlistState {
-  const factory ErroSt(final String errormsg) = _$ErroStImpl;
+abstract class WishlistError implements WishlistState {
+  const factory WishlistError(final String errormsg) = _$WishlistErrorImpl;
 
   String get errormsg;
   @JsonKey(ignore: true)
-  _$$ErroStImplCopyWith<_$ErroStImpl> get copyWith =>
+  _$$WishlistErrorImplCopyWith<_$WishlistErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddSuccessImplCopyWith<$Res> {
+  factory _$$AddSuccessImplCopyWith(
+          _$AddSuccessImpl value, $Res Function(_$AddSuccessImpl) then) =
+      __$$AddSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String successmg});
+}
+
+/// @nodoc
+class __$$AddSuccessImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$AddSuccessImpl>
+    implements _$$AddSuccessImplCopyWith<$Res> {
+  __$$AddSuccessImplCopyWithImpl(
+      _$AddSuccessImpl _value, $Res Function(_$AddSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? successmg = null,
+  }) {
+    return _then(_$AddSuccessImpl(
+      null == successmg
+          ? _value.successmg
+          : successmg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddSuccessImpl implements AddSuccess {
+  const _$AddSuccessImpl(this.successmg);
+
+  @override
+  final String successmg;
+
+  @override
+  String toString() {
+    return 'WishlistState.addSuccess(successmg: $successmg)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddSuccessImpl &&
+            (identical(other.successmg, successmg) ||
+                other.successmg == successmg));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, successmg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddSuccessImplCopyWith<_$AddSuccessImpl> get copyWith =>
+      __$$AddSuccessImplCopyWithImpl<_$AddSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
+    required TResult Function(List<Message> wishList) loaded,
+    required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
+  }) {
+    return addSuccess(successmg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
+    TResult? Function(List<Message> wishList)? loaded,
+    TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
+  }) {
+    return addSuccess?.call(successmg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
+    TResult Function(List<Message> wishList)? loaded,
+    TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
+    required TResult orElse(),
+  }) {
+    if (addSuccess != null) {
+      return addSuccess(successmg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
+  }) {
+    return addSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
+  }) {
+    return addSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
+    required TResult orElse(),
+  }) {
+    if (addSuccess != null) {
+      return addSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AddSuccess implements WishlistState {
+  const factory AddSuccess(final String successmg) = _$AddSuccessImpl;
+
+  String get successmg;
+  @JsonKey(ignore: true)
+  _$$AddSuccessImplCopyWith<_$AddSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveSuccessImplCopyWith<$Res> {
+  factory _$$RemoveSuccessImplCopyWith(
+          _$RemoveSuccessImpl value, $Res Function(_$RemoveSuccessImpl) then) =
+      __$$RemoveSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String successmsg});
+}
+
+/// @nodoc
+class __$$RemoveSuccessImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$RemoveSuccessImpl>
+    implements _$$RemoveSuccessImplCopyWith<$Res> {
+  __$$RemoveSuccessImplCopyWithImpl(
+      _$RemoveSuccessImpl _value, $Res Function(_$RemoveSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? successmsg = null,
+  }) {
+    return _then(_$RemoveSuccessImpl(
+      null == successmsg
+          ? _value.successmsg
+          : successmsg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveSuccessImpl implements RemoveSuccess {
+  const _$RemoveSuccessImpl(this.successmsg);
+
+  @override
+  final String successmsg;
+
+  @override
+  String toString() {
+    return 'WishlistState.removeSuccess(successmsg: $successmsg)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveSuccessImpl &&
+            (identical(other.successmsg, successmsg) ||
+                other.successmsg == successmsg));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, successmsg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveSuccessImplCopyWith<_$RemoveSuccessImpl> get copyWith =>
+      __$$RemoveSuccessImplCopyWithImpl<_$RemoveSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
+    required TResult Function(List<Message> wishList) loaded,
+    required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
+  }) {
+    return removeSuccess(successmsg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
+    TResult? Function(List<Message> wishList)? loaded,
+    TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
+  }) {
+    return removeSuccess?.call(successmsg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
+    TResult Function(List<Message> wishList)? loaded,
+    TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
+    required TResult orElse(),
+  }) {
+    if (removeSuccess != null) {
+      return removeSuccess(successmsg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
+  }) {
+    return removeSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
+  }) {
+    return removeSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
+    required TResult orElse(),
+  }) {
+    if (removeSuccess != null) {
+      return removeSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveSuccess implements WishlistState {
+  const factory RemoveSuccess(final String successmsg) = _$RemoveSuccessImpl;
+
+  String get successmsg;
+  @JsonKey(ignore: true)
+  _$$RemoveSuccessImplCopyWith<_$RemoveSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

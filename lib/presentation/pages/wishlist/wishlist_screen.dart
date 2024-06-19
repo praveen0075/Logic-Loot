@@ -10,9 +10,9 @@ class WishListScreen extends StatelessWidget {
   const WishListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     context.read<WishlistBloc>().add(const WishlistEvent.getWishlist());
-    var size = MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size; 
     String productName;
     return Scaffold(
       appBar: PreferredSize(
@@ -31,15 +31,15 @@ class WishListScreen extends StatelessWidget {
           )),
       body: BlocBuilder<WishlistBloc, WishlistState>(
         builder: (context, state) {
-          if (state is Loading) {
+          if (state is WishListLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is ErroSt) {
+          } else if (state is WishlistError) {
             return Center(
               child: Text(state.errormsg),
             );
-          } else if (state is Loaded) {
+          } else if (state is WishListLoaded) {
             return ListView.builder(
               // separatorBuilder: (context, index) => SizedBox(height: 5),
               itemCount: state.wishList.length,
@@ -78,7 +78,8 @@ class WishListScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    // color: Colors.red,
+                                  // image: DecorationImage(image: NetworkImage(state.wishList[index].)),
+                                    color: Colors.red,
                                     borderRadius: BorderRadius.circular(15),
                                     border: Border.all()),
                                 height: size.height / 12,
