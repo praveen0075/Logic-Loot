@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/cart/cart_bloc.dart';
+import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
 import 'package:logic_loot/application/product_by_id/product_by_id_bloc.dart';
+import 'package:logic_loot/application/quantity/quantity_bloc.dart';
 import 'package:logic_loot/application/search/search_bloc.dart';
 import 'package:logic_loot/application/signup/signup_bloc.dart';
 import 'package:logic_loot/application/wishlist/wishlist_bloc.dart';
@@ -45,7 +47,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<SearchBloc>(create: (context)=> SearchBloc(searchRepo,productRepo),),
         BlocProvider<ProductByIdBloc>(create: (context)=> ProductByIdBloc(productRepo),),
         BlocProvider<WishlistBloc>(create: (context)=> WishlistBloc(wishlistRepo)),
-        BlocProvider<CartBloc>(create: (context) => CartBloc(cartRepo),)
+        BlocProvider<CartBloc>(create: (context) => CartBloc(cartRepo),),
+        BlocProvider<QuantityBloc>(create: (context) => QuantityBloc(),),
+        BlocProvider<GetCartBloc>(create: (context)=> GetCartBloc(cartRepo)),
         // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
       ],
       child: const MaterialApp(

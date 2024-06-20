@@ -304,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 bool wish = state.products[index].wishlisted;
-                                final productId = state.products[index].id;
+                                // final productId = state.products[index].id;
                                 wishlisted = state.products[index].wishlisted;
                                 if (state.products[index].name.length >= 20) {
                                   final name = state.products[index].name;
@@ -417,6 +417,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     width: size.width / 1.6,
                                                     // color: Colors.red,
                                                     child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         SizedBox(
                                                           width:
@@ -424,48 +425,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           child: Text(
                                                             "₹${state.products[index].price.toString()}",
                                                             style: const TextStyle(
-                                                                fontSize: 16,
+                                                                fontSize: 18,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold),
                                                           ),
                                                         ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            TextButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                          context.read<CartBloc>().add(CartEvent.addToCart(productId.toString(),1.toString()));
-                                                                        },
-                                                                    child:  Text(
-                                                                        cartIndicator)),
+                                                        // Row(
+                                                        //   mainAxisAlignment:
+                                                        //       MainAxisAlignment
+                                                        //           .end,
+                                                        //   children: [
+                                                            // TextButton(
+                                                            //         onPressed:
+                                                            //             () {
+                                                            //               context.read<CartBloc>().add(CartEvent.addToCart(productId.toString(),1.toString()));
+                                                            //             },
+                                                            //         child:  Text(
+                                                            //             cartIndicator)),
                                                               
                                                             
-                                                            BlocBuilder<
-                                                                WishlistBloc,
-                                                                WishlistState>(
-                                                              buildWhen: (previous,
-                                                                      current) =>
-                                                                  state
-                                                                      is AddSuccess ||
-                                                                  state
-                                                                      is RemoveSuccess,
-                                                              builder: (context,
-                                                                  state) {
-                                                                if (state
-                                                                        is AddSuccess ||
-                                                                    state
-                                                                        is RemoveSuccess) {
-                                                                  return IconButton(
+                                                             IconButton(
                                                                       onPressed:
                                                                           () {
-                                                                        wishlisted ==
-                                                                                false
-                                                                            ? context.read<WishlistBloc>().add(WishlistEvent.addToWishlist(productId.toString()))
-                                                                            : context.read<WishlistBloc>().add(WishlistEvent.removeFromWishlsit(productId.toString()));
+                                                                       
                                                                       },
                                                                       icon: wish ==
                                                                               true
@@ -475,31 +458,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                             )
                                                                           : Icon(
                                                                               Icons.favorite_border_sharp,
-                                                                            ));
-                                                                } else {
-                                                                  return IconButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        wishlisted ==
-                                                                                false
-                                                                            ? context.read<WishlistBloc>().add(WishlistEvent.addToWishlist(productId.toString()))
-                                                                            : context.read<WishlistBloc>().add(WishlistEvent.removeFromWishlsit(productId.toString()));
-                                                                      },
-                                                                      icon: wishlisted ==
-                                                                              true
-                                                                          ? Icon(
-                                                                              Icons.favorite_sharp,
-                                                                              color: Colors.red,
-                                                                            )
-                                                                          : Icon(
-                                                                              Icons.favorite_border_sharp,
-                                                                              size: size.height / 30,
-                                                                            ));
-                                                                }
-                                                              },
-                                                            )
-                                                          ],
-                                                        ),
+                                                                              size: 27,
+                                                                            ))
+                                                                
+                                                              
+                                                            
+                                                        //   ],
+                                                        // ),
                                                       ],
                                                     ),
                                                   )
