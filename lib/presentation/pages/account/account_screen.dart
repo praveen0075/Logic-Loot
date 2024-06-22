@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
-import 'package:logic_loot/presentation/pages/account/screens/account_details__screen.dart';
-import 'package:logic_loot/presentation/pages/account/screens/addresses_screen.dart';
+import 'package:logic_loot/presentation/pages/account/screens/change_password/otp_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/coupons_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/orders_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/privacy_and_policy_screen.dart';
 import 'package:logic_loot/presentation/pages/account/widgets/list_tile_widget.dart';
+import 'package:logic_loot/presentation/pages/address/address_screen.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/login_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 
@@ -23,36 +23,106 @@ class SettingScreen extends StatelessWidget {
             )),
         body: Column(
           children: [
+            // ListTileWidget(
+            //   icon: Icons.person_outline,
+            //   name: "Account Details",
+            //   onTap: () {
+            //     Navigator.push( 
+            //         context,
+            //         CupertinoPageRoute(
+            //           builder: (context) => AccountDetailsScreen(),
+            //         ));
+            //   },
+            // ),
             ListTileWidget(
-              icon: Icons.person,
-              name: "Account Details",
-              screen: AccountDetailsScreen(),
-            ),
+                icon: Icons.location_on_outlined,
+                name: "Adresses",
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => AddressScreen(),
+                      ));
+                }),
             ListTileWidget(
-              icon: Icons.location_on_sharp,
-              name: "Orders",
-              screen: OrdersScreen(),
-            ),
+                icon: CupertinoIcons.bag,
+                name: "Orders", 
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => OrdersScreen(),
+                      ));
+                }),
             ListTileWidget(
-              icon: CupertinoIcons.bag,
-              name: "Adresses",
-              screen: AccountAddressScreen(),
-            ),
+                icon: CupertinoIcons.ticket,
+                name: "Coupons",
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => CouponScreen(),
+                      ));
+                }),
             ListTileWidget(
-              icon: CupertinoIcons.ticket,
-              name: "Coupons",
-              screen: CouponScreen(),
-            ),
+                icon: Icons.privacy_tip_outlined,
+                name: "Privacy & Policiy",
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => PrivayPolicyScreen(),
+                      ));
+                }),
             ListTileWidget(
-              icon: Icons.privacy_tip,
-              name: "Privacy & Policiy",
-              screen: PrivayPolicyScreen(),
-            ),
-            ListTileWidget(
-              icon: CupertinoIcons.checkmark_seal,
-              name: "Terms & Conditions",
-              screen: PrivayPolicyScreen(),
-            ),
+                icon: CupertinoIcons.checkmark_seal,
+                name: "Terms & Conditions",
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => PrivayPolicyScreen(),
+                      ));
+                }),
+                ListTileWidget(name: "Change password", icon: Icons.lock_outline, onTap: (){
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      // content: Column(
+                      //   children: [
+                      //     TextButton(onPressed: (){}, child: Text("Log out",style: TextStyle(color: Colors.red),))
+                      //   ],
+                      // ),
+                      title: const Center(
+                          child: Text(
+                        "Do you really want to change your password?",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      )),
+                      actions: [
+                        Center( 
+                            child: TextButton(
+                                onPressed: () async {
+                                Navigator.push(context, CupertinoPageRoute(builder: (context) => const OTPScreen(),));
+                                },
+                                child: const Text( 
+                                  "Yes",
+                                  style: TextStyle(
+                                      color: Colors.red, fontSize: 22),
+                                ))),
+                        Center(
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text(
+                                  "Cancel",
+                                  style: TextStyle(fontSize: 22),
+                                ))),
+                      ],
+                    ),
+                  );
+                }),
             Padding(
               padding: EdgeInsets.all(8.0),
               child: ListTile(

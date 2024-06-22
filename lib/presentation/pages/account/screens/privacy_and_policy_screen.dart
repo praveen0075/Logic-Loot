@@ -7,7 +7,9 @@ class PrivayPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(50), child: CustomAppBarWidget(title: "Privacy & Policy")),
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: CustomAppBarWidget(title: "Privacy & Policy")),
     );
   }
 }
