@@ -213,10 +213,10 @@ packages:
     dependency: "direct main"
     description:
       name: dropdown_textfield
-      sha256: "6e306d29d4bf8f88e2f9a4336d5e8dcc551d797fa8f541bb52a72817cc275cc4"
+      sha256: ef8a35c52c92a563773d3efead94e5a1c162d6fe6c53974d0986aab6249928a1
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.8"
+    version: "1.2.0"
   equatable:
     dependency: transitive
     description:

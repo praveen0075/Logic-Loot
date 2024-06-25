@@ -51,7 +51,7 @@ class CartServices implements ICartRepo {
   }
 
   @override
-  Future<Either<String, List<CartItem>>> getAllCartItems() async {
+  Future<Either<String, CartResponse>> getAllCartItems() async {
     try {
       final token = await SharedPreference.getToken();
       log("token --> $token");
@@ -60,7 +60,7 @@ class CartServices implements ICartRepo {
         return const Left("Unathorized user");
       } else {
         final response = await http.Client().get(
-            Uri.parse("https://lapify.online/user/products"),
+            Uri.parse("https://lapify.online/user/cartlist"),
             headers: {"Cookie": "Authorise=$token"});
 
             log("status code ---> ${response.statusCode}"); 
@@ -68,13 +68,23 @@ class CartServices implements ICartRepo {
 
             if(response.statusCode == 200){
               log('enterd');
-              final success = cartItemsFromJson(response.body);
-              if(success.cartItems != null){}
+              // final success = cartItemsFromJson(response.body);
+              // final success = cartItemsFromJson(response.body);
+              final result = jsonDecode(response.body);
+
+
+              log("decoded data --> $result");
+              // final success = cartItemsFromJson(result);
+              final success = cartResponseFromJson(response.body);
+              // final success = result["products"];
+              log("success--> ${success}");
+              print(success);
+              // if(success != null){}
               // final result = jsonDecode(response.body);
               // final success = CartItem.fromJson(result);
               // final success = result["products"];
-              log("success body --> $success");
-              return Right(success.cartItems); 
+              // log("success body --> ${success.toString()}");
+              return Right(success); 
             }else{
               final result = jsonDecode(response.body);
               final errrmsg = result["error"];

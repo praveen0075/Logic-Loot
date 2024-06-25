@@ -1,77 +1,61 @@
 // To parse this JSON data, do
 //
-//     final cartItems = cartItemsFromJson(jsonString);
+//     final cartResponse = cartResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-CartItems cartItemsFromJson(String str) => CartItems.fromJson(json.decode(str));
+CartResponse cartResponseFromJson(String str) => CartResponse.fromJson(json.decode(str));
 
-String cartItemsToJson(CartItems data) => json.encode(data.toJson());
+String cartResponseToJson(CartResponse data) => json.encode(data.toJson());
 
-class CartItems {
-    List<CartItem> cartItems;
-    int userId;
+class CartResponse {
+    List<CartlistItem> cartlist;
 
-    CartItems({
-        required this.cartItems,
-        required this.userId,
+    CartResponse({
+        required this.cartlist,
     });
 
-    factory CartItems.fromJson(Map<String, dynamic> json) => CartItems(
-        cartItems: List<CartItem>.from(json["cartItems"].map((x) => CartItem.fromJson(x))),
-        userId: json["userId"],
+    factory CartResponse.fromJson(Map<String, dynamic> json) => CartResponse(
+        cartlist: List<CartlistItem>.from(json["cartlist"].map((x) => CartlistItem.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
-        "cartItems": List<dynamic>.from(cartItems.map((x) => x.toJson())),
-        "userId": userId,
+        "cartlist": List<dynamic>.from(cartlist.map((x) => x.toJson())),
     };
 }
 
-class CartItem {
-    int id;
-    String name;
-    int price;
-    int offerprice;
-    String size;
+class CartlistItem {
+    int cartid;
     int category;
-    String imageUrl;
+    int productid;
+    String productname;
     int quantity;
-    bool wishlisted;
+    int prize;
 
-    CartItem({
-        required this.id,
-        required this.name,
-        required this.price,
-        required this.offerprice,
-        required this.size,
+    CartlistItem({
+        required this.cartid,
         required this.category,
-        required this.imageUrl,
+        required this.productid,
+        required this.productname,
         required this.quantity,
-        required this.wishlisted,
+        required this.prize,
     });
 
-    factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
-        id: json["id"],
-        name: json["name"],
-        price: json["price"],
-        offerprice: json["offerprice"],
-        size: json["size"],
+    factory CartlistItem.fromJson(Map<String, dynamic> json) => CartlistItem(
+        cartid: json["cartid"],
         category: json["category"],
-        imageUrl: json["image_url"],
+        productid: json["productid"],
+        productname: json["productname"],
         quantity: json["quantity"],
-        wishlisted: json["wishlisted"],
+        prize: json["prize"],
     );
 
     Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "price": price,
-        "offerprice": offerprice,
-        "size": size,
+        "cartid": cartid,
         "category": category,
-        "image_url": imageUrl,
+        "productid": productid,
+        "productname": productname,
         "quantity": quantity,
-        "wishlisted": wishlisted,
+        "prize": prize,
     };
 }

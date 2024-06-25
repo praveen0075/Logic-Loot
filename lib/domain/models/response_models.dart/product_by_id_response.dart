@@ -17,7 +17,7 @@ class ProductDetailsById {
         required this.inventory,
         required this.productDetails,
         required this.products,
-    });
+    }); 
 
     factory ProductDetailsById.fromJson(Map<String, dynamic> json) => ProductDetailsById(
         inventory: Inventory.fromJson(json["inventory"]),

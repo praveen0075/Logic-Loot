@@ -6,7 +6,9 @@ import 'package:logic_loot/application/product_by_id/product_by_id_bloc.dart';
 import 'package:logic_loot/application/quantity/quantity_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
-import 'package:logic_loot/presentation/pages/cart/cart_screen.dart';
+import 'package:logic_loot/presentation/pages/cart/screens/multicart_screen.dart';
+import 'package:logic_loot/presentation/pages/cart/screens/single_chart_screen.dart';
+import 'package:logic_loot/presentation/pages/dfa/cart_screen.dart';
 import 'package:logic_loot/presentation/pages/product/widgets/image_section.dart';
 import 'package:logic_loot/presentation/pages/product/widgets/price_and_name_section.dart';
 import 'package:logic_loot/presentation/pages/product/widgets/quantity_section.dart';
@@ -76,7 +78,7 @@ class ProductDetailsScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const CartScreen(),
+                                  builder: (context) =>  MUltiCartScreen(),
                                 ));
                           },
                         );
@@ -87,11 +89,11 @@ class ProductDetailsScreen extends StatelessWidget {
                 clr: Colors.grey,
                 txt: "Buy now",
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => const CartScreen(),
-                      ));
+                  // Navigator.push(
+                  //     context,
+                  //     CupertinoPageRoute(
+                  //       builder: (context) =>  SingleCartScreen(productid:,),
+                  //     ));
                 },
               ),
             ],
@@ -111,15 +113,15 @@ class ProductDetailsScreen extends StatelessWidget {
             )),
         body: BlocBuilder<ProductByIdBloc, ProductByIdState>(
           builder: (context, state) {
-            if (state is Loading) {
+            if (state is ProductByIdLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is ErrorSt) {
+            } else if (state is ProductByIdError) {
               return Center(
                 child: Text(state.errormsg),
               );
-            } else if (state is Loaded) {
+            } else if (state is ProductByIdLoaded) {
               return Padding(
                 padding: const EdgeInsets.all(10),
                 child: SingleChildScrollView(

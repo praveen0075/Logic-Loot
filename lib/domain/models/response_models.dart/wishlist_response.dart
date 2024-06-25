@@ -1,21 +1,21 @@
 // To parse this JSON data, do
 //
-//     final wishListResponse = wishListResponseFromJson(jsonString);
+//     final wishListResponseModel = wishListResponseModelFromJson(jsonString);
 
 import 'dart:convert';
 
-WishListResponse wishListResponseFromJson(String str) => WishListResponse.fromJson(json.decode(str));
+WishListResponseModel wishListResponseModelFromJson(String str) => WishListResponseModel.fromJson(json.decode(str));
 
-String wishListResponseToJson(WishListResponse data) => json.encode(data.toJson());
+String wishListResponseModelToJson(WishListResponseModel data) => json.encode(data.toJson());
 
-class WishListResponse {
+class WishListResponseModel {
     List<Message> message;
 
-    WishListResponse({
+    WishListResponseModel({
         required this.message,
     });
 
-    factory WishListResponse.fromJson(Map<String, dynamic> json) => WishListResponse(
+    factory WishListResponseModel.fromJson(Map<String, dynamic> json) => WishListResponseModel(
         message: List<Message>.from(json["message"].map((x) => Message.fromJson(x))),
     );
 
@@ -30,6 +30,7 @@ class Message {
     int productid;
     String productname;
     int prize;
+    String imageurl;
 
     Message({
         required this.userid,
@@ -37,6 +38,7 @@ class Message {
         required this.productid,
         required this.productname,
         required this.prize,
+        required this.imageurl,
     });
 
     factory Message.fromJson(Map<String, dynamic> json) => Message(
@@ -45,6 +47,7 @@ class Message {
         productid: json["productid"],
         productname: json["productname"],
         prize: json["prize"],
+        imageurl: json["imageurl"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -53,5 +56,6 @@ class Message {
         "productid": productid,
         "productname": productname,
         "prize": prize,
+        "imageurl": imageurl,
     };
 }

@@ -7,7 +7,8 @@ import 'package:logic_loot/application/cart/cart_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
 import 'package:logic_loot/application/wishlist/wishlist_bloc.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
-import 'package:logic_loot/presentation/pages/cart/cart_screen.dart';
+import 'package:logic_loot/presentation/pages/cart/screens/multicart_screen.dart';
+import 'package:logic_loot/presentation/pages/dfa/cart_screen.dart';
 import 'package:logic_loot/presentation/pages/product/product_details.dart';
 import 'package:logic_loot/presentation/pages/search/search_screen.dart';
 import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       context,
                                       CupertinoModalPopupRoute(
                                         builder: (context) =>
-                                            const CartScreen(),
+                                            const MUltiCartScreen(),
                                       ));
                                 },
                                 icon: const Icon(Icons.shopping_cart)),

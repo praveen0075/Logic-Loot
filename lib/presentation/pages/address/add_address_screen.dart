@@ -2,10 +2,9 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/core/keys/formkeys.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
-
-final addressFromKey = GlobalKey<FormState>();
 
 class AddAddressScreen extends StatefulWidget {
   const AddAddressScreen({super.key});
@@ -22,24 +21,35 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: CustomAppBarWidget(
-            title: "Address",
+            title: "New Address",
           )),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Form(
-          key: addressFromKey,
+          key: Formkeys.addressFromKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
                 CustomTextFromField(
-                    nameController: nameController, txt: "Full Name"),
-                k10height,
-                CustomTextFromField(
-                    nameController: nameController, txt: "Phone number"),
-                k10height,
-                CustomTextFromField(
+                    errormsg: "Please enter your full name",
                     nameController: nameController,
-                    txt: "Alternative phone number"),
+                    txt: "Full Name"),
+                k10height,
+                CustomTextFromField(
+                    errormsg: "Please enter your phone number",
+                    nameController: nameController,
+                    txt: "Phone number"),
+                k10height,
+                TextFormField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                      hintText: "Alternative phone number",
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey.shade400),
+                          borderRadius: BorderRadius.circular(10)),
+                      errorBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
+                ),
                 k10height,
                 CSCPicker(
                   dropdownDecoration: BoxDecoration(
@@ -60,6 +70,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ),
                 k10height,
                 CustomTextFromField(
+                  errormsg: "Pincode is required",
                     nameController: nameController, txt: "Pincode"),
                 k10height,
                 TextFormField(
@@ -67,6 +78,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   controller: nameController,
                   decoration: InputDecoration(
                     hintText: "Street address",
+                    errorBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red)),
                     enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey.shade400),
                         borderRadius: BorderRadius.circular(10)),
@@ -83,9 +96,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 CommonSubmitButton(
                     label: "Save",
                     onPressed: () {
-                      if (addressFromKey.currentState!.validate()) {}
+                      if (Formkeys.addressFromKey.currentState!.validate()) {}
                     },
-                    color: appColor3)
+                    color: appColor1)
               ],
             ),
           ),
@@ -100,24 +113,27 @@ class CustomTextFromField extends StatelessWidget {
     super.key,
     required this.nameController,
     required this.txt,
+    required this.errormsg,
   });
 
   final TextEditingController nameController;
   final String txt;
+  final String errormsg;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: nameController,
       decoration: InputDecoration(
-        hintText: txt,
-        enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade400),
-            borderRadius: BorderRadius.circular(10)),
-      ),
+          hintText: txt,
+          enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey.shade400),
+              borderRadius: BorderRadius.circular(10)),
+          errorBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.red))),
       validator: (value) {
         if (value!.isEmpty) {
-          return "Please Enter Fullname";
+          return errormsg; 
         } else {
           return null;
         }

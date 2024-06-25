@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logic_loot/core/constants/colors.dart';
+import 'package:logic_loot/presentation/pages/address/add_address_screen.dart';
+import 'package:logic_loot/presentation/pages/address/edit_address_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -10,12 +13,14 @@ class AddressScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-          child: Icon(
+          onPressed: () {
+            Navigator.push(context, CupertinoPageRoute(builder: (context) => const AddAddressScreen(),));
+          },
+          backgroundColor: appColor1,
+          child: const Icon(
             Icons.add,
             color: Colors.white,
           ),
-          backgroundColor: appColor1,
         ),
         // bottomNavigationBar: Container(
         //   color: Colors.transparent,
@@ -77,6 +82,7 @@ class AddressScreen extends StatelessWidget {
                                     PopupMenuButton<String>(
                                         onSelected: (value) {
                                       if (value == 'Edit') {
+                                        Navigator.push(context,CupertinoPageRoute(builder: (context) => const  EditAddressScreen(),));
                                       } else if (value == 'Delete') {
                                         showDialog(
                                             context: context,

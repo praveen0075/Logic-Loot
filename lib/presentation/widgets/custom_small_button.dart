@@ -7,18 +7,19 @@ class CustomSmallButton extends StatelessWidget {
     super.key,
     required this.size,
     required this.clr,
-    required this.txt, required this.onPressed,
+    required this.txt, required this.onPressed, this.widthh,
   });
 
   final Size size;
   final Color clr;
   final String txt;
   final Function() onPressed;
+  final double? widthh;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: size.width / 2.3,
+        width: widthh ?? size.width / 2.3, 
         decoration:
             BoxDecoration(color: clr, borderRadius: BorderRadius.circular(10)),
         child: TextButton(

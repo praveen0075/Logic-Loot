@@ -9,7 +9,7 @@ import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.
 
 class WishlistServices implements IWishlistRepo {
   @override
-  Future<Either<String, WishListResponse>> getWishlist() async {
+  Future<Either<String, WishListResponseModel>> getWishlist() async {
     try {
       final token = await SharedPreference.getToken();
       log("token --> $token");
@@ -24,7 +24,7 @@ class WishlistServices implements IWishlistRepo {
         log("status code --> ${response.statusCode}");
 
         if (response.statusCode == 200) {
-          final success = wishListResponseFromJson(response.body);
+          final success = wishListResponseModelFromJson(response.body); 
           log("success--> $success");
           return Right(success);
         } else {

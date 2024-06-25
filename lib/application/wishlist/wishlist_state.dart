@@ -8,4 +8,5 @@ class WishlistState with _$WishlistState {
   const factory WishlistState.errorsT(String errormsg) = WishlistError;
   const factory WishlistState.addSuccess(String successmg) = AddSuccess;
   const factory WishlistState.removeSuccess(String successmsg) = RemoveSuccess;
+  const factory WishlistState.removeError(String errormsg) = RemoveError;
 }

@@ -29,7 +29,7 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     on<_RemoveFromWishlist>((event, emit) async {
       emit(const WishlistState.wishlistLoading());
       final result = await wishListRepo.removeWishlist(event.productId);
-      result.fold((failure) => emit(WishlistState.errorsT(failure)),
+      result.fold((failure) => emit(WishlistState.removeError(failure)),
           (success) => WishlistState.removeSuccess(success));
     });
   }

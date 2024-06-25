@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logic_loot/application/address_by_id/address_by_id_bloc.dart';
 import 'package:logic_loot/application/cart/cart_bloc.dart';
+import 'package:logic_loot/application/coupons/coupons_bloc.dart';
 import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
@@ -10,9 +12,11 @@ import 'package:logic_loot/application/search/search_bloc.dart';
 import 'package:logic_loot/application/signup/signup_bloc.dart';
 import 'package:logic_loot/application/wishlist/wishlist_bloc.dart';
 import 'package:logic_loot/bloc_observer.dart';
+import 'package:logic_loot/infrastructure/services/address/address_services.dart';
 import 'package:logic_loot/infrastructure/services/auth/login/login_repository.dart';
 import 'package:logic_loot/infrastructure/services/auth/singup/signup_repository.dart';
 import 'package:logic_loot/infrastructure/services/cart/cart_services.dart';
+import 'package:logic_loot/infrastructure/services/coupons/coupon_services.dart';
 import 'package:logic_loot/infrastructure/services/products/products_repository.dart';
 import 'package:logic_loot/infrastructure/services/search/search_services.dart';
 import 'package:logic_loot/infrastructure/services/wishlist/wishlist_services.dart';
@@ -34,6 +38,8 @@ class MyApp extends StatelessWidget {
   final searchRepo = SearchServices();
   final wishlistRepo = WishlistServices();
   final cartRepo = CartServices();
+  final addressByIdRep = AddressByIdServices();
+  final couponsRepo = CouponsServices();
 
   // This widget is the root of your application.
   @override
@@ -50,6 +56,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<CartBloc>(create: (context) => CartBloc(cartRepo),),
         BlocProvider<QuantityBloc>(create: (context) => QuantityBloc(),),
         BlocProvider<GetCartBloc>(create: (context)=> GetCartBloc(cartRepo)),
+        BlocProvider<AddressByIdBloc>(create: (context)=> AddressByIdBloc(addressByIdRep)),
+        BlocProvider<CouponsBloc>(create: (context)=> CouponsBloc(couponsRepo)),
         // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
       ],
       child: const MaterialApp(

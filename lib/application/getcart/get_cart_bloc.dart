@@ -14,7 +14,7 @@ class GetCartBloc extends Bloc<GetCartEvent, GetCartState> {
       emit(const GetCartState.getAllCartLoading());
       final result = await getCarRepo.getAllCartItems();
       result.fold((failure) => emit(GetCartState.getAllCartFailure(failure)),
-          (success) => emit(GetCartState.getAllCartSuccess(success)));
+          (success) => emit(GetCartState.getAllCartSuccess(success.cartlist)));
     });
   }
 }

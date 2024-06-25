@@ -480,6 +480,7 @@ mixin _$WishlistState {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -490,6 +491,7 @@ mixin _$WishlistState {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -500,6 +502,7 @@ mixin _$WishlistState {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -511,6 +514,7 @@ mixin _$WishlistState {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -521,6 +525,7 @@ mixin _$WishlistState {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -531,6 +536,7 @@ mixin _$WishlistState {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -598,6 +604,7 @@ class _$WishlistInitialImpl implements WishlistInitial {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) {
     return wishlistInitial();
   }
@@ -611,6 +618,7 @@ class _$WishlistInitialImpl implements WishlistInitial {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) {
     return wishlistInitial?.call();
   }
@@ -624,6 +632,7 @@ class _$WishlistInitialImpl implements WishlistInitial {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) {
     if (wishlistInitial != null) {
@@ -641,6 +650,7 @@ class _$WishlistInitialImpl implements WishlistInitial {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) {
     return wishlistInitial(this);
   }
@@ -654,6 +664,7 @@ class _$WishlistInitialImpl implements WishlistInitial {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) {
     return wishlistInitial?.call(this);
   }
@@ -667,6 +678,7 @@ class _$WishlistInitialImpl implements WishlistInitial {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) {
     if (wishlistInitial != null) {
@@ -724,6 +736,7 @@ class _$WishListLoadingImpl implements WishListLoading {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) {
     return wishlistLoading();
   }
@@ -737,6 +750,7 @@ class _$WishListLoadingImpl implements WishListLoading {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) {
     return wishlistLoading?.call();
   }
@@ -750,6 +764,7 @@ class _$WishListLoadingImpl implements WishListLoading {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) {
     if (wishlistLoading != null) {
@@ -767,6 +782,7 @@ class _$WishListLoadingImpl implements WishListLoading {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) {
     return wishlistLoading(this);
   }
@@ -780,6 +796,7 @@ class _$WishListLoadingImpl implements WishListLoading {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) {
     return wishlistLoading?.call(this);
   }
@@ -793,6 +810,7 @@ class _$WishListLoadingImpl implements WishListLoading {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) {
     if (wishlistLoading != null) {
@@ -884,6 +902,7 @@ class _$WishListLoadedImpl implements WishListLoaded {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) {
     return loaded(wishList);
   }
@@ -897,6 +916,7 @@ class _$WishListLoadedImpl implements WishListLoaded {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) {
     return loaded?.call(wishList);
   }
@@ -910,6 +930,7 @@ class _$WishListLoadedImpl implements WishListLoaded {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -927,6 +948,7 @@ class _$WishListLoadedImpl implements WishListLoaded {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) {
     return loaded(this);
   }
@@ -940,6 +962,7 @@ class _$WishListLoadedImpl implements WishListLoaded {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) {
     return loaded?.call(this);
   }
@@ -953,6 +976,7 @@ class _$WishListLoadedImpl implements WishListLoaded {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -1043,6 +1067,7 @@ class _$WishlistErrorImpl implements WishlistError {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) {
     return errorsT(errormsg);
   }
@@ -1056,6 +1081,7 @@ class _$WishlistErrorImpl implements WishlistError {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) {
     return errorsT?.call(errormsg);
   }
@@ -1069,6 +1095,7 @@ class _$WishlistErrorImpl implements WishlistError {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) {
     if (errorsT != null) {
@@ -1086,6 +1113,7 @@ class _$WishlistErrorImpl implements WishlistError {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) {
     return errorsT(this);
   }
@@ -1099,6 +1127,7 @@ class _$WishlistErrorImpl implements WishlistError {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) {
     return errorsT?.call(this);
   }
@@ -1112,6 +1141,7 @@ class _$WishlistErrorImpl implements WishlistError {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) {
     if (errorsT != null) {
@@ -1201,6 +1231,7 @@ class _$AddSuccessImpl implements AddSuccess {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) {
     return addSuccess(successmg);
   }
@@ -1214,6 +1245,7 @@ class _$AddSuccessImpl implements AddSuccess {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) {
     return addSuccess?.call(successmg);
   }
@@ -1227,6 +1259,7 @@ class _$AddSuccessImpl implements AddSuccess {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) {
     if (addSuccess != null) {
@@ -1244,6 +1277,7 @@ class _$AddSuccessImpl implements AddSuccess {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) {
     return addSuccess(this);
   }
@@ -1257,6 +1291,7 @@ class _$AddSuccessImpl implements AddSuccess {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) {
     return addSuccess?.call(this);
   }
@@ -1270,6 +1305,7 @@ class _$AddSuccessImpl implements AddSuccess {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) {
     if (addSuccess != null) {
@@ -1359,6 +1395,7 @@ class _$RemoveSuccessImpl implements RemoveSuccess {
     required TResult Function(String errormsg) errorsT,
     required TResult Function(String successmg) addSuccess,
     required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
   }) {
     return removeSuccess(successmsg);
   }
@@ -1372,6 +1409,7 @@ class _$RemoveSuccessImpl implements RemoveSuccess {
     TResult? Function(String errormsg)? errorsT,
     TResult? Function(String successmg)? addSuccess,
     TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
   }) {
     return removeSuccess?.call(successmsg);
   }
@@ -1385,6 +1423,7 @@ class _$RemoveSuccessImpl implements RemoveSuccess {
     TResult Function(String errormsg)? errorsT,
     TResult Function(String successmg)? addSuccess,
     TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
     required TResult orElse(),
   }) {
     if (removeSuccess != null) {
@@ -1402,6 +1441,7 @@ class _$RemoveSuccessImpl implements RemoveSuccess {
     required TResult Function(WishlistError value) errorsT,
     required TResult Function(AddSuccess value) addSuccess,
     required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
   }) {
     return removeSuccess(this);
   }
@@ -1415,6 +1455,7 @@ class _$RemoveSuccessImpl implements RemoveSuccess {
     TResult? Function(WishlistError value)? errorsT,
     TResult? Function(AddSuccess value)? addSuccess,
     TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
   }) {
     return removeSuccess?.call(this);
   }
@@ -1428,6 +1469,7 @@ class _$RemoveSuccessImpl implements RemoveSuccess {
     TResult Function(WishlistError value)? errorsT,
     TResult Function(AddSuccess value)? addSuccess,
     TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
     required TResult orElse(),
   }) {
     if (removeSuccess != null) {
@@ -1443,5 +1485,169 @@ abstract class RemoveSuccess implements WishlistState {
   String get successmsg;
   @JsonKey(ignore: true)
   _$$RemoveSuccessImplCopyWith<_$RemoveSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RemoveErrorImplCopyWith<$Res> {
+  factory _$$RemoveErrorImplCopyWith(
+          _$RemoveErrorImpl value, $Res Function(_$RemoveErrorImpl) then) =
+      __$$RemoveErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errormsg});
+}
+
+/// @nodoc
+class __$$RemoveErrorImplCopyWithImpl<$Res>
+    extends _$WishlistStateCopyWithImpl<$Res, _$RemoveErrorImpl>
+    implements _$$RemoveErrorImplCopyWith<$Res> {
+  __$$RemoveErrorImplCopyWithImpl(
+      _$RemoveErrorImpl _value, $Res Function(_$RemoveErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errormsg = null,
+  }) {
+    return _then(_$RemoveErrorImpl(
+      null == errormsg
+          ? _value.errormsg
+          : errormsg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RemoveErrorImpl implements RemoveError {
+  const _$RemoveErrorImpl(this.errormsg);
+
+  @override
+  final String errormsg;
+
+  @override
+  String toString() {
+    return 'WishlistState.removeError(errormsg: $errormsg)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RemoveErrorImpl &&
+            (identical(other.errormsg, errormsg) ||
+                other.errormsg == errormsg));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errormsg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RemoveErrorImplCopyWith<_$RemoveErrorImpl> get copyWith =>
+      __$$RemoveErrorImplCopyWithImpl<_$RemoveErrorImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() wishlistInitial,
+    required TResult Function() wishlistLoading,
+    required TResult Function(List<Message> wishList) loaded,
+    required TResult Function(String errormsg) errorsT,
+    required TResult Function(String successmg) addSuccess,
+    required TResult Function(String successmsg) removeSuccess,
+    required TResult Function(String errormsg) removeError,
+  }) {
+    return removeError(errormsg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? wishlistInitial,
+    TResult? Function()? wishlistLoading,
+    TResult? Function(List<Message> wishList)? loaded,
+    TResult? Function(String errormsg)? errorsT,
+    TResult? Function(String successmg)? addSuccess,
+    TResult? Function(String successmsg)? removeSuccess,
+    TResult? Function(String errormsg)? removeError,
+  }) {
+    return removeError?.call(errormsg);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? wishlistInitial,
+    TResult Function()? wishlistLoading,
+    TResult Function(List<Message> wishList)? loaded,
+    TResult Function(String errormsg)? errorsT,
+    TResult Function(String successmg)? addSuccess,
+    TResult Function(String successmsg)? removeSuccess,
+    TResult Function(String errormsg)? removeError,
+    required TResult orElse(),
+  }) {
+    if (removeError != null) {
+      return removeError(errormsg);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(WishlistInitial value) wishlistInitial,
+    required TResult Function(WishListLoading value) wishlistLoading,
+    required TResult Function(WishListLoaded value) loaded,
+    required TResult Function(WishlistError value) errorsT,
+    required TResult Function(AddSuccess value) addSuccess,
+    required TResult Function(RemoveSuccess value) removeSuccess,
+    required TResult Function(RemoveError value) removeError,
+  }) {
+    return removeError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(WishlistInitial value)? wishlistInitial,
+    TResult? Function(WishListLoading value)? wishlistLoading,
+    TResult? Function(WishListLoaded value)? loaded,
+    TResult? Function(WishlistError value)? errorsT,
+    TResult? Function(AddSuccess value)? addSuccess,
+    TResult? Function(RemoveSuccess value)? removeSuccess,
+    TResult? Function(RemoveError value)? removeError,
+  }) {
+    return removeError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(WishlistInitial value)? wishlistInitial,
+    TResult Function(WishListLoading value)? wishlistLoading,
+    TResult Function(WishListLoaded value)? loaded,
+    TResult Function(WishlistError value)? errorsT,
+    TResult Function(AddSuccess value)? addSuccess,
+    TResult Function(RemoveSuccess value)? removeSuccess,
+    TResult Function(RemoveError value)? removeError,
+    required TResult orElse(),
+  }) {
+    if (removeError != null) {
+      return removeError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RemoveError implements WishlistState {
+  const factory RemoveError(final String errormsg) = _$RemoveErrorImpl;
+
+  String get errormsg;
+  @JsonKey(ignore: true)
+  _$$RemoveErrorImplCopyWith<_$RemoveErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

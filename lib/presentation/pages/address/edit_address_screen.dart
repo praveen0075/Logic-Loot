@@ -2,11 +2,10 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/core/keys/formkeys.dart';
 import 'package:logic_loot/presentation/pages/address/add_address_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
-
-final editAddressKey = GlobalKey<FormState>();
 
 class EditAddressScreen extends StatefulWidget {
   const EditAddressScreen({super.key});
@@ -29,16 +28,27 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Form(
-          key: editAddressKey,
+          key: Formkeys.editAddressKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                CustomTextFromField(nameController: cntlr, txt: "Full Name"),
-                k10height,
-                CustomTextFromField(nameController: cntlr, txt: "Phone number"),
+                CustomTextFromField(
+                  nameController: cntlr,
+                  txt: "Full Name",
+                  errormsg: "",
+                ),
                 k10height,
                 CustomTextFromField(
-                    nameController: cntlr, txt: "Alternative phone number"),
+                  nameController: cntlr,
+                  txt: "Phone number",
+                  errormsg: "",
+                ),
+                k10height,
+                CustomTextFromField(
+                  nameController: cntlr,
+                  txt: "Alternative phone number",
+                  errormsg: "",
+                ),
                 k10height,
                 CSCPicker(
                   dropdownDecoration: BoxDecoration(
@@ -56,7 +66,11 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                   },
                 ),
                 k10height,
-                CustomTextFromField(nameController: cntlr, txt: "Pincode"),
+                CustomTextFromField(
+                  nameController: cntlr,
+                  txt: "Pincode",
+                  errormsg: "",
+                ),
                 k10height,
                 TextFormField(
                   maxLines: 5,
@@ -69,7 +83,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                   ),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Please Enter Fullname";
+                      return "Street address is required";
                     } else {
                       return null;
                     }
@@ -79,7 +93,7 @@ class _EditAddressScreenState extends State<EditAddressScreen> {
                 CommonSubmitButton(
                     label: "Save Changes",
                     onPressed: () {
-                      if (addressFromKey.currentState!.validate()) {}
+                      if (Formkeys.editAddressKey.currentState!.validate()) {}
                     },
                     color: appColor1)
               ],

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
 import 'package:logic_loot/presentation/pages/account/screens/change_password/otp_screen.dart';
-import 'package:logic_loot/presentation/pages/account/screens/coupons_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/orders_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/privacy_and_policy_screen.dart';
 import 'package:logic_loot/presentation/pages/account/widgets/list_tile_widget.dart';
@@ -54,16 +53,16 @@ class SettingScreen extends StatelessWidget {
                         builder: (context) => OrdersScreen(),
                       ));
                 }),
-            ListTileWidget(
-                icon: CupertinoIcons.ticket,
-                name: "Coupons",
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => CouponScreen(),
-                      ));
-                }),
+            // ListTileWidget(
+            //     icon: CupertinoIcons.ticket,
+            //     name: "Coupons",
+            //     onTap: () {
+            //       Navigator.push(
+            //           context,
+            //           CupertinoPageRoute(
+            //             builder: (context) => CouponScreen(),
+            //           ));
+            //     }),
             ListTileWidget(
                 icon: Icons.privacy_tip_outlined,
                 name: "Privacy & Policiy",

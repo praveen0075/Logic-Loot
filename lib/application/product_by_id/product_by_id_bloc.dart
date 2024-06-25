@@ -9,13 +9,13 @@ part 'product_by_id_bloc.freezed.dart';
 
 class ProductByIdBloc extends Bloc<ProductByIdEvent, ProductByIdState> {
   final ProductRepository productRepo;
-  ProductByIdBloc(this.productRepo) : super(const ProductByIdState.initial()) {
+  ProductByIdBloc(this.productRepo) : super(const ProductByIdState.productByIdInitial()) {
     on<_GetProductByID>((event, emit) async {
-      emit(const ProductByIdState.loading());
+      emit(const ProductByIdState.productByIdLoading());
       final result = await productRepo.getProductById(event.productId);
       result.fold(
-          (failure) => emit(ProductByIdState.errorSt(failure.message)),
-          (success) => emit(ProductByIdState.loaded(
+          (failure) => emit(ProductByIdState.productByIdError(failure.message)),
+          (success) => emit(ProductByIdState.productByIdLoaded(
               success.inventory, success.productDetails, success.products)));
     });
   }
