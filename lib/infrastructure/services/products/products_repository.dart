@@ -50,15 +50,15 @@ class ProductRepository implements IPrductRepo {
   Future<Either<Failure, ProductDetailsById>> getProductById(
       String productId) async {
     try {
-      final adminToken = await SharedPreference.getToken();
-      log("Token ---> $adminToken");
-      if (adminToken == null) {
+      final token = await SharedPreference.getToken();
+      log("Token ---> $token");
+      if (token == null) {
         log("Token is null");
         return Left(Failure(message: "Something bad occured"));
       } else {
         final response = await http.Client().get(
             Uri.parse("https://lapify.online/user/products/details/$productId"),
-            headers: {"Cookie": "Authorise=$adminToken"});
+            headers: {"Cookie": "Authorise=$token"});
 
         log("response statuscode ---> ${response.statusCode}");
         log("response body ---> ${response.body}");

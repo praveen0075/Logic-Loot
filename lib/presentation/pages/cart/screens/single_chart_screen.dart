@@ -62,7 +62,7 @@ class SingleCartScreen extends StatelessWidget {
               child: BlocBuilder<AddressByIdBloc, AddressByIdState>(
                 builder: (context, state) {
                   if (state is AddressByIdLoading) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 100);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 100);
                   }
                   return Material(
                     elevation: 10,
@@ -132,7 +132,7 @@ class SingleCartScreen extends StatelessWidget {
               child: BlocBuilder<ProductByIdBloc, ProductByIdState>(
                 builder: (context, state) {
                   if (state is ProductByIdLoading) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 100);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 100);
                   } else if (state is ProductByIdLoaded) {
                     itemPrice = state.products.price * quantity;
                     return Material(
@@ -266,9 +266,9 @@ class SingleCartScreen extends StatelessWidget {
                           ),
                         ));
                   } else if (state is ProductByIdError) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 100);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 100);
                   } else {
-                    return ShimmerWidget.buildLoadingShimmer(size, 150);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
                   }
                 },
               ),
@@ -279,7 +279,7 @@ class SingleCartScreen extends StatelessWidget {
               child: BlocBuilder<CouponsBloc, CouponsState>(
                 builder: (context, state) {
                   if (state is CouponsLoading) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 100);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 100);
                   } else if (state is CouponsFailure) {
                     return Material(
                       color: appColor1,
@@ -384,7 +384,7 @@ class SingleCartScreen extends StatelessWidget {
               child: BlocBuilder<ProductByIdBloc, ProductByIdState>(
                 builder: (context, state) {
                   if(state is ProductByIdLoading){
-                    return ShimmerWidget.buildLoadingShimmer(size, 150);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
                   }else if(state is ProductByIdLoaded){
                     return Material(
                     elevation: 10,
@@ -439,9 +439,9 @@ class SingleCartScreen extends StatelessWidget {
                   );
                   }
                   else if(state is ProductByIdError){
-                    return ShimmerWidget.buildLoadingShimmer(size, 150);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
                   }else{
-                    return ShimmerWidget.buildLoadingShimmer(size, 150);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
                   }
                 },
               ),

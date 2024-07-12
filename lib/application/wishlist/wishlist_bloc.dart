@@ -18,19 +18,19 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
           (success) => emit(WishlistState.loaded(success.message)));
     });
 
-    on<_AddToWishlist>((event, emit) async {
-      emit(const WishlistState.wishlistLoading());
-      final result = await wishListRepo.addWishlist(event.productId);
-      result.fold((failure) => emit(WishlistState.errorsT(failure)),
-          (success) => emit(WishlistState.addSuccess(success)));
-      // final result = await wishListRepo.
-    });
+    // on<_AddToWishlist>((event, emit) async {
+    //   emit(const WishlistState.wishlistLoading());
+    //   final result = await wishListRepo.addWishlist(event.productId);
+    //   result.fold((failure) => emit(WishlistState.errorsT(failure)),
+    //       (success) => emit(WishlistState.addSuccess(success)));
+    //   // final result = await wishListRepo.
+    // });
 
-    on<_RemoveFromWishlist>((event, emit) async {
-      emit(const WishlistState.wishlistLoading());
-      final result = await wishListRepo.removeWishlist(event.productId);
-      result.fold((failure) => emit(WishlistState.removeError(failure)),
-          (success) => WishlistState.removeSuccess(success));
-    });
+    // on<_RemoveFromWishlist>((event, emit) async {
+    //   emit(const WishlistState.wishlistLoading());
+    //   final result = await wishListRepo.removeWishlist(event.productId);
+    //   result.fold((failure) => emit(WishlistState.removeError(failure)),
+    //       (success) => WishlistState.removeSuccess(success));
+    // });
   }
 }

@@ -188,7 +188,7 @@ class WishListScreen extends StatelessWidget {
                                                                       TextButton(
                                                                           onPressed:
                                                                               () async {
-                                                                            context.read<WishlistBloc>().add(WishlistEvent.removeFromWishlsit(state.wishList[index].productid.toString()));
+                                                                            // context.read<WishlistBloc>().add(WishlistEvent.removeFromWishlsit(state.wishList[index].productid.toString()));
                                                                             Navigator.pop(context);
                                                                           },
                                                                           child:

@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logic_loot/application/category/category_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
 import 'package:logic_loot/presentation/pages/product/product_details.dart';
 import 'package:logic_loot/presentation/pages/search/search_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
@@ -17,7 +20,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
   int? _selectedIndex;
   bool _isSelected = false;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    BlocProvider.of<CategoryBloc>(context).add(const GetCategory());
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -41,43 +45,64 @@ class _CategoryScreenState extends State<CategoryScreen> {
               SizedBox(
                 height: size.height / 19,
                 width: size.width,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => k5width,
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: ChoiceChip(
-                        selectedColor: appColor1,
-                        showCheckmark: false,
-                        // labelStyle: _isSelected? TextStyle(color: Colors.white) : TextStyle(color: Colors.black),
-                        label: Text(
-                          "Category",
-                          style: TextStyle(
-                              color: _selectedIndex == index
-                                  ? Colors.white
-                                  : Colors.black),
-                        ),
-                        selected: _selectedIndex == index,
-                        onSelected: (bool selectedVal) => setState(() {
-                          _selectedIndex = selectedVal ? index : null;
-                          _isSelected = true;
-                        }),
-                      ),
-                      // child: Container(
-                      //   // width: 100,
-                      //   decoration: BoxDecoration(
-                      //       // color: Colors.blue,
-                      //       border: Border.all(),
-                      //       borderRadius: BorderRadius.circular(10)),
-                      //   child: Center(
-                      //       child: TextButton(
-                      //     child: const Text("Category"),
-                      //     onPressed: () {},
-                      //   )),
-                      // ),
-                    );
+                child: BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
+                    if (state is CategoryLoaded) {
+                      return ListView.separated(
+                        separatorBuilder: (context, index) => k5width,
+                        itemCount: state.categories.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: ChoiceChip(
+                              selectedColor: appColor1,
+                              showCheckmark: false,
+                              // labelStyle: _isSelected? TextStyle(color: Colors.white) : TextStyle(color: Colors.black),
+                              label: Text(
+                                state.categories[index].name,
+                                style: TextStyle(
+                                    color: _selectedIndex == index
+                                        ? Colors.white
+                                        : Colors.black),
+                              ),
+                              selected: _selectedIndex == index,
+                              onSelected: (bool selectedVal) => setState(() {
+                                _selectedIndex = selectedVal ? index : null;
+                                _isSelected = true;
+                              }),
+                            ),
+                            // child: Container(
+                            //   // width: 100,
+                            //   decoration: BoxDecoration(
+                            //       // color: Colors.blue,
+                            //       border: Border.all(),
+                            //       borderRadius: BorderRadius.circular(10)),
+                            //   child: Center(
+                            //       child: TextButton(
+                            //     child: const Text("Category"),
+                            //     onPressed: () {},
+                            //   )),
+                            // ),
+                          );
+                        },
+                      );
+                    } else if (state is CategroyError) {
+                      return ListView.separated(
+                          itemBuilder: (context, index) =>
+                              ShimmerWidget.buildLoadingShimmer(size.width, 100), 
+                          separatorBuilder: (context, index) => k5width,
+                          itemCount: 10);
+                    }else{ 
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 10,right: 10),
+                        child: ListView.separated(
+                            itemBuilder: (context, index) =>
+                                ShimmerWidget.buildLoadingShimmer(size.width, 100),
+                            separatorBuilder: (context, index) => k5width,
+                            itemCount: 10),
+                      );
+                    }
                   },
                 ),
               ),
@@ -95,8 +120,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         Navigator.push(
                             context,
                             CupertinoPageRoute(
-                              builder: (context) =>
-                                  const ProductDetailsScreen(
+                              builder: (context) => const ProductDetailsScreen(
                                 productId: 0,
                               ),
                             ));
@@ -117,8 +141,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                         // color: Colors.red,
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                         border: Border.all()),
                                     height: size.height / 12,
                                     width: size.width / 5,
@@ -127,8 +150,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 12),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
                                         // color: Colors.blue,
@@ -141,8 +163,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                               "Azuz Tuff gaming",
                                               style: TextStyle(
                                                   fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.w500),
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                             Row(
                                               mainAxisAlignment:

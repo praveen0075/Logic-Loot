@@ -57,7 +57,7 @@ class MUltiCartScreen extends StatelessWidget {
               child: BlocBuilder<AddressByIdBloc, AddressByIdState>(
                 builder: (context, state) {
                   if (state is AddressByIdLoading) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 100);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 100);
                   }
                   return Material(
                     elevation: 10,
@@ -131,7 +131,7 @@ class MUltiCartScreen extends StatelessWidget {
                         child: Text(state.errmgs), 
                       );
                     } else if (state is GetallCartLoading) {
-                      return ShimmerWidget.buildLoadingShimmer(size, 200);
+                      return ShimmerWidget.buildLoadingShimmer(size.width, 200);
                     } else if (state is GetallCartSuccess) {
                       log("UI __>${state.cartlist.length}");
                       log(state.cartlist.toString());
@@ -261,7 +261,7 @@ class MUltiCartScreen extends StatelessWidget {
               child: BlocBuilder<CouponsBloc, CouponsState>(
                 builder: (context, state) {
                   if (state is CouponsLoading) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 100);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 100);
                   } else if (state is CouponsFailure) {
                     return Material(
                       color: appColor1,
@@ -359,7 +359,7 @@ class MUltiCartScreen extends StatelessWidget {
               child: BlocBuilder<GetCartBloc, GetCartState>(
                 builder: (context, state) {
                   if (state is GetallCartLoading) {
-                    return ShimmerWidget.buildLoadingShimmer(size, 150);
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
                   }
                   return Material(
                     elevation: 10,
@@ -415,7 +415,7 @@ class MUltiCartScreen extends StatelessWidget {
         ),
         Text(
           value,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ],
     );
