@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/category/category_bloc.dart';
+import 'package:logic_loot/application/product/product_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
@@ -19,9 +20,12 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   int? _selectedIndex;
   bool _isSelected = false;
+
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
+    String productName;
     BlocProvider.of<CategoryBloc>(context).add(const GetCategory());
+    BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -40,6 +44,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           )),
       body: SizedBox(
         child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               SizedBox(
@@ -90,15 +95,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     } else if (state is CategroyError) {
                       return ListView.separated(
                           itemBuilder: (context, index) =>
-                              ShimmerWidget.buildLoadingShimmer(size.width, 100), 
+                              ShimmerWidget.buildLoadingShimmer(
+                                  size.width, 100),
                           separatorBuilder: (context, index) => k5width,
                           itemCount: 10);
-                    }else{ 
+                    } else {
                       return Padding(
-                        padding: const EdgeInsets.only(left: 10,right: 10),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: ListView.separated(
                             itemBuilder: (context, index) =>
-                                ShimmerWidget.buildLoadingShimmer(size.width, 100),
+                                ShimmerWidget.buildLoadingShimmer(
+                                    size.width, 100),
                             separatorBuilder: (context, index) => k5width,
                             itemCount: 10),
                       );
@@ -107,126 +114,181 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 ),
               ),
               Container(
-                height: size.height / 1.315,
-                color: Colors.white,
-                child: ListView.builder(
-                  // separatorBuilder: (context, index) => SizedBox(height: 5),
-                  itemCount: 30,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 10, bottom: 10),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => const ProductDetailsScreen(
-                                productId: 0,
-                              ),
-                            ));
-                      },
-                      child: Material(
-                          borderRadius: BorderRadius.circular(20),
-                          elevation: 10,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(20)),
-                            height: size.height / 8,
-                            width: size.width / 2,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        // color: Colors.red,
-                                        borderRadius: BorderRadius.circular(15),
-                                        border: Border.all()),
-                                    height: size.height / 12,
-                                    width: size.width / 5,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 12),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      SizedBox(
-                                        // color: Colors.blue,
-                                        width: size.width / 1.6,
-                                        child: const Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Azuz Tuff gaming",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w500),
+                  height: size.height / 1.315,
+                  color: Colors.white,
+                  child: BlocBuilder<ProductBloc, ProductState>(
+                      builder: (context, state) {
+                    if (state is Loading) {
+                      return ListView.builder(
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20, top: 10, bottom: 10),
+                            child: ShimmerWidget.buildLoadingShimmer(
+                                size.width, 100),
+                          );
+                        },
+                      );
+                    } else if (state is Loaded) {
+                      return state.products.isEmpty
+                          ? const Center(
+                              child: Text("Product is Empty"),
+                            )
+                          : ListView.builder(
+                              // shrinkWrap: true,
+                              // separatorBuilder: (context, index) => SizedBox(height: 5),
+                              itemCount: state.products.length,
+                              itemBuilder: (context, index) {
+                                if (state.products[index].name.length >= 20) {
+                                  final name = state.products[index].name;
+                                  productName = "${name.substring(0, 17)}...";
+                                } else {
+                                  productName = state.products[index].name;
+                                }
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20, top: 10, bottom: 10),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                            builder: (context) =>
+                                                const ProductDetailsScreen(
+                                              productId: 0,
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  "512 gb",
+                                          ));
+                                    },
+                                    child: Material(
+                                        borderRadius: BorderRadius.circular(20),
+                                        elevation: 10,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          height: size.height / 8,
+                                          width: size.width / 2,
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: NetworkImage(
+                                                              state
+                                                                  .products[
+                                                                      index]
+                                                                  .imageUrl),fit: BoxFit.contain),
+                                                      // color: Colors.red,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                      border: Border.all()),
+                                                  height: size.height / 12,
+                                                  width: size.width / 5,
                                                 ),
-                                                Text(
-                                                  "IN STOCK",
-                                                  style: TextStyle(
-                                                      color: Colors.green,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: size.width / 1.6,
-                                        // color: Colors.red,
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: size.width / 3.8,
-                                              child: const Text(
-                                                "₹59,999",
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold),
                                               ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                TextButton(
-                                                    onPressed: () {},
-                                                    child: const Text(
-                                                        "Add to cart")),
-                                                IconButton(
-                                                    onPressed: () {},
-                                                    icon: const Icon(Icons
-                                                        .favorite_outline_rounded))
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 12),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SizedBox(
+                                                      // color: Colors.blue,
+                                                      width: size.width / 1.6,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            productName,
+                                                            style: const TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                state
+                                                                    .products[
+                                                                        index]
+                                                                    .size,
+                                                              ),
+                                                              state.products[index]
+                                                                          .quantity <=
+                                                                      0
+                                                                  ? const Text(
+                                                                      "OUT OF STOCK",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .red,
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    )
+                                                                  : const Text(
+                                                                      "IN STOCK",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .green,
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    )
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: size.width / 1.6,
+                                                      // color: Colors.red,
+                                                      child: Row(
+                                                        children: [
+                                                          SizedBox(
+                                                            width: size.width /
+                                                                3.8,
+                                                            child: Text(
+                                                              "₹${state.products[index].price.toString()}",
+                                                              style: const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )),
                                   ),
-                                )
-                              ],
-                            ),
-                          )),
-                    ),
-                  ),
-                ),
-              ),
+                                );
+                              },
+                            );
+                    } else if (state is ErrorSt) {
+                      return Center(
+                        child: Text(state.errormsg),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  })),
             ],
           ),
         ),

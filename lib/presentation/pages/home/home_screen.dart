@@ -147,12 +147,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Material(
                               elevation: 10,
                               borderRadius: BorderRadius.circular(16.0),
-                              child: Container(
+                              child: const SizedBox(
                                 width: 300,
                                 height: 150,
-                                decoration: BoxDecoration(
-                                  
-                                ),
+                              
                               ),
                             ),
                           )
