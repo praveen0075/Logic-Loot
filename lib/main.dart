@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/address_by_id/address_by_id_bloc.dart';
+import 'package:logic_loot/application/banner/banner_bloc.dart';
+import 'package:logic_loot/application/c_quantity/c_quantity_bloc.dart';
 import 'package:logic_loot/application/cart/cart_bloc.dart';
 import 'package:logic_loot/application/category/category_bloc.dart';
+import 'package:logic_loot/application/category_products/category_products_bloc.dart';
 import 'package:logic_loot/application/coupons/coupons_bloc.dart';
 import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
 import 'package:logic_loot/application/product_by_id/product_by_id_bloc.dart';
 import 'package:logic_loot/application/quantity/quantity_bloc.dart';
+import 'package:logic_loot/application/remove_cart_item_by_one/cart_item_remove_by_one_bloc.dart';
 import 'package:logic_loot/application/search/search_bloc.dart';
 import 'package:logic_loot/application/signup/signup_bloc.dart';
 import 'package:logic_loot/application/wishlist/wishlist_bloc.dart';
-import 'package:logic_loot/application/wishlist_ui/wishlist_ui_bloc.dart';
 import 'package:logic_loot/bloc_observer.dart';
 import 'package:logic_loot/infrastructure/services/address/address_services.dart';
 import 'package:logic_loot/infrastructure/services/auth/login/login_repository.dart';
 import 'package:logic_loot/infrastructure/services/auth/singup/signup_repository.dart';
+import 'package:logic_loot/infrastructure/services/banner/banner_services.dart';
 import 'package:logic_loot/infrastructure/services/cart/cart_services.dart';
 import 'package:logic_loot/infrastructure/services/category/category_services.dart';
 import 'package:logic_loot/infrastructure/services/coupons/coupon_services.dart';
@@ -44,6 +48,7 @@ class MyApp extends StatelessWidget {
   final addressByIdRep = AddressByIdServices();
   final couponsRepo = CouponsServices();
   final categoryRepo = CategoryServices();
+  final bannerRepo = BannerServices();
 
   // This widget is the root of your application.
   @override
@@ -63,6 +68,10 @@ class MyApp extends StatelessWidget {
         BlocProvider<AddressByIdBloc>(create: (context)=> AddressByIdBloc(addressByIdRep)),
         BlocProvider<CouponsBloc>(create: (context)=> CouponsBloc(couponsRepo)),
         BlocProvider<CategoryBloc>(create: (context)=> CategoryBloc(categoryRepo)),
+        BlocProvider<CQuantityBloc>(create: (context)=> CQuantityBloc()),
+        BlocProvider<CartItemRemoveByOneBloc>(create: (context)=> CartItemRemoveByOneBloc(cartRepo)),
+        BlocProvider<BannerBloc>(create: (context)=> BannerBloc(bannerRepo)),
+        BlocProvider<CategoryProductsBloc>(create: (context)=> CategoryProductsBloc(productRepo)),
         // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
       ],
       child: const MaterialApp(

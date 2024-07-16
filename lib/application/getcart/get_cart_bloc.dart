@@ -16,5 +16,12 @@ class GetCartBloc extends Bloc<GetCartEvent, GetCartState> {
       result.fold((failure) => emit(GetCartState.getAllCartFailure(failure)),
           (success) => emit(GetCartState.getAllCartSuccess(success.cartlist)));
     });
+
+    on<_DeleteItem>((event, emit) async {
+      // emit(const GetCartState.getAllCartLoading()); 
+      final result = await getCarRepo.deleteItem(event.productId);
+      result.fold((failure) => emit(GetCartState.cartDeleteFailure(failure)),
+          (success) => emit(GetCartState.cartDeleteSuccess(success)));
+    }); 
   }
 }

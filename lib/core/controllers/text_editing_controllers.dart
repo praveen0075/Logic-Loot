@@ -5,4 +5,13 @@ class TxtEditingControllers{
   static final frgtPassOTPController = TextEditingController();
   static final newpassController = TextEditingController();
   static final newConformPassController = TextEditingController();
+  
+  static final addressNameController = TextEditingController();
+  static final addressPhoneController = TextEditingController();
+  static final addressAltPhoneController = TextEditingController();
+  static final addressCountryController = TextEditingController();
+  static final addressStateController = TextEditingController();
+  static final addressCityController = TextEditingController();
+  static final addressPincodeController = TextEditingController();
+  static final addressStAddressController = TextEditingController();
 }

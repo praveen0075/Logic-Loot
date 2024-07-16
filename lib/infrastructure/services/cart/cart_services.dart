@@ -63,37 +63,93 @@ class CartServices implements ICartRepo {
             Uri.parse("https://lapify.online/user/cartlist"),
             headers: {"Cookie": "Authorise=$token"});
 
-            log("status code ---> ${response.statusCode}"); 
-            log("response body --> ${response.body}");
+        log("status code ---> ${response.statusCode}");
+        log("response body --> ${response.body}");
 
-            if(response.statusCode == 200){
-              log('enterd');
-              // final success = cartItemsFromJson(response.body);
-              // final success = cartItemsFromJson(response.body);
-              final result = jsonDecode(response.body);
+        if (response.statusCode == 200) {
+          log('enterd');
+          // final success = cartItemsFromJson(response.body);
+          // final success = cartItemsFromJson(response.body);
+          final result = jsonDecode(response.body);
 
-
-              log("decoded data --> $result");
-              // final success = cartItemsFromJson(result);
-              final success = cartResponseFromJson(response.body);
-              // final success = result["products"];
-              log("success--> ${success}");
-              print(success);
-              // if(success != null){}
-              // final result = jsonDecode(response.body);
-              // final success = CartItem.fromJson(result);
-              // final success = result["products"];
-              // log("success body --> ${success.toString()}");
-              return Right(success); 
-            }else{
-              final result = jsonDecode(response.body);
-              final errrmsg = result["error"];
-              return Left(errrmsg);
-            }
+          log("decoded data --> $result");
+          // final success = cartItemsFromJson(result);
+          final success = cartResponseFromJson(response.body);
+          // final success = result["products"];
+          log("success--> $success");
+          print(success);
+          // if(success != null){}
+          // final result = jsonDecode(response.body);
+          // final success = CartItem.fromJson(result);
+          // final success = result["products"];
+          // log("success body --> ${success.toString()}");
+          return Right(success);
+        } else {
+          final result = jsonDecode(response.body);
+          final errrmsg = result["error"];
+          return Left(errrmsg);
+        }
       }
     } catch (e) {
       log("Exception --> $e");
       return Left("Oops! something went wrong $e");
+    }
+  }
+
+  @override
+  Future<Either<String, String>> removeOne(String productId) async {
+    final token = await SharedPreference.getToken();
+    if (token == null) {
+      log("Token is empty");
+      return const Left("Unauthorized User");
+    } else {
+      try {
+        final response = await http.Client().delete(
+            Uri.parse("https://lapify.online/user/cart/$productId"),
+            headers: {"Cookie": "Authorise=$token"});
+
+        log("status code --> ${response.statusCode}");
+
+        if (response.statusCode == 200) {
+          return const Right("Success");
+        } else {
+          final result = jsonDecode(response.body);
+          final errormsg = result["error"];
+          return Left(errormsg);
+        }
+      } catch (e) {
+        log("Exception occured--> $e");
+        return const Left("Oops! unable to reach server");
+      }
+    }
+  }
+
+  @override
+  Future<Either<String, String>> deleteItem(String productId) async {
+    final token = await SharedPreference.getToken();
+    if (token == null) {
+      log("Token is empty");
+      return const Left("Unauthorized User");
+    } else {
+      try {
+        final response = await http.Client().delete(
+            Uri.parse("https://lapify.online/user/dcart/$productId"),
+            headers: {"Cookie": "Authorise=$token"});
+
+        log("status code --> ${response.statusCode}");
+
+        if (response.statusCode == 200) {
+          return const Right("Item deleted Successfully");
+        } else {
+          final result = jsonDecode(response.body);
+          final errormsg = result["error"];
+          log(errormsg);
+          return Left(errormsg);
+        }
+      } catch (e) {
+        log("Exception occured--> $e");
+        return const Left("Oops! unable to reach server");
+      }
     }
   }
 }

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 // import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:logic_loot/domain/core/failures/failures.dart';
+import 'package:logic_loot/domain/models/response_models.dart/filter_product_response.dart';
 import 'package:logic_loot/domain/models/response_models.dart/get_all_product_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:logic_loot/domain/models/response_models.dart/product_by_id_response.dart';
@@ -76,6 +77,45 @@ class ProductRepository implements IPrductRepo {
     } catch (e) {
       log("Exception --> $e");
       return Left(Failure(message: "Oops! something went wrong"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CategoryItems>>> getFilterProduct(
+      String? categoryId) async {
+    final token = await SharedPreference.getToken();
+    if (token == null) {
+      log("Token is empty");
+      return Left(Failure(message: "Unauthorized user"));
+    } else {
+      try {
+        final response = await http.Client().get(
+            Uri.parse(categoryId == null
+                ? "https://lapify.online/user/products/filter"
+                : "https://lapify.online/user/products/filter?category=$categoryId"),
+            headers: {"Cookie": "Authorise=$token"});
+
+        log("Status code --> ${response.statusCode}");
+
+        if (response.statusCode == 200) {
+          // final result = getAllProductResponseFromJson(response.body);
+          //  final result = jsonDecode(response.body);
+          //  final success = result["products"];
+          final success = filterResponseModelFromJson(response.body);
+          if (success == null) {
+            return const Right([]);
+          } else {
+            return Right(success.products);
+          }
+        } else {
+          final result = jsonDecode(response.body);
+          final errormsg = result["error"];
+          return Left(Failure(message: errormsg));
+        }
+      } catch (e) {
+        log("Exception occured--> $e");
+        return Left(Failure(message: "Oops! Unable to reach server"));
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   final ICategoryRepo categoryRepo;
   CategoryBloc(this.categoryRepo)
       : super(const CategoryState.categoryInitial()) {
-    on<GetCategory>((event, emit) async {
+    on<GetCategory>((event, emit) async { 
       emit(const CategoryState.categoryLoading());
       final result = await categoryRepo.getAllCategory();
       result.fold((failure) => emit(CategoryState.categoryError(failure)),

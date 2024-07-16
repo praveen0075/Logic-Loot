@@ -11,9 +11,13 @@ class ShimmerWidget  {
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
             child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16)
+              ),
               width: width,
               height: height,
-              color: Colors.white,
+              
             ),
           ),
           // Add more shimmer widgets as needed

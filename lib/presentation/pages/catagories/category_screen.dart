@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/category/category_bloc.dart';
-import 'package:logic_loot/application/product/product_bloc.dart';
+import 'package:logic_loot/application/category_products/category_products_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
@@ -20,12 +20,19 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   int? _selectedIndex;
   bool _isSelected = false;
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<CategoryProductsBloc>(context)
+        .add(const CategoryProductsEvent.filter(null));
+  }
 
   @override
   Widget build(BuildContext context) {
     String productName;
     BlocProvider.of<CategoryBloc>(context).add(const GetCategory());
-    BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
+    // BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
+
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -73,8 +80,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               ),
                               selected: _selectedIndex == index,
                               onSelected: (bool selectedVal) => setState(() {
+                                if (_selectedIndex == index) {
+                                  _selectedIndex = null;
+                                  context.read<CategoryProductsBloc>().add(
+                                      const CategoryProductsEvent.filter(null));
+                                } else {
+                                  _selectedIndex = index;
+                                  context.read<CategoryProductsBloc>().add(
+                                      CategoryProductsEvent.filter(
+                                          state.categories[index].id));
+                                }
                                 _selectedIndex = selectedVal ? index : null;
                                 _isSelected = true;
+                                context.read<CategoryProductsBloc>().add(
+                                    CategoryProductsEvent.filter(
+                                        state.categories[index].id));
                               }),
                             ),
                             // child: Container(
@@ -116,9 +136,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
               Container(
                   height: size.height / 1.315,
                   color: Colors.white,
-                  child: BlocBuilder<ProductBloc, ProductState>(
-                      builder: (context, state) {
-                    if (state is Loading) {
+                  child:
+                      BlocBuilder<CategoryProductsBloc, CategoryProductsState>(
+                          builder: (context, state) {
+                    if (state is FilterLoading) {
                       return ListView.builder(
                         itemCount: 10,
                         itemBuilder: (context, index) {
@@ -130,21 +151,21 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           );
                         },
                       );
-                    } else if (state is Loaded) {
-                      return state.products.isEmpty
+                    } else if (state is FilterLoaded) {
+                      return state.success.isEmpty
                           ? const Center(
-                              child: Text("Product is Empty"),
+                              child: Text("No products in this category"), 
                             )
                           : ListView.builder(
                               // shrinkWrap: true,
                               // separatorBuilder: (context, index) => SizedBox(height: 5),
-                              itemCount: state.products.length,
+                              itemCount: state.success.length,
                               itemBuilder: (context, index) {
-                                if (state.products[index].name.length >= 20) {
-                                  final name = state.products[index].name;
+                                if (state.success[index].name.length >= 20) {
+                                  final name = state.success[index].name;
                                   productName = "${name.substring(0, 17)}...";
                                 } else {
-                                  productName = state.products[index].name;
+                                  productName = state.success[index].name;
                                 }
                                 return Padding(
                                   padding: const EdgeInsets.only(
@@ -179,9 +200,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                       image: DecorationImage(
                                                           image: NetworkImage(
                                                               state
-                                                                  .products[
+                                                                  .success[
                                                                       index]
-                                                                  .imageUrl),fit: BoxFit.contain),
+                                                                  .imageUrl),
+                                                          fit: BoxFit.contain),
                                                       // color: Colors.red,
                                                       borderRadius:
                                                           BorderRadius.circular(
@@ -221,11 +243,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                             children: [
                                                               Text(
                                                                 state
-                                                                    .products[
+                                                                    .success[
                                                                         index]
                                                                     .size,
                                                               ),
-                                                              state.products[index]
+                                                              state.success[index]
                                                                           .quantity <=
                                                                       0
                                                                   ? const Text(
@@ -258,7 +280,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                                             width: size.width /
                                                                 3.8,
                                                             child: Text(
-                                                              "₹${state.products[index].price.toString()}",
+                                                              "₹${state.success[index].price.toString()}",
                                                               style: const TextStyle(
                                                                   fontSize: 16,
                                                                   fontWeight:
@@ -279,7 +301,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 );
                               },
                             );
-                    } else if (state is ErrorSt) {
+                    } else if (state is FilterError) {
                       return Center(
                         child: Text(state.errormsg),
                       );

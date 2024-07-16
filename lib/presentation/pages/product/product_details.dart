@@ -151,7 +151,7 @@ class ProductDetailsScreen extends StatelessWidget {
                           const Divider(),
                           const Text(
                             "Specification",
-                            style: TextStyle(
+                            style: TextStyle( 
                                 fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                           Text(state.productDetails.specification,

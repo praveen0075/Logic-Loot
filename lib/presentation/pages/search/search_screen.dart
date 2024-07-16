@@ -4,15 +4,25 @@ import 'package:logic_loot/application/search/search_bloc.dart';
 import 'package:logic_loot/domain/models/response_models.dart/search_response.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
   @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<SearchBloc>(context).add(const SearchEvent.searching(""));
+  }
+  @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<SearchBloc>().add(const SearchEvent.searching(""));
-      // context.read<SearchBloc>().add(const SearchEvent.initialized());
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   context.read<SearchBloc>().add(const SearchEvent.searching(""));
+    //   // context.read<SearchBloc>().add(const SearchEvent.initialized());
+    // });
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: const PreferredSize(

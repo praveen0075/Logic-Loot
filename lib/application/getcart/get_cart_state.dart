@@ -6,4 +6,6 @@ class GetCartState with _$GetCartState {
   const factory GetCartState.getAllCartLoading() = GetallCartLoading;
   const factory GetCartState.getAllCartSuccess(List<CartlistItem> cartlist) = GetallCartSuccess;
   const factory GetCartState.getAllCartFailure(String errmgs) = GetallCartFailure;
+  const factory GetCartState.cartDeleteSuccess(String successmsg) = CartDeleteSuccess;
+  const factory GetCartState.cartDeleteFailure(String errormsg) = CartDeleteError;
 }

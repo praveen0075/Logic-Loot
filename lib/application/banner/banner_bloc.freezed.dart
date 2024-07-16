@@ -170,7 +170,7 @@ mixin _$BannerState {
   TResult when<TResult extends Object?>({
     required TResult Function() bannerInitial,
     required TResult Function() bannerLoading,
-    required TResult Function() bannerLoaded,
+    required TResult Function(List<Banner> banners) bannerLoaded,
     required TResult Function() bannerError,
   }) =>
       throw _privateConstructorUsedError;
@@ -178,7 +178,7 @@ mixin _$BannerState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? bannerInitial,
     TResult? Function()? bannerLoading,
-    TResult? Function()? bannerLoaded,
+    TResult? Function(List<Banner> banners)? bannerLoaded,
     TResult? Function()? bannerError,
   }) =>
       throw _privateConstructorUsedError;
@@ -186,7 +186,7 @@ mixin _$BannerState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? bannerInitial,
     TResult Function()? bannerLoading,
-    TResult Function()? bannerLoaded,
+    TResult Function(List<Banner> banners)? bannerLoaded,
     TResult Function()? bannerError,
     required TResult orElse(),
   }) =>
@@ -276,7 +276,7 @@ class _$BannerInitialImpl implements BannerInitial {
   TResult when<TResult extends Object?>({
     required TResult Function() bannerInitial,
     required TResult Function() bannerLoading,
-    required TResult Function() bannerLoaded,
+    required TResult Function(List<Banner> banners) bannerLoaded,
     required TResult Function() bannerError,
   }) {
     return bannerInitial();
@@ -287,7 +287,7 @@ class _$BannerInitialImpl implements BannerInitial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? bannerInitial,
     TResult? Function()? bannerLoading,
-    TResult? Function()? bannerLoaded,
+    TResult? Function(List<Banner> banners)? bannerLoaded,
     TResult? Function()? bannerError,
   }) {
     return bannerInitial?.call();
@@ -298,7 +298,7 @@ class _$BannerInitialImpl implements BannerInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? bannerInitial,
     TResult Function()? bannerLoading,
-    TResult Function()? bannerLoaded,
+    TResult Function(List<Banner> banners)? bannerLoaded,
     TResult Function()? bannerError,
     required TResult orElse(),
   }) {
@@ -390,7 +390,7 @@ class _$BannerLoadingImpl implements BannerLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() bannerInitial,
     required TResult Function() bannerLoading,
-    required TResult Function() bannerLoaded,
+    required TResult Function(List<Banner> banners) bannerLoaded,
     required TResult Function() bannerError,
   }) {
     return bannerLoading();
@@ -401,7 +401,7 @@ class _$BannerLoadingImpl implements BannerLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? bannerInitial,
     TResult? Function()? bannerLoading,
-    TResult? Function()? bannerLoaded,
+    TResult? Function(List<Banner> banners)? bannerLoaded,
     TResult? Function()? bannerError,
   }) {
     return bannerLoading?.call();
@@ -412,7 +412,7 @@ class _$BannerLoadingImpl implements BannerLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? bannerInitial,
     TResult Function()? bannerLoading,
-    TResult Function()? bannerLoaded,
+    TResult Function(List<Banner> banners)? bannerLoaded,
     TResult Function()? bannerError,
     required TResult orElse(),
   }) {
@@ -469,6 +469,8 @@ abstract class _$$BannerLoadedImplCopyWith<$Res> {
   factory _$$BannerLoadedImplCopyWith(
           _$BannerLoadedImpl value, $Res Function(_$BannerLoadedImpl) then) =
       __$$BannerLoadedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Banner> banners});
 }
 
 /// @nodoc
@@ -478,36 +480,66 @@ class __$$BannerLoadedImplCopyWithImpl<$Res>
   __$$BannerLoadedImplCopyWithImpl(
       _$BannerLoadedImpl _value, $Res Function(_$BannerLoadedImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? banners = null,
+  }) {
+    return _then(_$BannerLoadedImpl(
+      null == banners
+          ? _value._banners
+          : banners // ignore: cast_nullable_to_non_nullable
+              as List<Banner>,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$BannerLoadedImpl implements BannerLoaded {
-  const _$BannerLoadedImpl();
+  const _$BannerLoadedImpl(final List<Banner> banners) : _banners = banners;
+
+  final List<Banner> _banners;
+  @override
+  List<Banner> get banners {
+    if (_banners is EqualUnmodifiableListView) return _banners;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_banners);
+  }
 
   @override
   String toString() {
-    return 'BannerState.bannerLoaded()';
+    return 'BannerState.bannerLoaded(banners: $banners)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$BannerLoadedImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$BannerLoadedImpl &&
+            const DeepCollectionEquality().equals(other._banners, _banners));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_banners));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$BannerLoadedImplCopyWith<_$BannerLoadedImpl> get copyWith =>
+      __$$BannerLoadedImplCopyWithImpl<_$BannerLoadedImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() bannerInitial,
     required TResult Function() bannerLoading,
-    required TResult Function() bannerLoaded,
+    required TResult Function(List<Banner> banners) bannerLoaded,
     required TResult Function() bannerError,
   }) {
-    return bannerLoaded();
+    return bannerLoaded(banners);
   }
 
   @override
@@ -515,10 +547,10 @@ class _$BannerLoadedImpl implements BannerLoaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? bannerInitial,
     TResult? Function()? bannerLoading,
-    TResult? Function()? bannerLoaded,
+    TResult? Function(List<Banner> banners)? bannerLoaded,
     TResult? Function()? bannerError,
   }) {
-    return bannerLoaded?.call();
+    return bannerLoaded?.call(banners);
   }
 
   @override
@@ -526,12 +558,12 @@ class _$BannerLoadedImpl implements BannerLoaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? bannerInitial,
     TResult Function()? bannerLoading,
-    TResult Function()? bannerLoaded,
+    TResult Function(List<Banner> banners)? bannerLoaded,
     TResult Function()? bannerError,
     required TResult orElse(),
   }) {
     if (bannerLoaded != null) {
-      return bannerLoaded();
+      return bannerLoaded(banners);
     }
     return orElse();
   }
@@ -575,7 +607,12 @@ class _$BannerLoadedImpl implements BannerLoaded {
 }
 
 abstract class BannerLoaded implements BannerState {
-  const factory BannerLoaded() = _$BannerLoadedImpl;
+  const factory BannerLoaded(final List<Banner> banners) = _$BannerLoadedImpl;
+
+  List<Banner> get banners;
+  @JsonKey(ignore: true)
+  _$$BannerLoadedImplCopyWith<_$BannerLoadedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -618,7 +655,7 @@ class _$BannerErrorImpl implements BannerError {
   TResult when<TResult extends Object?>({
     required TResult Function() bannerInitial,
     required TResult Function() bannerLoading,
-    required TResult Function() bannerLoaded,
+    required TResult Function(List<Banner> banners) bannerLoaded,
     required TResult Function() bannerError,
   }) {
     return bannerError();
@@ -629,7 +666,7 @@ class _$BannerErrorImpl implements BannerError {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? bannerInitial,
     TResult? Function()? bannerLoading,
-    TResult? Function()? bannerLoaded,
+    TResult? Function(List<Banner> banners)? bannerLoaded,
     TResult? Function()? bannerError,
   }) {
     return bannerError?.call();
@@ -640,7 +677,7 @@ class _$BannerErrorImpl implements BannerError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? bannerInitial,
     TResult Function()? bannerLoading,
-    TResult Function()? bannerLoaded,
+    TResult Function(List<Banner> banners)? bannerLoaded,
     TResult Function()? bannerError,
     required TResult orElse(),
   }) {

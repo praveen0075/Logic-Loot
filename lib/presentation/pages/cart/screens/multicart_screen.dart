@@ -4,24 +4,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/address_by_id/address_by_id_bloc.dart';
+import 'package:logic_loot/application/c_quantity/c_quantity_bloc.dart';
 import 'package:logic_loot/application/coupons/coupons_bloc.dart';
 import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
+import 'package:logic_loot/application/remove_cart_item_by_one/cart_item_remove_by_one_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/address/address_screen.dart';
 import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
-import 'package:logic_loot/presentation/pages/dfa/screens/cart_productdetials_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
+import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 
-class MUltiCartScreen extends StatelessWidget {
+class MUltiCartScreen extends StatefulWidget {
   const MUltiCartScreen({super.key});
 
   @override
+  State<MUltiCartScreen> createState() => _MUltiCartScreenState();
+}
+
+class _MUltiCartScreenState extends State<MUltiCartScreen> {
+  @override
   Widget build(BuildContext context) {
-    BlocProvider.of<GetCartBloc>(context).add(const GetCartEvent.getCartItems());
-    BlocProvider.of<CouponsBloc>(context).add(const CouponsEvent.getAllCoupon());
-    BlocProvider.of<AddressByIdBloc>(context).add(AddressByIdEvent.getAddressById(1.toString()));
+    BlocProvider.of<GetCartBloc>(context)
+        .add(const GetCartEvent.getCartItems());
+    BlocProvider.of<CouponsBloc>(context)
+        .add(const CouponsEvent.getAllCoupon());
+    BlocProvider.of<AddressByIdBloc>(context)
+        .add(AddressByIdEvent.getAddressById(1.toString()));
     var size = MediaQuery.of(context).size;
     int itemcount = 0;
     int discount = 0;
@@ -46,13 +56,13 @@ class MUltiCartScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding:  EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               child: Text(
                 "Shipping Address",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
-          Padding(
+            Padding(
               padding: const EdgeInsets.all(10),
               child: BlocBuilder<AddressByIdBloc, AddressByIdState>(
                 builder: (context, state) {
@@ -122,14 +132,34 @@ class MUltiCartScreen extends StatelessWidget {
               ),
             ),
             k5height,
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                "Products",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
             Padding(
                 padding: const EdgeInsets.all(10),
-                child: BlocBuilder<GetCartBloc, GetCartState>(
+                child: BlocConsumer<GetCartBloc, GetCartState>(
+                  listener: (context, state) {
+                    if (state is CartDeleteError) {
+                      snackBarWidget(
+                          context: context,
+                          msg: state.errormsg,
+                          bgColor: Colors.red);
+                    } else if (state is CartDeleteSuccess) {
+                      snackBarWidget(
+                          context: context,
+                          msg: state.successmsg,
+                          bgColor: Colors.green);
+                    }
+                  },
                   builder: (context, state) {
                     if (state is GetallCartFailure) {
                       return Center(
-                        child: Text(state.errmgs), 
-                      );
+                          child: ShimmerWidget.buildLoadingShimmer(
+                              size.width, 200));
                     } else if (state is GetallCartLoading) {
                       return ShimmerWidget.buildLoadingShimmer(size.width, 200);
                     } else if (state is GetallCartSuccess) {
@@ -143,13 +173,16 @@ class MUltiCartScreen extends StatelessWidget {
                               ),
                             )
                           : ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: state.cartlist.length,
+                              itemCount: state.cartlist.length, 
                               itemBuilder: (context, index) {
+                                itemcount = state.cartlist[index].quantity + itemcount;
                                 final productPrice =
-                                    state.cartlist[index].quantity *
+                                    state.cartlist[index].quantity * 
                                         state.cartlist[index].prize;
-                                itemsAmount = state.cartlist[index].quantity *
+                                
+                                  itemsAmount = state.cartlist[index].quantity *
                                         state.cartlist[index].prize +
                                     itemsAmount;
                                 final product = state.cartlist[index];
@@ -167,78 +200,110 @@ class MUltiCartScreen extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: ListTile(
-                                      title: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            productName,
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black38),
-                                          ),
-                                          Text(
-                                            "₹$productPrice",
-                                            style: const TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Row(
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                },
-                                                child: Container(
-                                                    height: 28,
-                                                    width: 28,
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: Colors
-                                                              .grey.shade500),
-                                                    ),
-                                                    child: const Icon(
-                                                        Icons.remove)),
-                                              ),
-                                              k5width,
-                                              Text(
-                                                product.quantity.toString(),
-                                                style: const TextStyle(fontSize: 20),
-                                              ),
-                                              k5width,
-                                              InkWell(
-                                                onTap: () {},
-                                                child: Container(
-                                                  height: 28,
-                                                  width: 28,
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors
-                                                            .grey.shade500),
-                                                  ),
-                                                  child: const Icon(Icons.add),
+                                        title: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              productName,
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black38),
+                                            ),
+                                            Text(
+                                              "₹$productPrice",
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Row(
+                                              children: [
+                                                // InkWell(
+                                                //   onTap: () {
+                                                //   },
+                                                //   child: Container(
+                                                //       height: 28,
+                                                //       width: 28,
+                                                //       decoration: BoxDecoration(
+                                                //         border: Border.all(
+                                                //             color: Colors
+                                                //                 .grey.shade500),
+                                                //       ),
+                                                //       child: const Icon(
+                                                //           Icons.remove)),
+                                                // ),
+                                                const Text(
+                                                  "Item count :",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      trailing: IconButton(
+                                                k5width,
+                                                Text(
+                                                  product.quantity.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 20),
+                                                ),
+                                                k5width,
+                                                // InkWell(
+                                                //   onTap: () {},
+                                                //   child: Container(
+                                                //     height: 28,
+                                                //     width: 28, 
+                                                //     decoration: BoxDecoration(
+                                                //       border: Border.all(
+                                                //           color: Colors
+                                                //               .grey.shade500),
+                                                //     ),
+                                                //     child: const Icon(Icons.add),
+                                                //   ),
+                                                // )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        trailing: IconButton(
                                           onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                CupertinoPageRoute(
-                                                  builder: (context) =>
-                                                      CartProductDetailsScreen(
-                                                          productQuantity:
-                                                              product.quantity,
-                                                          productId: product
-                                                              .productid),
-                                                ));
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: const Text("Delete?"),
+                                                content: const Text(
+                                                    "Do you really want to delete this cart item?"),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () async {
+                                                        context
+                                                            .read<GetCartBloc>()
+                                                            .add(GetCartEvent
+                                                                .deleteItem(state
+                                                                    .cartlist[
+                                                                        index]
+                                                                    .cartid
+                                                                    .toString()));
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child:
+                                                          const Text("Delete")),
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: const Text("Cancel"))
+                                                ],
+                                              ),
+                                            );
+                                            // context.read<GetCartBloc>().add(
+                                            //     GetCartEvent.deleteItem(state
+                                            //         .cartlist[index].cartid
+                                            //         .toString()));
                                           },
                                           icon: const Icon(
-                                              Icons.keyboard_arrow_right))
-                                    ),
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                        )),
                                   ),
                                 );
                               },
@@ -253,8 +318,7 @@ class MUltiCartScreen extends StatelessWidget {
                       );
                     }
                   },
-                )
-                ),
+                )),
             k5height,
             Padding(
               padding: const EdgeInsets.all(10),
@@ -310,7 +374,7 @@ class MUltiCartScreen extends StatelessWidget {
                               onSelected: (value) {
                                 couponCode = value ?? '';
                               },
-                              hintText: "Select coupon",
+                              hintText: state.availableCoupons.isEmpty ? "No Coupon available" : "Select a Coupon",
                               inputDecorationTheme: const InputDecorationTheme(
                                   filled: true,
                                   fillColor: Colors.white,
@@ -369,7 +433,7 @@ class MUltiCartScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           checkoutRowItem(
-                              name: "Items($itemcount)",
+                              name: "SubTotal", 
                               value: "₹$itemsAmount"),
                           checkoutRowItem(
                               name: "Discount", value: "₹$discount"),
@@ -379,11 +443,10 @@ class MUltiCartScreen extends StatelessWidget {
                               const Text(
                                 "Total Amount",
                                 style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                "₹${itemsAmount - discount}", 
+                                "₹${itemsAmount - discount}",
                                 style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,

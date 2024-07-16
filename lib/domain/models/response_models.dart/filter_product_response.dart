@@ -1,34 +1,39 @@
 // To parse this JSON data, do
 //
-//     final getAllProductResponse = getAllProductResponseFromJson(jsonString);
+//     final filterResponseModel = filterResponseModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetAllProductResponse   getAllProductResponseFromJson(String str) => GetAllProductResponse.fromJson(json.decode(str));
+FilterResponseModel? filterResponseModelFromJson(String str) => FilterResponseModel.fromJson(json.decode(str));
 
-String getAllProductResponseToJson(GetAllProductResponse data) => json.encode(data.toJson());
+String filterResponseModelToJson(FilterResponseModel data) => json.encode(data.toJson());
 
-class GetAllProductResponse {
-    List<Product> products;
-    int userId;
+class FilterResponseModel {
+    List<CategoryItems> products;
 
-    GetAllProductResponse({
+    FilterResponseModel({
         required this.products,
-        required this.userId,
     });
 
-    factory GetAllProductResponse.fromJson(Map<String, dynamic> json) => GetAllProductResponse(
-        products: List<Product>.from(json["products"].map((x) => Product.fromJson(x))),
-        userId: json["userId"],
+   factory FilterResponseModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      return FilterResponseModel(products: []);
+    }
+    return FilterResponseModel(
+      products: json["products"] == null
+          ? []
+          : List<CategoryItems>.from(
+              (json["products"] as List).map((x) => CategoryItems.fromJson(x)),
+            ),
     );
-
-    Map<String, dynamic> toJson() => {
+  }
+ 
+  Map<String, dynamic> toJson() => {
         "products": List<dynamic>.from(products.map((x) => x.toJson())),
-        "userId": userId,
     };
 }
 
-class Product {
+class CategoryItems {
     int id;
     String name;
     int price;
@@ -39,7 +44,7 @@ class Product {
     int quantity;
     bool wishlisted;
 
-    Product({
+    CategoryItems({
         required this.id,
         required this.name,
         required this.price,
@@ -51,7 +56,7 @@ class Product {
         required this.wishlisted,
     });
 
-    factory Product.fromJson(Map<String, dynamic> json) => Product(
+    factory CategoryItems.fromJson(Map<String, dynamic> json) => CategoryItems(
         id: json["id"],
         name: json["name"],
         price: json["price"],

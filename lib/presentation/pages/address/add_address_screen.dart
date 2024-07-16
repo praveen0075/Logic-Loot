@@ -1,9 +1,11 @@
 import 'package:csc_picker/csc_picker.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/core/controllers/text_editing_controllers.dart';
 import 'package:logic_loot/core/keys/formkeys.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
+import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
 
 class AddAddressScreen extends StatefulWidget {
@@ -16,6 +18,9 @@ class AddAddressScreen extends StatefulWidget {
 class _AddAddressScreenState extends State<AddAddressScreen> {
   @override
   Widget build(BuildContext context) {
+    String? country;
+    String? state;
+    String? city;
     TextEditingController nameController = TextEditingController();
     return Scaffold(
       appBar: const PreferredSize(
@@ -28,20 +33,20 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         child: Form(
           key: Formkeys.addressFromKey,
           child: SingleChildScrollView(
-            child: Column(
+            child: Column(  
               children: [
                 CustomTextFromField(
                     errormsg: "Please enter your full name",
-                    nameController: nameController,
+                    nameController: TxtEditingControllers.addressNameController,
                     txt: "Full Name"),
                 k10height,
                 CustomTextFromField(
                     errormsg: "Please enter your phone number",
-                    nameController: nameController,
+                    nameController: TxtEditingControllers.addressPhoneController,
                     txt: "Phone number"),
                 k10height,
                 TextFormField(
-                  controller: nameController,
+                  controller: TxtEditingControllers.addressAltPhoneController,
                   decoration: InputDecoration(
                       hintText: "Alternative phone number",
                       enabledBorder: OutlineInputBorder(
@@ -57,13 +62,19 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       borderRadius: BorderRadius.circular(10)),
                   // layout: Layout.vertical,
                   onCountryChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      country = value;
+                    });
                   },
                   onStateChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      state = value??"";
+                    });
                   },
                   onCityChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      city = value ?? '';
+                    });
                   },
 
                   // countryDropdownLabel: ,
@@ -71,11 +82,11 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 k10height,
                 CustomTextFromField(
                   errormsg: "Pincode is required",
-                    nameController: nameController, txt: "Pincode"),
+                    nameController: TxtEditingControllers.addressPincodeController, txt: "Pincode"),
                 k10height,
                 TextFormField(
                   maxLines: 5,
-                  controller: nameController,
+                  controller: TxtEditingControllers.addressStAddressController,
                   decoration: InputDecoration(
                     hintText: "Street address",
                     errorBorder: const OutlineInputBorder(
@@ -96,7 +107,17 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 CommonSubmitButton(
                     label: "Save",
                     onPressed: () {
-                      if (Formkeys.addressFromKey.currentState!.validate()) {}
+                      if (Formkeys.addressFromKey.currentState!.validate()) {
+                        if(country == null){
+                          snackBarWidget(context: context, msg: "Please select your country", bgColor: Colors.red);
+                        }else if(state == null){
+                          snackBarWidget(context: context, msg: "Please select your state", bgColor: Colors.red);
+                        }else if(city == null){
+                          snackBarWidget(context: context, msg: "Please select your city", bgColor: Colors.red);
+                        }else{
+                          
+                        }
+                      }
                     },
                     color: appColor1)
               ],
