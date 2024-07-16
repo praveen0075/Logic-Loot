@@ -4,14 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/address_by_id/address_by_id_bloc.dart';
-import 'package:logic_loot/application/c_quantity/c_quantity_bloc.dart';
+import 'package:logic_loot/application/checkout/checkout_bloc.dart';
 import 'package:logic_loot/application/coupons/coupons_bloc.dart';
 import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
-import 'package:logic_loot/application/remove_cart_item_by_one/cart_item_remove_by_one_bloc.dart';
+import 'package:logic_loot/application/user_cart/user_cart_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/address/address_screen.dart';
+import 'package:logic_loot/presentation/pages/cart/screens/invoice_screen.dart';
 import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
+import 'package:logic_loot/presentation/pages/home/home_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
@@ -32,20 +34,20 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
         .add(const CouponsEvent.getAllCoupon());
     BlocProvider.of<AddressByIdBloc>(context)
         .add(AddressByIdEvent.getAddressById(1.toString()));
+    BlocProvider.of<UserCartBloc>(context)
+        .add(const UserCartEvent.getUserCart());
     var size = MediaQuery.of(context).size;
-    int itemcount = 0;
-    int discount = 0;
-    int itemsAmount = 0;
+    // int itemcount = 0;
+    // int itemsAmount = 0;
     String productName;
     String couponCode = "";
-    // List coupons = ["summer", "winter", "rainy", "onam", "vishu"];
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding:
-            const EdgeInsets.only(left: 12, right: 12, bottom: 15, top: 10),
-        child: CommonSubmitButton(
-            label: "Checkout", onPressed: () {}, color: appColor1),
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding:
+      //       const EdgeInsets.only(left: 12, right: 12, bottom: 15, top: 10),
+      //   child: CommonSubmitButton(
+      //       label: "Checkout", onPressed: () {}, color: appColor1),
+      // ),
       appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: CustomAppBarWidget(
@@ -56,12 +58,11 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: Text(
-                "Shipping Address",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  "Shipping Address",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                )),
             Padding(
               padding: const EdgeInsets.all(10),
               child: BlocBuilder<AddressByIdBloc, AddressByIdState>(
@@ -74,7 +75,6 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       // color: Colors.red,
-
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey.shade300),
                           borderRadius: BorderRadius.circular(10)),
@@ -165,7 +165,7 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                     } else if (state is GetallCartSuccess) {
                       log("UI __>${state.cartlist.length}");
                       log(state.cartlist.toString());
-                      itemcount = state.cartlist.length;
+                      // itemcount = state.cartlist.length;
                       return state.cartlist.isEmpty
                           ? const Center(
                               child: Text(
@@ -175,16 +175,16 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                           : ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: state.cartlist.length, 
+                              itemCount: state.cartlist.length,
                               itemBuilder: (context, index) {
-                                itemcount = state.cartlist[index].quantity + itemcount;
+                                // itemcount = state.cartlist[index].quantity + itemcount;
                                 final productPrice =
-                                    state.cartlist[index].quantity * 
+                                    state.cartlist[index].quantity *
                                         state.cartlist[index].prize;
-                                
-                                  itemsAmount = state.cartlist[index].quantity *
-                                        state.cartlist[index].prize +
-                                    itemsAmount;
+
+                                // itemsAmount = state.cartlist[index].quantity *
+                                //       state.cartlist[index].prize +
+                                //   itemsAmount;
                                 final product = state.cartlist[index];
                                 if (product.productname.length >= 20) {
                                   final name = product.productname;
@@ -250,7 +250,7 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                                                 //   onTap: () {},
                                                 //   child: Container(
                                                 //     height: 28,
-                                                //     width: 28, 
+                                                //     width: 28,
                                                 //     decoration: BoxDecoration(
                                                 //       border: Border.all(
                                                 //           color: Colors
@@ -290,7 +290,8 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                                                       onPressed: () {
                                                         Navigator.pop(context);
                                                       },
-                                                      child: const Text("Cancel"))
+                                                      child:
+                                                          const Text("Cancel"))
                                                 ],
                                               ),
                                             );
@@ -374,7 +375,9 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                               onSelected: (value) {
                                 couponCode = value ?? '';
                               },
-                              hintText: state.availableCoupons.isEmpty ? "No Coupon available" : "Select a Coupon",
+                              hintText: state.availableCoupons.isEmpty
+                                  ? "No Coupon available"
+                                  : "Select a Coupon",
                               inputDecorationTheme: const InputDecorationTheme(
                                   filled: true,
                                   fillColor: Colors.white,
@@ -393,6 +396,9 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                             child: InkWell(
                               onTap: () {
                                 log(couponCode.toString());
+                                context
+                                    .read<CouponsBloc>()
+                                    .add(CouponsEvent.applyCoupon(couponCode));
                                 // context.read<Couponbl>()
                               },
                               child: SizedBox(
@@ -420,48 +426,122 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
             k5height,
             Padding(
               padding: const EdgeInsets.all(10),
-              child: BlocBuilder<GetCartBloc, GetCartState>(
+              child: BlocBuilder<UserCartBloc, UserCartState>(
                 builder: (context, state) {
-                  if (state is GetallCartLoading) {
+                  if (state is UserCartLoading) {
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
+                  } else if (state is UserCartError) {
+                    return ShimmerWidget.buildLoadingShimmer(size.width, 150);
+                  } else if (state is UserCartLoaded) {
+                    return Material(
+                      elevation: 10,
+                      borderRadius: BorderRadius.circular(10),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            checkoutRowItem(
+                                name: "Product Quantity",
+                                value:
+                                    state.usercart.productquantity.toString()),
+                            checkoutRowItem(
+                                name: "Discount",
+                                value: "₹${state.usercart.offerprize}"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Total Amount",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  "₹${state.usercart.totalprize}",
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  } else {
                     return ShimmerWidget.buildLoadingShimmer(size.width, 150);
                   }
-                  return Material(
-                    elevation: 10,
-                    borderRadius: BorderRadius.circular(10),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          checkoutRowItem(
-                              name: "SubTotal", 
-                              value: "₹$itemsAmount"),
-                          checkoutRowItem(
-                              name: "Discount", value: "₹$discount"),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Total Amount",
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "₹${itemsAmount - discount}",
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
                 },
               ),
             ),
             k10height,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: BlocConsumer<CheckoutBloc, CheckoutState>(
+                listener: (context, state) {
+                  if (state is CheckoutError) {
+                    snackBarWidget(
+                        context: context,
+                        msg: state.errormsg,
+                        bgColor: Colors.red);
+                  } else if (state is CheckoutLoaded) {
+                    // Navigator.push(context, CupertinoPageRoute(builder: (context) => InvoiceScreen(model: state.result),));
+                   
+                  }
+                },
+                builder: (context, state) {
+                  if (state is CheckoutLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return CommonSubmitButton( 
+                        label: "Checkout",
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) =>  AlertDialog(
+                              title: const Center(child: Icon(Icons.check_circle_sharp,size: 70,color: Colors.green,)),
+                              content: const Text(
+                                  "Order Placed \n Would you like to see your orders?",textAlign: TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                                  actions: [
+                                    CommonSubmitButton(label: "Orders", onPressed: (){
+                                      
+                                    }, color: Colors.green),
+                                    k10height,
+                                    CommonSubmitButton(label: "Back", onPressed: (){
+                                      
+                                    }, color: Colors.grey),
+                                  ],
+                            ),
+                          );
+                          // context
+                          //     .read<CheckoutBloc>()
+                          //     .add(const CheckoutEvent.checkoutClicked(1,"cod"));
+                          // Navigator.push(context, CupertinoPageRoute(builder: (context) => InvoiceScreen(),));
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (context) => CustomDialogueBox(
+                          //     title: "Order Placed",
+                          //     content:
+                          //         "Would you like to check your orders? Click on orders",
+                          //     onNotifyPressed: () {
+                          //       Navigator.push(
+                          //           context,
+                          //           CupertinoPageRoute(
+                          //             builder: (context) => const HomeScreen(),
+                          //           ));
+                          //     },
+                          //   ),
+                          // );
+                          //
+                        },
+                        color: appColor1);
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -479,6 +559,74 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
         Text(
           value,
           style: const TextStyle(fontSize: 20),
+        ),
+      ],
+    );
+  }
+}
+
+class CustomDialogueBox extends Dialog {
+  final String title;
+  final String content;
+  final VoidCallback onNotifyPressed;
+
+  const CustomDialogueBox({
+    super.key,
+    required this.title,
+    required this.content,
+    required this.onNotifyPressed,
+  });
+
+  Widget alertDiailogu(BuildContext context) {
+    return Stack(
+      children: [
+        // Background with slight transparency
+        Container(
+          color: Colors.black.withOpacity(0.3),
+        ),
+        // Dialog content with rounded corners
+        Center(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.only(top: 50, bottom: 50),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Invoice Simple logo (replace with your image)
+                Image.asset('assets/images/invoice_simple_logo.png',
+                    height: 50),
+                SizedBox(height: 10),
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Text(content),
+                SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton.icon(
+                      onPressed: onNotifyPressed,
+                      icon: Icon(Icons.notifications, color: Colors.blue),
+                      label: Text('Notify Me',
+                          style: TextStyle(color: Colors.blue)),
+                    ),
+                    TextButton.icon(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.close, color: Colors.grey),
+                      label: Text('No Thanks',
+                          style: TextStyle(color: Colors.grey)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:logic_loot/domain/models/response_models.dart/cart_items_response.dart';
+import 'package:logic_loot/domain/models/response_models.dart/order_placed_response.dart';
+import 'package:logic_loot/domain/models/response_models.dart/user_cart_response.dart';
 import 'package:logic_loot/domain/repo/i_cart_repo.dart';
 import 'package:http/http.dart' as http;
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
@@ -149,6 +151,67 @@ class CartServices implements ICartRepo {
       } catch (e) {
         log("Exception occured--> $e");
         return const Left("Oops! unable to reach server");
+      }
+    }
+  }
+
+  @override
+  Future<Either<String, UserCartResponseModel>> getUserCart() async {
+    final token = await SharedPreference.getToken();
+    if (token == null) {
+      log("Token is empty");
+      return const Left("Unauthorized User");
+    } else {
+      try {
+        final response = await http.Client().get(
+            Uri.parse("https://lapify.online/user/cart"),
+            headers: {"Cookie": "Authorise=$token"});
+
+        log("Status code --> ${response.statusCode}");
+
+        if (response.statusCode == 200) {
+          final success = userCartResponseModelFromJson(response.body);
+          return Right(success);
+        } else {
+          final result = jsonDecode(response.body);
+          final error = result["error"];
+          return Left(error);
+        }
+      } catch (e) {
+        log("Excpetion occured --> $e");
+        return const Left("Oops! unable to reach server");
+      }
+    }
+  }
+
+  @override
+  Future<Either<String, OrderPlacedResponseModel>> placeOrder(
+      {required int id, required String paymentCode}) async {
+    final token = await SharedPreference.getToken();
+
+    if (token == null) {
+      log("Token is empty");
+      return const Left("Unauthorized User");
+    } else {
+      try {
+        final response = await http.Client().post(
+            Uri.parse(
+                "https://lapify.online/user/order/place/$id/$paymentCode"),
+            headers: {"Cookie": "Authorise=$token"});
+
+        log("Status code ---> ${response.statusCode}");
+
+        if (response.statusCode == 200) {
+          final success = orderPlacedResponseModelFromJson(response.body);
+          return Right(success);
+        }else{
+          final result = jsonDecode(response.body); 
+          final success = result["error"];
+          return Left(success);
+        }
+      } catch (e) {
+        log("Exception occured --> $e");
+        return const Left("Oops! Unable to reach server");
       }
     }
   }
