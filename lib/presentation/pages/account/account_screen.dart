@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:logic_loot/application/change_pass/change_pass_bloc.dart';
 import 'package:logic_loot/infrastructure/shared_preferences/shared_preferences.dart';
+import 'package:logic_loot/presentation/pages/account/screens/change_password/change_pass_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/change_password/otp_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/orders_screen.dart';
 import 'package:logic_loot/presentation/pages/account/screens/privacy_and_policy_screen.dart';
@@ -8,10 +11,11 @@ import 'package:logic_loot/presentation/pages/account/widgets/list_tile_widget.d
 import 'package:logic_loot/presentation/pages/address/address_screen.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/login_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
+import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +30,7 @@ class SettingScreen extends StatelessWidget {
             //   icon: Icons.person_outline,
             //   name: "Account Details",
             //   onTap: () {
-            //     Navigator.push( 
+            //     Navigator.push(
             //         context,
             //         CupertinoPageRoute(
             //           builder: (context) => AccountDetailsScreen(),
@@ -45,7 +49,7 @@ class SettingScreen extends StatelessWidget {
                 }),
             ListTileWidget(
                 icon: CupertinoIcons.bag,
-                name: "Orders", 
+                name: "Orders",
                 onTap: () {
                   Navigator.push(
                       context,
@@ -83,7 +87,10 @@ class SettingScreen extends StatelessWidget {
                         builder: (context) => PrivayPolicyScreen(),
                       ));
                 }),
-                ListTileWidget(name: "Change password", icon: Icons.lock_outline, onTap: (){
+            ListTileWidget(
+                name: "Change password",
+                icon: Icons.lock_outline,
+                onTap: () {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -99,16 +106,49 @@ class SettingScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       )),
                       actions: [
-                        Center( 
-                            child: TextButton(
-                                onPressed: () async {
-                                Navigator.push(context, CupertinoPageRoute(builder: (context) => const OTPScreen(),));
-                                },
-                                child: const Text( 
-                                  "Yes",
-                                  style: TextStyle(
-                                      color: Colors.red, fontSize: 22),
-                                ))),
+                        Center(
+                            child:
+                                BlocConsumer<ChangePassBloc, ChangePassState>(
+                          listener: (context, state) {
+                            if (state is ChangePassError) {
+                              snackBarWidget(
+                                  context: context,
+                                  msg: state.errormsg,
+                                  bgColor: Colors.red);
+                              Navigator.pop(context);
+                            } else if (state is ChangePassOTPLoaded){
+                              Navigator.push(
+                                  context,
+                                  CupertinoPageRoute(
+                                    builder: (context) =>  const ChangePassScreen(),
+                                  ));
+                              snackBarWidget(
+                                  context: context,
+                                  msg: state.successmsg,
+                                  bgColor: Colors.green);
+                              
+                            } 
+                          },
+                          builder: (context, state) {
+                            if (state is ChangePassLoading) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            } else {
+                              return TextButton(
+                                  onPressed: () {
+                                    context.read<ChangePassBloc>().add(
+                                        const ChangePassEvent
+                                            .changePassOTPReq());
+                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassScreen(),));
+                                  },
+                                  child: const Text(
+                                    "Yes",
+                                    style: TextStyle(
+                                        color: Colors.red, fontSize: 22),
+                                  ));
+                            }
+                          },
+                        )),
                         Center(
                             child: TextButton(
                                 onPressed: () {
@@ -126,7 +166,6 @@ class SettingScreen extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: ListTile(
                 onTap: () {
-                  SharedPreference.removeLogin();
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(

@@ -6,6 +6,7 @@ import 'package:logic_loot/application/c_quantity/c_quantity_bloc.dart';
 import 'package:logic_loot/application/cart/cart_bloc.dart';
 import 'package:logic_loot/application/category/category_bloc.dart';
 import 'package:logic_loot/application/category_products/category_products_bloc.dart';
+import 'package:logic_loot/application/change_pass/change_pass_bloc.dart';
 import 'package:logic_loot/application/checkout/checkout_bloc.dart';
 import 'package:logic_loot/application/coupons/coupons_bloc.dart';
 import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
@@ -80,7 +81,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<UserCartBloc>(create: (context)=> UserCartBloc(cartRepo)),
         BlocProvider<CheckoutBloc>(create: (context)=> CheckoutBloc(cartRepo)),
         BlocProvider<UserDetailsBloc>(create: (context)=> UserDetailsBloc(userAccountRepo)),
-        // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
+        BlocProvider<ChangePassBloc>(create: (context)=> ChangePassBloc(userAccountRepo)),
+        // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)), 
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/cart/cart_bloc.dart';
@@ -7,8 +6,6 @@ import 'package:logic_loot/application/quantity/quantity_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/cart/screens/multicart_screen.dart';
-import 'package:logic_loot/presentation/pages/cart/screens/single_chart_screen.dart';
-import 'package:logic_loot/presentation/pages/dfa/cart_screen.dart';
 import 'package:logic_loot/presentation/pages/product/widgets/image_section.dart';
 import 'package:logic_loot/presentation/pages/product/widgets/price_and_name_section.dart';
 import 'package:logic_loot/presentation/pages/product/widgets/quantity_section.dart';
@@ -62,6 +59,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 builder: (context, state) {
                   return cartText == "Add to cart"
                       ? CustomSmallButton(
+                        widthh: size.width /1.1,
                           size: size,
                           clr: appColor1,
                           txt: cartText,
@@ -71,31 +69,21 @@ class ProductDetailsScreen extends StatelessWidget {
                           },
                         )
                       : CustomSmallButton(
+                         widthh: size.width/ 1.1,
                           size: size,
-                          clr: appColor3,
+                          clr: appColor1,
                           txt: cartText,
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>  MUltiCartScreen(),
+                                  builder: (context) =>  const MUltiCartScreen(),
                                 ));
                           },
                         );
                 },
               ),
-              CustomSmallButton(
-                size: size,
-                clr: Colors.grey,
-                txt: "Buy now",
-                onPressed: () {
-                  // Navigator.push(
-                  //     context,
-                  //     CupertinoPageRoute(
-                  //       builder: (context) =>  SingleCartScreen(productid:,),
-                  //     ));
-                },
-              ),
+             
             ],
           ),
         ),

@@ -14,4 +14,8 @@ class TxtEditingControllers{
   static final addressCityController = TextEditingController();
   static final addressPincodeController = TextEditingController();
   static final addressStAddressController = TextEditingController();
+
+  static final changePassOTPController = TextEditingController();
+  static final changePassNewPassController = TextEditingController();
+  static final changePassNewPassConfirmController = TextEditingController();
 }

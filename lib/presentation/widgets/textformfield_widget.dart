@@ -49,9 +49,9 @@ class CommonTextFormField extends StatelessWidget {
       keyboardType: type,
       controller: phnController,
       decoration: InputDecoration(
-          labelText: label,
-          focusedBorder: const OutlineInputBorder(),
-          border: OutlineInputBorder(
+          hintText: label,
+          // focusedBorder: const OutlineInputBorder(),
+          border: OutlineInputBorder(  
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide.none),
           filled: true,

@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
             // height: size.height,
             width: size.width,
-            decoration: const BoxDecoration(
+            decoration: const BoxDecoration( 
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,

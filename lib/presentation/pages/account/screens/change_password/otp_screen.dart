@@ -4,8 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/core/controllers/text_editing_controllers.dart';
+import 'package:logic_loot/core/keys/formkeys.dart';
 import 'package:logic_loot/core/theme/theme.dart';
-import 'package:logic_loot/presentation/pages/account/screens/change_password/change_pass_screen.dart';
 import 'package:logic_loot/presentation/pages/authentication/login/reset_pass_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
@@ -20,12 +21,13 @@ class OTPScreen extends StatelessWidget {
     PinTheme defaultPinTheme = AppTheme.defaultPinTheme;
 
     return Scaffold(
-        appBar: PreferredSize(
+        appBar: const PreferredSize(
             preferredSize: Size.fromHeight(50),
             child: CustomAppBarWidget(title: "Change password")),
         body: Center(
             child: SingleChildScrollView(
                 child: Form(
+                  key: Formkeys.changePassOTPFormkey,
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -43,9 +45,10 @@ class OTPScreen extends StatelessWidget {
             
               k20height,
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   child: Pinput(
+                    controller: TxtEditingControllers.changePassOTPController,
                     length: 6,
                     defaultPinTheme: defaultPinTheme,
                     validator: (valu) {
@@ -132,11 +135,9 @@ class OTPScreen extends StatelessWidget {
                         color: appColor1,
                         label: "Verify",
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) =>
-                                      const ChangePassScreen()));
+                          if(Formkeys.changePassOTPFormkey.currentState!.validate()){
+                            
+                          }
                         },
                       );
                     }

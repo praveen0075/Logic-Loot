@@ -176,8 +176,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           context,
                                           CupertinoPageRoute(
                                             builder: (context) =>
-                                                const ProductDetailsScreen(
-                                              productId: 0,
+                                                 ProductDetailsScreen(
+                                              productId: state.success[index].id,
                                             ),
                                           ));
                                     },

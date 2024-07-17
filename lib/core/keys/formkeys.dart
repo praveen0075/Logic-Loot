@@ -6,5 +6,6 @@ class Formkeys{
   static final resetPassKey = GlobalKey<FormState>();
   static final addressFromKey = GlobalKey<FormState>();
   static final editAddressKey = GlobalKey<FormState>();
-
+  static final changePassOTPFormkey = GlobalKey<FormState>();
+  static final changePassNewPassFormkey = GlobalKey<FormState>();
 }

@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:logic_loot/application/login/login_bloc.dart';
+import 'package:logic_loot/application/change_pass/change_pass_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/core/controllers/text_editing_controllers.dart';
+import 'package:logic_loot/core/keys/formkeys.dart';
+import 'package:logic_loot/presentation/pages/account/account_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
@@ -14,11 +18,14 @@ class ChangePassScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(50), child: CustomAppBarWidget(title: "New Password")),
+      appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(50),
+          child: CustomAppBarWidget(title: "New Password")),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: Center(
           child: Form(
+            key: Formkeys.changePassNewPassFormkey,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,16 +44,25 @@ class ChangePassScreen extends StatelessWidget {
                   //     errorMessage: "Enter new password",
                   //     textcontroller: newpass),
                   CommonTextFormField(
-                      phnController: TextEditingController(),
+                      type: TextInputType.phone,
+                      phnController:
+                          TxtEditingControllers.changePassOTPController,
+                      errormsg: "Please Enter the OTP here",
+                      label: "OTP code"),
+                  k10height,
+                  CommonTextFormField(
+                      phnController:
+                          TxtEditingControllers.changePassNewPassController,
                       errormsg: "Enter new password",
                       label: "New password"),
-                  k30height,
+                  k10height,
                   // CommonWidgets.textFormFieldwidget(
                   //     labelText: "Conform Password",
                   //     errorMessage: "Enter conform password",
                   //     textcontroller: cnfrmpass),
                   CommonTextFormField(
-                      phnController:TextEditingController(),
+                      phnController: TxtEditingControllers
+                          .changePassNewPassConfirmController,
                       errormsg: "Re-Enter the password",
                       label: "Conform password"),
                   k30height,
@@ -69,24 +85,29 @@ class ChangePassScreen extends StatelessWidget {
                   //           "Continue",
                   //           style: TextStyle(color: Colors.white),
                   //         ))),
-                  
-                  BlocConsumer<LoginBloc, LoginState>(
+
+                  BlocConsumer<ChangePassBloc, ChangePassState>(
                     listener: (context, state) {
-                      if (state is ForgetPassNewPassFailure) {
+                      if (state is ChangePassError) {
                         snackBarWidget(
                             context: context,
                             msg: state.errormsg,
                             bgColor: Colors.red);
-                      } else if (state is ForgetPassNewPassSuccess) {
+                      } else if (state is ChangePasssWordSuccess) {
                         snackBarWidget(
                             context: context,
-                            msg: state.successmsg,
+                            msg: state.successMsg,
                             bgColor: Colors.green);
-                       
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => const SettingScreen(),
+                            ),
+                            (route) => false);
                       }
                     },
                     builder: (context, state) {
-                      if (state is Loading) {
+                      if (state is ChangePassLoading) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
@@ -95,13 +116,33 @@ class ChangePassScreen extends StatelessWidget {
                             color: appColor1,
                             label: "Confirm",
                             onPressed: () {
-                            
+                              if (Formkeys
+                                  .changePassNewPassFormkey.currentState!
+                                  .validate()) {
+                                if (TxtEditingControllers
+                                        .changePassNewPassController.text ==
+                                    TxtEditingControllers
+                                        .changePassNewPassConfirmController
+                                        .text) {
+                                  context.read<ChangePassBloc>().add(
+                                      ChangePassEvent.changePassword(
+                                          TxtEditingControllers
+                                              .changePassOTPController.text,
+                                          TxtEditingControllers
+                                              .changePassNewPassConfirmController
+                                              .text));
+                                } else {
+                                  snackBarWidget(
+                                      context: context,
+                                      msg: "Password does not match",
+                                      bgColor: Colors.red);
+                                }
+                              }
                             });
                       }
                     },
                   ),
                   k10height,
-                 
                 ],
               ),
             ),
