@@ -148,11 +148,13 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                           context: context,
                           msg: state.errormsg,
                           bgColor: Colors.red);
+                          context.read<GetCartBloc>().add(const GetCartEvent.getCartItems());
                     } else if (state is CartDeleteSuccess) {
                       snackBarWidget(
                           context: context,
                           msg: state.successmsg,
                           bgColor: Colors.green);
+                          context.read<GetCartBloc>().add(const GetCartEvent.getCartItems());
                     }
                   },
                   builder: (context, state) {
@@ -323,7 +325,29 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
             k5height,
             Padding(
               padding: const EdgeInsets.all(10),
-              child: BlocBuilder<CouponsBloc, CouponsState>(
+              child: BlocConsumer<CouponsBloc, CouponsState>(
+                listener: (context, state) {
+                  if (state is CouponsFailure) {
+                    snackBarWidget(
+                        context: context,
+                        msg: state.erromsg,
+                        bgColor: Colors.red);
+                    context
+                        .read<CouponsBloc>()
+                        .add(const CouponsEvent.getAllCoupon());
+                  } else if (state is CouponsApplySuccess) {
+                    context
+                        .read<UserCartBloc>()
+                        .add(const UserCartEvent.getUserCart());
+                    snackBarWidget(
+                        context: context,
+                        msg: "Coupon Applied Successfully",
+                        bgColor: Colors.green);
+                    context
+                        .read<CouponsBloc>()
+                        .add(const CouponsEvent.getAllCoupon());
+                  }
+                },
                 builder: (context, state) {
                   if (state is CouponsLoading) {
                     return ShimmerWidget.buildLoadingShimmer(size.width, 100);
@@ -487,7 +511,6 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                         bgColor: Colors.red);
                   } else if (state is CheckoutLoaded) {
                     // Navigator.push(context, CupertinoPageRoute(builder: (context) => InvoiceScreen(model: state.result),));
-                   
                   }
                 },
                 builder: (context, state) {
@@ -496,24 +519,35 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                       child: CircularProgressIndicator(),
                     );
                   } else {
-                    return CommonSubmitButton( 
+                    return CommonSubmitButton(
                         label: "Checkout",
                         onPressed: () {
                           showDialog(
                             context: context,
-                            builder: (context) =>  AlertDialog(
-                              title: const Center(child: Icon(Icons.check_circle_sharp,size: 70,color: Colors.green,)),
+                            builder: (context) => AlertDialog(
+                              title: const Center(
+                                  child: Icon(
+                                Icons.check_circle_sharp,
+                                size: 70,
+                                color: Colors.green,
+                              )),
                               content: const Text(
-                                  "Order Placed \n Would you like to see your orders?",textAlign: TextAlign.center,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                                  actions: [
-                                    CommonSubmitButton(label: "Orders", onPressed: (){
-                                      
-                                    }, color: Colors.green),
-                                    k10height,
-                                    CommonSubmitButton(label: "Back", onPressed: (){
-                                      
-                                    }, color: Colors.grey),
-                                  ],
+                                "Order Placed \n Would you like to see your orders?",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                              actions: [
+                                CommonSubmitButton(
+                                    label: "Orders",
+                                    onPressed: () {},
+                                    color: Colors.green),
+                                k10height,
+                                CommonSubmitButton(
+                                    label: "Back",
+                                    onPressed: () {},
+                                    color: Colors.grey),
+                              ],
                             ),
                           );
                           // context

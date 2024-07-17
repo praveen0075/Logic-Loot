@@ -13,7 +13,7 @@ class CategoryProductsBloc
   CategoryProductsBloc(this.productRepo)
       : super(const CategoryProductsState.initial()) {
     on<AllCategoryProducts>((event, emit) async {
-      // emit(const CategoryProductsState.filterLoading());
+      emit(const CategoryProductsState.filterLoading()); 
       final result = await productRepo.getFilterProduct(event.id);
       result.fold((failure) {
         emit(CategoryProductsState.filterError(failure.message));
@@ -23,7 +23,7 @@ class CategoryProductsBloc
     });
 
     on<Filter>((event, emit) async { 
-      // emit(const CategoryProductsState.filterLoading());
+      emit(const CategoryProductsState.filterLoading());
       final result = await productRepo.getFilterProduct(event.id.toString());
       result.fold((failure) {
         emit(CategoryProductsState.filterError(failure.message));

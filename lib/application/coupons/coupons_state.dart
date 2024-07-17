@@ -7,6 +7,6 @@ class CouponsState with _$CouponsState {
   const factory CouponsState.couponsLoaded(List<AvailableCoupon> availableCoupons) = CouponsLoaded;
   const factory CouponsState.couponsFailure(String erromsg) = CouponsFailure;
   const factory CouponsState.couponsApplySuccess() = CouponsApplySuccess;
-  const factory CouponsState.couponsApplyFailure() = CouponsApplyFailure;
+  const factory CouponsState.couponsApplyFailure(String errormsg) = CouponsApplyFailure;
 }
  

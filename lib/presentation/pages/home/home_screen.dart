@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logic_loot/application/banner/banner_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
+import 'package:logic_loot/application/user_detials/user_details_bloc.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
 import 'package:logic_loot/presentation/pages/cart/screens/multicart_screen.dart';
 import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
@@ -19,18 +20,21 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
- 
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-      BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
+    BlocProvider.of<ProductBloc>(context).add(const ProductEvent.getProducts());
     BlocProvider.of<BannerBloc>(context).add(const BannerEvent.getBanner());
+    BlocProvider.of<UserDetailsBloc>(context)
+        .add(const UserDetailsEvent.fetchUserDetails());
   }
-  @override
+
+  @override 
   Widget build(BuildContext context) {
     String productName;
-    String cartIndicator = "Add to cart";
+    String userName;
     var size = MediaQuery.of(context).size;
     return Scaffold(
         body: Container(
@@ -57,28 +61,104 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Hello",
-                            style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            "Praveen C",
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          )
-                        ],
+                      BlocBuilder<UserDetailsBloc, UserDetailsState>(
+                        builder: (context, state) {
+                          if (state is DetailsLoading) {
+                            return SizedBox(
+                              width: size.width / 1.3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [ 
+                                  ShimmerWidget.buildLoadingShimmer(
+                                      size.width / 2.7, 30),
+                                      k10height,
+                                  ShimmerWidget.buildLoadingShimmer(
+                                      size.width / 2.5, 30)
+                                ],
+                              ),
+                            );
+                          } else if (state is DetailsError) {
+                            return SizedBox(
+                              width: size.width / 1.3,
+                              child: const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hello",
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  ),
+                                  Text(
+                                    "Looter",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            );
+                          } else if (state is DetailsLoaded) {
+                            final name = state.userDetials.userdetails.name;
+                            if(name.length > 15){
+                              userName = "${name.substring(0,15)}...";
+                            }else{
+                              userName = name;
+                            }
+                            return SizedBox(
+                              width: size.width / 1.3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hello",
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  ),
+                                  Text(
+                                    // state.userDetials.userdetails.name,
+                                    userName,
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            );
+                          } else {
+                            return SizedBox(
+                              width: size.width / 1.3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hello",
+                                    style: TextStyle(
+                                        fontSize: 26,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  ),
+                                  Text(
+                                    "Looter",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                                  )
+                                ],
+                              ),
+                            );
+                          }
+                        },
                       ),
-                      SizedBox(
-                        width: size.width / 2.4,
-                      ),
+                      // SizedBox(
+                      //   width: size.width / 2.4,
+                      // ),
                       CircleAvatar(
                         backgroundColor: Colors.white,
                         radius: 26,
@@ -130,127 +210,161 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(10),
                   child: BlocBuilder<BannerBloc, BannerState>(
                     builder: (context, state) {
-                      if(state is BannerLoading){
+                      if (state is BannerLoading) {
                         return CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          viewportFraction: 0.8,  
-                          height: size.height / 4,
-                          
-                          autoPlayAnimationDuration: const Duration(seconds: 2),
-                          pageSnapping: true,
-                        ),
-                        items: [
-                          Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 10,
-                                child: ShimmerWidget.buildLoadingShimmer(size.width,200), 
-                              ))
-                        ],
-                      ); 
-                      }else if (state is BannerError){
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            viewportFraction: 0.8,
+                            height: size.height / 4,
+                            autoPlayAnimationDuration:
+                                const Duration(seconds: 2),
+                            pageSnapping: true,
+                          ),
+                          items: [
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  elevation: 10,
+                                  child: ShimmerWidget.buildLoadingShimmer(
+                                      size.width, 200),
+                                ))
+                          ],
+                        );
+                      } else if (state is BannerError) {
                         return CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          viewportFraction: 0.8,
-                          height: size.height / 4,
-                          autoPlayAnimationDuration: const Duration(seconds: 2),
-                          pageSnapping: true,
-                        ),
-                        items: [
-                          Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 10,
-                                child: ShimmerWidget.buildLoadingShimmer(size.width,200),
-                              ))
-                        ],
-                      );
-                      }else if(state is BannerLoaded){
-                      return CarouselSlider(
-                        options: CarouselOptions(
-                          enlargeFactor: BorderSide.strokeAlignCenter,
-                          autoPlay: true,  
-                          autoPlayInterval: const Duration(seconds: 5),
-                          viewportFraction: 0.8, 
-                          height: size.height / 4.3,
-                          autoPlayAnimationDuration: const Duration(seconds: 10),
-                          // pageSnapping: true, 
-                        ),
-                        items: [
-                          Padding(
-                              padding:  const EdgeInsets.all(8.0),
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20),
-                                elevation: 10,
-                                child: Container(
-                                  width: size.width / 1.5,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),border: Border.all(width: 2,color: Colors.white)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(13),
-                                    child: Image(image: NetworkImage(state.banners[1].imageurl),fit: BoxFit.cover,)),
-                                ),
-                              )),
-                          Padding(
-                              padding:  const EdgeInsets.all(8.0),
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20),
-                                elevation: 10,
-                                child: Container(
-                                  width: size.width / 1.5,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),border: Border.all(width: 2,color: Colors.white)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(13),
-                                    child: Image(image: NetworkImage(state.banners[2].imageurl),fit: BoxFit.cover,)),
-                                ),
-                              )),
-                          Padding(
-                              padding:  const EdgeInsets.all(8.0),
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20),
-                                elevation: 10,
-                                child: Container(
-                                  width: size.width / 1.5,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),border: Border.all(width: 2,color: Colors.white)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(13),
-                                    child: Image(image: NetworkImage(state.banners[3].imageurl),fit: BoxFit.cover,)),
-                                ),
-                              )),
-                          Padding(
-                              padding:  const EdgeInsets.all(8.0),
-                              child: Material(
-                                borderRadius: BorderRadius.circular(20),
-                                elevation: 10,
-                                child: Container(
-                                  width: size.width / 1.5,
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(16),border: Border.all(width: 2,color: Colors.white)),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(13),
-                                    child: Image(image: NetworkImage(state.banners[4].imageurl),fit: BoxFit.cover,)),
-                                ),
-                              )),
-                        ],
-                      );
-                      }else{
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            viewportFraction: 0.8,
+                            height: size.height / 4,
+                            autoPlayAnimationDuration:
+                                const Duration(seconds: 2),
+                            pageSnapping: true,
+                          ),
+                          items: [
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  elevation: 10,
+                                  child: ShimmerWidget.buildLoadingShimmer(
+                                      size.width, 200),
+                                ))
+                          ],
+                        );
+                      } else if (state is BannerLoaded) {
                         return CarouselSlider(
-                        options: CarouselOptions(
-                          autoPlay: true,
-                          viewportFraction: 0.8,
-                          height: size.height / 4,
-                          autoPlayAnimationDuration: const Duration(seconds: 2),
-                          pageSnapping: true,
-                        ),  
-                        items: [
-                          Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                elevation: 10,
-                                child: ShimmerWidget.buildLoadingShimmer(size.width,0),
-                              ))
-                        ],
-                      );
+                          options: CarouselOptions(
+                            enlargeFactor: BorderSide.strokeAlignCenter,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 5),
+                            viewportFraction: 0.8,
+                            height: size.height / 4.3,
+                            autoPlayAnimationDuration:
+                                const Duration(seconds: 10),
+                            // pageSnapping: true,
+                          ),
+                          items: [
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  elevation: 10,
+                                  child: Container(
+                                    width: size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            width: 2, color: Colors.white)),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(13),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              state.banners[1].imageurl),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                )),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  elevation: 10,
+                                  child: Container(
+                                    width: size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            width: 2, color: Colors.white)),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(13),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              state.banners[2].imageurl),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                )),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  elevation: 10,
+                                  child: Container(
+                                    width: size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            width: 2, color: Colors.white)),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(13),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              state.banners[3].imageurl),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                )),
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(20),
+                                  elevation: 10,
+                                  child: Container(
+                                    width: size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(16),
+                                        border: Border.all(
+                                            width: 2, color: Colors.white)),
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(13),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              state.banners[4].imageurl),
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                )),
+                          ],
+                        );
+                      } else {
+                        return CarouselSlider(
+                          options: CarouselOptions(
+                            autoPlay: true,
+                            viewportFraction: 0.8,
+                            height: size.height / 4,
+                            autoPlayAnimationDuration:
+                                const Duration(seconds: 2),
+                            pageSnapping: true,
+                          ),
+                          items: [
+                            Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  elevation: 10,
+                                  child: ShimmerWidget.buildLoadingShimmer(
+                                      size.width, 0),
+                                ))
+                          ],
+                        );
                       }
                     },
                   ),

@@ -319,7 +319,7 @@ mixin _$CouponsState {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -329,7 +329,7 @@ mixin _$CouponsState {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -339,7 +339,7 @@ mixin _$CouponsState {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -438,7 +438,7 @@ class _$CouponInitialImpl implements CouponInitial {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) {
     return couponInitial();
   }
@@ -451,7 +451,7 @@ class _$CouponInitialImpl implements CouponInitial {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) {
     return couponInitial?.call();
   }
@@ -464,7 +464,7 @@ class _$CouponInitialImpl implements CouponInitial {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) {
     if (couponInitial != null) {
@@ -565,7 +565,7 @@ class _$CouponsLoadingImpl implements CouponsLoading {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) {
     return couponsLoading();
   }
@@ -578,7 +578,7 @@ class _$CouponsLoadingImpl implements CouponsLoading {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) {
     return couponsLoading?.call();
   }
@@ -591,7 +591,7 @@ class _$CouponsLoadingImpl implements CouponsLoading {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) {
     if (couponsLoading != null) {
@@ -727,7 +727,7 @@ class _$CouponsLoadedImpl implements CouponsLoaded {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) {
     return couponsLoaded(availableCoupons);
   }
@@ -740,7 +740,7 @@ class _$CouponsLoadedImpl implements CouponsLoaded {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) {
     return couponsLoaded?.call(availableCoupons);
   }
@@ -753,7 +753,7 @@ class _$CouponsLoadedImpl implements CouponsLoaded {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) {
     if (couponsLoaded != null) {
@@ -887,7 +887,7 @@ class _$CouponsFailureImpl implements CouponsFailure {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) {
     return couponsFailure(erromsg);
   }
@@ -900,7 +900,7 @@ class _$CouponsFailureImpl implements CouponsFailure {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) {
     return couponsFailure?.call(erromsg);
   }
@@ -913,7 +913,7 @@ class _$CouponsFailureImpl implements CouponsFailure {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) {
     if (couponsFailure != null) {
@@ -1020,7 +1020,7 @@ class _$CouponsApplySuccessImpl implements CouponsApplySuccess {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) {
     return couponsApplySuccess();
   }
@@ -1033,7 +1033,7 @@ class _$CouponsApplySuccessImpl implements CouponsApplySuccess {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) {
     return couponsApplySuccess?.call();
   }
@@ -1046,7 +1046,7 @@ class _$CouponsApplySuccessImpl implements CouponsApplySuccess {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) {
     if (couponsApplySuccess != null) {
@@ -1108,6 +1108,8 @@ abstract class _$$CouponsApplyFailureImplCopyWith<$Res> {
   factory _$$CouponsApplyFailureImplCopyWith(_$CouponsApplyFailureImpl value,
           $Res Function(_$CouponsApplyFailureImpl) then) =
       __$$CouponsApplyFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errormsg});
 }
 
 /// @nodoc
@@ -1117,27 +1119,52 @@ class __$$CouponsApplyFailureImplCopyWithImpl<$Res>
   __$$CouponsApplyFailureImplCopyWithImpl(_$CouponsApplyFailureImpl _value,
       $Res Function(_$CouponsApplyFailureImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errormsg = null,
+  }) {
+    return _then(_$CouponsApplyFailureImpl(
+      null == errormsg
+          ? _value.errormsg
+          : errormsg // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$CouponsApplyFailureImpl implements CouponsApplyFailure {
-  const _$CouponsApplyFailureImpl();
+  const _$CouponsApplyFailureImpl(this.errormsg);
+
+  @override
+  final String errormsg;
 
   @override
   String toString() {
-    return 'CouponsState.couponsApplyFailure()';
+    return 'CouponsState.couponsApplyFailure(errormsg: $errormsg)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CouponsApplyFailureImpl);
+            other is _$CouponsApplyFailureImpl &&
+            (identical(other.errormsg, errormsg) ||
+                other.errormsg == errormsg));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, errormsg);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CouponsApplyFailureImplCopyWith<_$CouponsApplyFailureImpl> get copyWith =>
+      __$$CouponsApplyFailureImplCopyWithImpl<_$CouponsApplyFailureImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1148,9 +1175,9 @@ class _$CouponsApplyFailureImpl implements CouponsApplyFailure {
         couponsLoaded,
     required TResult Function(String erromsg) couponsFailure,
     required TResult Function() couponsApplySuccess,
-    required TResult Function() couponsApplyFailure,
+    required TResult Function(String errormsg) couponsApplyFailure,
   }) {
-    return couponsApplyFailure();
+    return couponsApplyFailure(errormsg);
   }
 
   @override
@@ -1161,9 +1188,9 @@ class _$CouponsApplyFailureImpl implements CouponsApplyFailure {
     TResult? Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult? Function(String erromsg)? couponsFailure,
     TResult? Function()? couponsApplySuccess,
-    TResult? Function()? couponsApplyFailure,
+    TResult? Function(String errormsg)? couponsApplyFailure,
   }) {
-    return couponsApplyFailure?.call();
+    return couponsApplyFailure?.call(errormsg);
   }
 
   @override
@@ -1174,11 +1201,11 @@ class _$CouponsApplyFailureImpl implements CouponsApplyFailure {
     TResult Function(List<AvailableCoupon> availableCoupons)? couponsLoaded,
     TResult Function(String erromsg)? couponsFailure,
     TResult Function()? couponsApplySuccess,
-    TResult Function()? couponsApplyFailure,
+    TResult Function(String errormsg)? couponsApplyFailure,
     required TResult orElse(),
   }) {
     if (couponsApplyFailure != null) {
-      return couponsApplyFailure();
+      return couponsApplyFailure(errormsg);
     }
     return orElse();
   }
@@ -1228,5 +1255,11 @@ class _$CouponsApplyFailureImpl implements CouponsApplyFailure {
 }
 
 abstract class CouponsApplyFailure implements CouponsState {
-  const factory CouponsApplyFailure() = _$CouponsApplyFailureImpl;
+  const factory CouponsApplyFailure(final String errormsg) =
+      _$CouponsApplyFailureImpl;
+
+  String get errormsg;
+  @JsonKey(ignore: true)
+  _$$CouponsApplyFailureImplCopyWith<_$CouponsApplyFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

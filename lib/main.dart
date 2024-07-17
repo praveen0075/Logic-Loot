@@ -17,8 +17,10 @@ import 'package:logic_loot/application/remove_cart_item_by_one/cart_item_remove_
 import 'package:logic_loot/application/search/search_bloc.dart';
 import 'package:logic_loot/application/signup/signup_bloc.dart';
 import 'package:logic_loot/application/user_cart/user_cart_bloc.dart';
+import 'package:logic_loot/application/user_detials/user_details_bloc.dart';
 import 'package:logic_loot/application/wishlist/wishlist_bloc.dart';
 import 'package:logic_loot/bloc_observer.dart';
+import 'package:logic_loot/infrastructure/services/account/user_account_services.dart';
 import 'package:logic_loot/infrastructure/services/address/address_services.dart';
 import 'package:logic_loot/infrastructure/services/auth/login/login_repository.dart';
 import 'package:logic_loot/infrastructure/services/auth/singup/signup_repository.dart';
@@ -51,6 +53,7 @@ class MyApp extends StatelessWidget {
   final couponsRepo = CouponsServices();
   final categoryRepo = CategoryServices();
   final bannerRepo = BannerServices();
+  final userAccountRepo = UserAccountDetailsServices();
 
   // This widget is the root of your application.
   @override
@@ -76,6 +79,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<CategoryProductsBloc>(create: (context)=> CategoryProductsBloc(productRepo)),
         BlocProvider<UserCartBloc>(create: (context)=> UserCartBloc(cartRepo)),
         BlocProvider<CheckoutBloc>(create: (context)=> CheckoutBloc(cartRepo)),
+        BlocProvider<UserDetailsBloc>(create: (context)=> UserDetailsBloc(userAccountRepo)),
         // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)),
       ],
       child: const MaterialApp(

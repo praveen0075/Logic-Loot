@@ -10,13 +10,20 @@ part 'coupons_bloc.freezed.dart';
 class CouponsBloc extends Bloc<CouponsEvent, CouponsState> {
   final ICouponsRepo couponRepo;
   CouponsBloc(this.couponRepo) : super(const CouponsState.couponInitial()) {
-    on<CouponsEvent>((event, emit) async {
+    on<_GetAllCoupon>((event, emit) async {
       emit(const CouponsState.couponsLoading());
       final result = await couponRepo.getAllCoupons();
       result.fold(
           (failure) => emit(CouponsState.couponsFailure(failure)),
           (success) =>
               emit(CouponsState.couponsLoaded(success.availableCoupons)));
+    });
+
+    on<_ApplyCoupon>((event, emit) async {
+      emit(const CouponsState.couponsLoading());
+      final result = await couponRepo.applyCoupon(event.code);
+      result.fold((failure) => emit(CouponsState.couponsFailure(failure)),
+          (success) => emit(const CouponsState.couponsApplySuccess()));
     });
   }
 }

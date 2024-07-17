@@ -90,11 +90,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       CategoryProductsEvent.filter(
                                           state.categories[index].id));
                                 }
-                                _selectedIndex = selectedVal ? index : null;
-                                _isSelected = true;
-                                context.read<CategoryProductsBloc>().add(
-                                    CategoryProductsEvent.filter(
-                                        state.categories[index].id));
+                                // _selectedIndex = selectedVal ? index : null;
+                                // _isSelected = true;
+                                // context.read<CategoryProductsBloc>().add(
+                                //     CategoryProductsEvent.filter(
+                                //         state.categories[index].id));
                               }),
                             ),
                             // child: Container(

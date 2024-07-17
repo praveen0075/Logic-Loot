@@ -51,7 +51,7 @@ class CouponsServices implements ICouponsRepo {
         final request = http.MultipartRequest(
             "POST", Uri.parse("https://lapify.online/user/cart/coupon"));
         request.headers.addAll({"Cookie": "Authorise=$token"});
-        request.fields["code"];
+        request.fields["code"] = couponCode;
 
         final response = await request.send();
         log("Status code ---> ${response.statusCode}");
