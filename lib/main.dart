@@ -10,6 +10,7 @@ import 'package:logic_loot/application/change_pass/change_pass_bloc.dart';
 import 'package:logic_loot/application/checkout/checkout_bloc.dart';
 import 'package:logic_loot/application/coupons/coupons_bloc.dart';
 import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
+import 'package:logic_loot/application/item_quantity_bloc/item_quantity_bloc.dart';
 import 'package:logic_loot/application/login/login_bloc.dart';
 import 'package:logic_loot/application/product/product_bloc.dart';
 import 'package:logic_loot/application/product_by_id/product_by_id_bloc.dart';
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<AddressByIdBloc>(create: (context)=> AddressByIdBloc(addressByIdRep)),
         BlocProvider<CouponsBloc>(create: (context)=> CouponsBloc(couponsRepo)),
         BlocProvider<CategoryBloc>(create: (context)=> CategoryBloc(categoryRepo)),
-        BlocProvider<CQuantityBloc>(create: (context)=> CQuantityBloc()),
+        // BlocProvider<CQuantityBloc>(create: (cont ext)=> CQuantityBloc()),
         BlocProvider<CartItemRemoveByOneBloc>(create: (context)=> CartItemRemoveByOneBloc(cartRepo)),
         BlocProvider<BannerBloc>(create: (context)=> BannerBloc(bannerRepo)),
         BlocProvider<CategoryProductsBloc>(create: (context)=> CategoryProductsBloc(productRepo)),
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
         BlocProvider<CheckoutBloc>(create: (context)=> CheckoutBloc(cartRepo)),
         BlocProvider<UserDetailsBloc>(create: (context)=> UserDetailsBloc(userAccountRepo)),
         BlocProvider<ChangePassBloc>(create: (context)=> ChangePassBloc(userAccountRepo)),
+        BlocProvider<ItemQuantityBloc>(create: (context)=> ItemQuantityBloc()),
         // BlocProvider<ProductsBloc>(create: (context)=> ProductsBloc(productRepo)), 
       ],
       child: const MaterialApp(

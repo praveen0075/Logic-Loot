@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logic_loot/application/address_by_id/address_by_id_bloc.dart';
@@ -10,10 +9,9 @@ import 'package:logic_loot/application/getcart/get_cart_bloc.dart';
 import 'package:logic_loot/application/user_cart/user_cart_bloc.dart';
 import 'package:logic_loot/core/constants/colors.dart';
 import 'package:logic_loot/core/constants/ksizes.dart';
+import 'package:logic_loot/domain/models/response_models.dart/cart_items_response.dart';
 import 'package:logic_loot/presentation/pages/address/address_screen.dart';
-import 'package:logic_loot/presentation/pages/cart/screens/invoice_screen.dart';
 import 'package:logic_loot/presentation/pages/cart/widgets/shimmers.dart';
-import 'package:logic_loot/presentation/pages/home/home_screen.dart';
 import 'package:logic_loot/presentation/widgets/appbar_widget.dart';
 import 'package:logic_loot/presentation/widgets/snack_bar_widget.dart';
 import 'package:logic_loot/presentation/widgets/submit_button_widget.dart';
@@ -26,6 +24,31 @@ class MUltiCartScreen extends StatefulWidget {
 }
 
 class _MUltiCartScreenState extends State<MUltiCartScreen> {
+  late List<ValueNotifier<int>> productQuantities;
+  late List<ValueNotifier<double>> productTotalPrices;
+  late ValueNotifier<int> totalQuantityNotifier;
+  late ValueNotifier<double> totalPriceNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+    totalQuantityNotifier = ValueNotifier<int>(0);
+    totalPriceNotifier = ValueNotifier<double>(0.0);
+  }
+
+  void updateTotalValues(List<CartlistItem> cartList) {
+    int totalQuantity = 0;
+    double totalPrice = 0.0;
+
+    for (var i = 0; i < cartList.length; i++) {
+      totalQuantity += productQuantities[i].value;
+      totalPrice += productTotalPrices[i].value;
+    }
+
+    totalQuantityNotifier.value = totalQuantity;
+    totalPriceNotifier.value = totalPrice;
+  }
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<GetCartBloc>(context)
@@ -37,10 +60,13 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
     BlocProvider.of<UserCartBloc>(context)
         .add(const UserCartEvent.getUserCart());
     var size = MediaQuery.of(context).size;
+
     // int itemcount = 0;
     // int itemsAmount = 0;
     String productName;
     String couponCode = "";
+    int productQuantity;
+    int productPrice;
     return Scaffold(
       // bottomNavigationBar: Padding(
       //   padding:
@@ -148,13 +174,17 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                           context: context,
                           msg: state.errormsg,
                           bgColor: Colors.red);
-                          context.read<GetCartBloc>().add(const GetCartEvent.getCartItems());
+                      context
+                          .read<GetCartBloc>()
+                          .add(const GetCartEvent.getCartItems());
                     } else if (state is CartDeleteSuccess) {
                       snackBarWidget(
                           context: context,
                           msg: state.successmsg,
                           bgColor: Colors.green);
-                          context.read<GetCartBloc>().add(const GetCartEvent.getCartItems());
+                      context
+                          .read<GetCartBloc>()
+                          .add(const GetCartEvent.getCartItems());
                     }
                   },
                   builder: (context, state) {
@@ -167,33 +197,40 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                     } else if (state is GetallCartSuccess) {
                       log("UI __>${state.cartlist.length}");
                       log(state.cartlist.toString());
-                      // itemcount = state.cartlist.length;
+                      // Initialize the ValueNotifier lists
+                      productQuantities = state.cartlist
+                          .map(
+                              (product) => ValueNotifier<int>(product.quantity))
+                          .toList();
+                      productTotalPrices = state.cartlist
+                          .map((product) => ValueNotifier<double>(
+                              product.quantity * product.prize.toDouble()))
+                          .toList();
+
+                      updateTotalValues(state.cartlist);
+
                       return state.cartlist.isEmpty
                           ? const Center(
-                              child: Text(
-                                "No items in cart",
-                              ),
+                              child: Text("No items in cart"),
                             )
                           : ListView.separated(
                               physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: state.cartlist.length,
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
                               itemBuilder: (context, index) {
-                                // itemcount = state.cartlist[index].quantity + itemcount;
-                                final productPrice =
-                                    state.cartlist[index].quantity *
-                                        state.cartlist[index].prize;
-
-                                // itemsAmount = state.cartlist[index].quantity *
-                                //       state.cartlist[index].prize +
-                                //   itemsAmount;
                                 final product = state.cartlist[index];
-                                if (product.productname.length >= 20) {
-                                  final name = product.productname;
-                                  productName = "${name.substring(0, 20)}...";
-                                } else {
-                                  productName = product.productname;
-                                }
+                                final productPrice = product.prize.toDouble();
+                                final productQuantityNotifier =
+                                    productQuantities[index];
+                                final productTotalPriceNotifier =
+                                    productTotalPrices[index];
+                                final productName = product
+                                            .productname.length >=
+                                        20
+                                    ? "${product.productname.substring(0, 20)}..."
+                                    : product.productname;
                                 return Material(
                                   borderRadius: BorderRadius.circular(10),
                                   elevation: 10,
@@ -213,11 +250,18 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.black38),
                                             ),
-                                            Text(
-                                              "₹$productPrice",
-                                              style: const TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.bold),
+                                            ValueListenableBuilder<double>(
+                                              valueListenable:
+                                                  productTotalPriceNotifier,
+                                              builder: (context, value, child) {
+                                                return Text(
+                                                  "₹$value",
+                                                  style: const TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                );
+                                              },
                                             ),
                                             Row(
                                               children: [
@@ -236,31 +280,86 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                                                 //           Icons.remove)),
                                                 // ),
                                                 const Text(
-                                                  "Item count :",
+                                                  "Item count  ",
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
-                                                k5width,
-                                                Text(
-                                                  product.quantity.toString(),
-                                                  style: const TextStyle(
-                                                      fontSize: 20),
+                                                InkWell(
+                                                  onTap: () {
+                                                    if (productQuantityNotifier
+                                                            .value >
+                                                        1) {
+                                                      productQuantityNotifier
+                                                          .value--;
+                                                      productTotalPriceNotifier
+                                                              .value =
+                                                          productQuantityNotifier
+                                                                  .value *
+                                                              productPrice;
+                                                      updateTotalValues(
+                                                          state.cartlist);
+                                                    }
+
+                                                    // context.read<ItemQuantityBloc>().add(ItemQuantityEvent.decrementEvent(cQuantity));
+                                                  },
+                                                  child: Container(
+                                                    height: 28,
+                                                    width: 28,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color: Colors
+                                                              .grey.shade500),
+                                                    ),
+                                                    child: const Icon(
+                                                        Icons.remove),
+                                                  ),
                                                 ),
                                                 k5width,
-                                                // InkWell(
-                                                //   onTap: () {},
-                                                //   child: Container(
-                                                //     height: 28,
-                                                //     width: 28,
-                                                //     decoration: BoxDecoration(
-                                                //       border: Border.all(
-                                                //           color: Colors
-                                                //               .grey.shade500),
-                                                //     ),
-                                                //     child: const Icon(Icons.add),
-                                                //   ),
-                                                // )
+                                                ValueListenableBuilder<int>(
+                                                  valueListenable:
+                                                      productQuantityNotifier,
+                                                  builder:
+                                                      (context, value, child) {
+                                                    return Text(
+                                                      value.toString(),
+                                                      style: const TextStyle(
+                                                        fontSize: 20,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                                k5width,
+                                                InkWell(
+                                                  onTap: () {
+                                                    productQuantityNotifier
+                                                        .value++;
+                                                    productTotalPriceNotifier
+                                                            .value =
+                                                        productQuantityNotifier
+                                                                .value *
+                                                            productPrice;
+                                                    updateTotalValues(
+                                                        state.cartlist);
+                                                  },
+                                                  child: Container(
+                                                    height: 28,
+                                                    width: 28,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      border: Border.all(
+                                                          color: Colors
+                                                              .grey.shade500),
+                                                    ),
+                                                    child:
+                                                        const Icon(Icons.add),
+                                                  ),
+                                                )
                                               ],
                                             ),
                                           ],
@@ -309,10 +408,6 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                                         )),
                                   ),
                                 );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return k10height;
                               },
                             );
                     } else {
@@ -466,11 +561,15 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                           children: [
                             checkoutRowItem(
                                 name: "Product Quantity",
-                                value:
-                                    state.usercart.productquantity.toString()),
+                                value: ValueListenableBuilder<int>(
+                                  valueListenable: totalQuantityNotifier,
+                                  builder: (context, value, child) {
+                                    return Text(value.toString());
+                                  },
+                                )),
                             checkoutRowItem(
                                 name: "Discount",
-                                value: "₹${state.usercart.offerprize}"),
+                                value: Text("₹${state.usercart.offerprize}")),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -480,13 +579,17 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text(
-                                  "₹${state.usercart.totalprize}",
-                                  style: const TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                                ValueListenableBuilder<double>(
+                                    valueListenable: totalPriceNotifier,
+                                    builder: (context, value, child) {
+                                      return Text(
+                                        "₹${value.toStringAsFixed(2)}",
+                                        style: const TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      );
+                                    }),
                               ],
                             )
                           ],
@@ -582,18 +685,15 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
     );
   }
 
-  Row checkoutRowItem({required String name, required String value}) {
+  Widget checkoutRowItem({required String name, required Widget value}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           name,
-          style: TextStyle(fontSize: 16, color: Colors.grey.shade800),
+          style: const TextStyle(fontSize: 18),
         ),
-        Text(
-          value,
-          style: const TextStyle(fontSize: 20),
-        ),
+        value,
       ],
     );
   }
