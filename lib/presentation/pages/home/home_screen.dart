@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .add(const UserDetailsEvent.fetchUserDetails());
   }
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     String productName;
     String userName;
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
             // height: size.height,
             width: size.width,
-            decoration: const BoxDecoration( 
+            decoration: const BoxDecoration(
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -68,10 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: size.width / 1.3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [ 
+                                children: [
                                   ShimmerWidget.buildLoadingShimmer(
                                       size.width / 2.7, 30),
-                                      k10height,
+                                  k10height,
                                   ShimmerWidget.buildLoadingShimmer(
                                       size.width / 2.5, 30)
                                 ],
@@ -102,9 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           } else if (state is DetailsLoaded) {
                             final name = state.userDetials.userdetails.name;
-                            if(name.length > 15){
-                              userName = "${name.substring(0,15)}...";
-                            }else{
+                            if (name.length > 15) {
+                              userName = "${name.substring(0, 15)}...";
+                            } else {
                               userName = name;
                             }
                             return SizedBox(
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
+                                  const Text(
                                     "Hello",
                                     style: TextStyle(
                                         fontSize: 26,
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Text(
                                     // state.userDetials.userdetails.name,
                                     userName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black),
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           } else {
                             return SizedBox(
                               width: size.width / 1.3,
-                              child: Column(
+                              child: const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -260,10 +260,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: size.height / 4.3,
                             autoPlayAnimationDuration:
                                 const Duration(seconds: 10),
-                            // pageSnapping: true,
                           ),
-                          items: [
-                            Padding(
+                          items: state.banners.map((banner) {
+                            return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Material(
                                   borderRadius: BorderRadius.circular(20),
@@ -276,74 +275,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                             width: 2, color: Colors.white)),
                                     child: ClipRRect(
                                         borderRadius: BorderRadius.circular(13),
-                                        child: Image(
-                                          image: NetworkImage(
-                                              state.banners[1].imageurl),
+                                        child: Image.network(
+                                          banner.imageurl,
                                           fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Image.asset(
+                                              'assets/images/placeholder.jpg',
+                                              fit: BoxFit.cover,
+                                            );
+                                          },
                                         )),
                                   ),
-                                )),
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20),
-                                  elevation: 10,
-                                  child: Container(
-                                    width: size.width / 1.5,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
-                                            width: 2, color: Colors.white)),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(13),
-                                        child: Image(
-                                          image: NetworkImage(
-                                              state.banners[2].imageurl),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                                )),
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20),
-                                  elevation: 10,
-                                  child: Container(
-                                    width: size.width / 1.5,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
-                                            width: 2, color: Colors.white)),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(13),
-                                        child: Image(
-                                          image: NetworkImage(
-                                              state.banners[3].imageurl),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                                )),
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(20),
-                                  elevation: 10,
-                                  child: Container(
-                                    width: size.width / 1.5,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(16),
-                                        border: Border.all(
-                                            width: 2, color: Colors.white)),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(13),
-                                        child: Image(
-                                          image: NetworkImage(
-                                              state.banners[4].imageurl),
-                                          fit: BoxFit.cover,
-                                        )),
-                                  ),
-                                )),
-                          ],
+                                ));
+                          }).toList(),
                         );
                       } else {
                         return CarouselSlider(
@@ -425,33 +370,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                   } else {
                                     productName = state.products[index].name;
                                   }
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailsScreen(
-                                              productId:
-                                                  state.products[index].id,
-                                            ),
-                                          ));
-                                    },
-                                    child: Material(
-                                        borderRadius: BorderRadius.circular(20),
-                                        elevation: 10,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          height: size.height / 8,
-                                          width: size.width / 2,
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Container(
+                                  return Material(
+                                    elevation: 10,
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Container(
+                                      height: size.height / 8,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: size.width / 4.5,
+                                                  height: size.height / 12,
                                                   decoration: BoxDecoration(
                                                       image: DecorationImage(
                                                           image: NetworkImage(
@@ -459,118 +397,206 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   .products[
                                                                       index]
                                                                   .imageUrl),
-                                                          fit: BoxFit.contain),
+                                                          fit: BoxFit.cover),
+                                                      border: Border.all(),
+                                                      // color: Colors.red, 
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15),
-                                                      border: Border.all()),
-                                                  height: size.height / 12,
-                                                  width: size.width / 5,
+                                                              20)),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 12),
-                                                child: Column(
+                                                k10width,
+                                                Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    SizedBox(
-                                                      width: size.width / 1.6,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            productName,
-                                                            style: const TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                state
-                                                                    .products[
-                                                                        index]
-                                                                    .size,
-                                                              ),
-                                                              state.products[index]
-                                                                          .quantity <=
-                                                                      0
-                                                                  ? const Text(
-                                                                      "Out STOCK",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .red,
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    )
-                                                                  : const Text(
-                                                                      "IN STOCK",
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .green,
-                                                                          fontWeight:
-                                                                              FontWeight.bold),
-                                                                    )
-                                                            ],
-                                                          )
-                                                        ],
-                                                      ),
+                                                    Text(
+                                                      productName,
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                     ),
-                                                    SizedBox(
-                                                      width: size.width / 1.6,
-                                                      // color: Colors.red,
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          SizedBox(
-                                                            width: size.width /
-                                                                3.8,
-                                                            child: Text(
-                                                              "₹${state.products[index].price.toString()}",
-                                                              style: const TextStyle(
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                          ),
-
-                                                          //           Container(
-                                                          //   decoration: BoxDecoration(
-                                                          //       color: Colors.white,
-                                                          //       borderRadius:
-                                                          //           BorderRadius.circular(
-                                                          //               20)),
-                                                          //   child: const SizedBox(
-                                                          //       height: 30,
-                                                          //       width: 40,
-                                                          //       child: Icon(
-                                                          //         Icons
-                                                          //             .add_shopping_cart_outlined,
-                                                          //         color: Colors.black,
-                                                          //       )),
-                                                          // )
-                                                        ],
-                                                      ),
+                                                    Text(state
+                                                        .products[index].size),
+                                                    Text(
+                                                      "₹${state.products[index].price}",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     )
                                                   ],
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        )),
+                                              ],
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                state.products[index]
+                                                            .quantity <=
+                                                        0
+                                                    ? const Text(
+                                                        "Out STOCK",
+                                                        style: TextStyle(
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )
+                                                    : const Text(
+                                                        "IN STOCK",
+                                                        style: TextStyle(
+                                                            color: Colors.green,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                IconButton(
+                                                    onPressed: () {},
+                                                    icon: Icon(Icons.favorite,color: Colors.red,))
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   );
+
+                                  // return InkWell(
+                                  //   onTap: () {
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         CupertinoPageRoute(
+                                  //           builder: (context) =>
+                                  //               ProductDetailsScreen(
+                                  //             productId:
+                                  //                 state.products[index].id,
+                                  //           ),
+                                  //         ));
+                                  //   },
+                                  //   child: Material(
+                                  //       borderRadius: BorderRadius.circular(20),
+                                  //       elevation: 10,
+                                  //       child: Container(
+                                  //         decoration: BoxDecoration(
+                                  //             borderRadius:
+                                  //                 BorderRadius.circular(20)),
+                                  //         height: size.height / 8,
+                                  //         width: size.width / 2,
+                                  //         child: Row(
+                                  //           children: [
+                                  //             Padding(
+                                  //               padding:
+                                  //                   const EdgeInsets.all(8.0),
+                                  //               child: Container(
+                                  //                 decoration: BoxDecoration(
+                                  //                     image: DecorationImage(
+                                  //                         image: NetworkImage(
+                                  //                             state
+                                  //                                 .products[
+                                  //                                     index]
+                                  //                                 .imageUrl),
+                                  //                         fit: BoxFit.contain),
+                                  //                     borderRadius:
+                                  //                         BorderRadius.circular(
+                                  //                             15),
+                                  //                     border: Border.all()),
+                                  //                 height: size.height / 12,
+                                  //                 width: size.width / 5,
+                                  //               ),
+                                  //             ),
+                                  //             Padding(
+                                  //               padding: const EdgeInsets.only(
+                                  //                   top: 12),
+                                  //               child: Row(
+                                  //                 children: [
+                                  //                   Column(
+                                  //                     mainAxisAlignment:
+                                  //                         MainAxisAlignment.center,
+                                  //                     children: [
+                                  //                       SizedBox(
+                                  //                         width: size.width / 1.6,
+                                  //                         child: Column(
+                                  //                           crossAxisAlignment:
+                                  //                               CrossAxisAlignment
+                                  //                                   .start,
+                                  //                           children: [
+                                  //                             Text(
+                                  //                               productName,
+                                  //                               style: const TextStyle(
+                                  //                                   fontSize: 18,
+                                  //                                   fontWeight:
+                                  //                                       FontWeight
+                                  //                                           .w500),
+                                  //                             ),
+
+                                  //                           ],
+                                  //                         ),
+                                  //                       ),
+                                  //                       SizedBox(
+                                  //                         width: size.width / 1.6,
+                                  //                         // color: Colors.red,
+                                  //                         child: Row(
+                                  //                           mainAxisAlignment:
+                                  //                               MainAxisAlignment
+                                  //                                   .spaceBetween,
+                                  //                           children: [
+                                  //                             SizedBox(
+                                  //                               width: size.width /
+                                  //                                   3.8,
+                                  //                               child: Text(
+                                  //                                 "₹${state.products[index].price.toString()}",
+                                  //                                 style: const TextStyle(
+                                  //                                     fontSize: 18,
+                                  //                                     fontWeight:
+                                  //                                         FontWeight
+                                  //                                             .bold),
+                                  //                               ),
+                                  //                             ),
+                                  //                           ],
+                                  //                         ),
+                                  //                       )
+                                  //                     ],
+                                  //                   ),
+                                  //                   Column(
+                                  //                     children: [
+                                  //                           // Text(
+                                  //                             //   state
+                                  //                             //       .products[
+                                  //                             //           index]
+                                  //                             //       .size,
+                                  //                             // ),
+                                  //                             // state.products[index]
+                                  //                             //             .quantity <=
+                                  //                             //         0
+                                  //                             //     ? const Text(
+                                  //                             //         "Out STOCK",
+                                  //                             //         style: TextStyle(
+                                  //                             //             color: Colors
+                                  //                             //                 .red,
+                                  //                             //             fontWeight:
+                                  //                             //                 FontWeight.bold),
+                                  //                             //       )
+                                  //                             //     : const Text(
+                                  //                             //         "IN STOCK",
+                                  //                             //         style: TextStyle(
+                                  //                             //             color: Colors
+                                  //                             //                 .green,
+                                  //                             //             fontWeight:
+                                  //                             //                 FontWeight.bold),
+                                  //                             //       )
+                                  //                     ],
+                                  //                   )
+                                  //                 ],
+                                  //               ),
+                                  //             )
+                                  //           ],
+                                  //         ),
+                                  //       )),
+                                  // );
                                 },
                               )
                             : const Center(

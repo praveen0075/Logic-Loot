@@ -63,10 +63,10 @@ class _MUltiCartScreenState extends State<MUltiCartScreen> {
 
     // int itemcount = 0;
     // int itemsAmount = 0;
-    String productName;
+    // String productName;
     String couponCode = "";
-    int productQuantity;
-    int productPrice;
+    // int productQuantity;
+    // int productPrice;
     return Scaffold(
       // bottomNavigationBar: Padding(
       //   padding:
